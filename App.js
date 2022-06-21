@@ -1,10 +1,10 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {API_URL} from '@env';
+import {NavigationContainer} from '@react-navigation/native';
+import Root from './src/routers';
 export default function App() {
   return (
-    <View>
-      <Text>{API_URL}</Text>
-    </View>
+    <NavigationContainer>
+      <Root />
+    </NavigationContainer>
   );
 }
