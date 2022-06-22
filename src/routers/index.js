@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Register from '../screens/register';
-
+import {Register} from '../pages';
 const Stack = createStackNavigator();
 
 const Root = () => {
