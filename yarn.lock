@@ -1348,6 +1348,11 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-masked-view/masked-view@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@react-native-masked-view/masked-view/-/masked-view-0.2.6.tgz#b26c52d5db3ad0926b13deea79c69620966a9221"
+  integrity sha512-303CxmetUmgiX9NSUxatZkNh9qTYYdiM8xkGf9I3Uj20U3eGY3M78ljeNQ4UVCJA+FNGS5nC1dtS9GjIqvB4dg==
+
 "@react-native-picker/picker@^2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.4.1.tgz#92feb7e0672d739624517dae04bf4de1452dfcdc"
@@ -1418,6 +1423,35 @@
     "@react-navigation/elements" "^1.3.3"
     color "^3.1.3"
     warn-once "^0.1.0"
+
+"@rneui/base-edge@github:react-native-elements/react-native-elements#base":
+  version "4.0.0-rc.4"
+  resolved "https://codeload.github.com/react-native-elements/react-native-elements/tar.gz/7620f738c5101abc604eaa6c275171b06ca7f8b3"
+  dependencies:
+    "@types/react-native-vector-icons" "^6.4.10"
+    color "^3.2.1"
+    deepmerge "^4.2.2"
+    hoist-non-react-statics "^3.3.2"
+    react-native-ratings "^8.1.0"
+    react-native-size-matters "^0.4.0"
+
+"@rneui/base@^0.0.0-edge.2":
+  version "0.0.0-edge.2"
+  resolved "https://registry.yarnpkg.com/@rneui/base/-/base-0.0.0-edge.2.tgz#ff251ac010c71e9e5b917273fa69401e16b0a9ad"
+  integrity sha512-MFyiK0Kz23v5mwOUotZdD8cudREa0t9lFwb2+6MyyG1SN2I8CUyqqsZBBwUMInXbspeOtJGtWOPv61TM/2esFQ==
+  dependencies:
+    "@rneui/base-edge" "github:react-native-elements/react-native-elements#base"
+
+"@rneui/themed-edge@github:react-native-elements/react-native-elements#themed":
+  version "4.0.0-rc.4"
+  resolved "https://codeload.github.com/react-native-elements/react-native-elements/tar.gz/0355402bbcca63bb80343ec1c916f46a24a4ec77"
+
+"@rneui/themed@^0.0.0-edge.2":
+  version "0.0.0-edge.2"
+  resolved "https://registry.yarnpkg.com/@rneui/themed/-/themed-0.0.0-edge.2.tgz#a9cdc4501e5d046f7c6f886a8f6e0824af0f731d"
+  integrity sha512-MnsZarge+2V1//ov9jCAxkKzjS5RejZf/eRpE9tVOmvDZeEO1Q/9LIV00ZJxEHnjJHpozs5UvBkwb8KAwFL/0Q==
+  dependencies:
+    "@rneui/themed-edge" "github:react-native-elements/react-native-elements#themed"
 
 "@samverschueren/stream-to-observable@^0.3.0", "@samverschueren/stream-to-observable@^0.3.1":
   version "0.3.1"
@@ -1634,6 +1668,21 @@
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
+
+"@types/react-native-vector-icons@^6.4.10":
+  version "6.4.10"
+  resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.10.tgz#9bfd6e64dd37b8119425496b5e53ff91d034efa9"
+  integrity sha512-z4sexbuZ7nmYsp7Z9YB5fSQoN3KFn6nZA3QsCkQLOYnVmVlxX4U22v/bM9Xx/6dOA1vClxoRZo2CFDX16uryXQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*":
+  version "0.68.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.68.0.tgz#d51c34057251302d2f2ba97de8ff8a840e0fddd8"
+  integrity sha512-E+m91xtoX+GRh2MpbIYOanbtXlX76woVgRs6zU7PsJ4ZPFzdsRkpKNTqMZyKgyt7eraZDnJvwFXGXDIW+8NRjA==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react@*":
   version "18.0.12"
@@ -2701,7 +2750,7 @@ color-string@^1.6.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.1.3:
+color@^3.1.3, color@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
   integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
@@ -7309,6 +7358,13 @@ react-native-image-picker@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.4.tgz#ac52f1e265458e944664adf1dcd0a9ee408fe083"
   integrity sha512-Mjh2j/sddyolb16EpmprWzbtyeFvW8Xgzr/8WNi9d6bR2FC/kL78cY/a+7Yzujg5ZDtT1MWys+eWw/qtfwgGiw==
+
+react-native-ratings@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-8.1.0.tgz#3fa9ad29128dc3a88e59518ba151e61c59dd0647"
+  integrity sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g==
+  dependencies:
+    lodash "^4.17.15"
 
 react-native-responsive-screen@^1.4.2:
   version "1.4.2"
