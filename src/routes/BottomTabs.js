@@ -33,11 +33,7 @@ export default function BottomTabs() {
         options={{
           tabBarIcon: ({color}) => {
             return (
-              <MaterialCommunityIcons
-                name="account-group"
-                size={40}
-                color={color}
-              />
+              <MaterialCommunityIcons name="account" size={40} color={color} />
             );
           },
         }}
