@@ -1,10 +1,18 @@
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import {Input} from '@rneui/themed';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {fonts, COLORS} from '../../utils';
 
-const InputComponent = ({value, label, placeholder, error, password}) => {
+const InputComponent = ({
+  value,
+  label,
+  placeholder,
+  errorMessage,
+  onChangeText,
+  password,
+  errors,
+}) => {
   const [showPassword, setShowPassword] = useState(password);
 
   return (
@@ -17,6 +25,8 @@ const InputComponent = ({value, label, placeholder, error, password}) => {
         inputStyle={styles.inputStyle}
         inputContainerStyle={styles.inputContainerStyle}
         secureTextEntry={showPassword}
+        errorMessage={errorMessage}
+        onChangeText={onChangeText}
         rightIcon={
           password && (
             <Ionicons
@@ -28,7 +38,6 @@ const InputComponent = ({value, label, placeholder, error, password}) => {
         }
         rightIconContainerStyle={styles.eye}
       />
-      <Text style={styles.text}>{error}</Text>
     </SafeAreaView>
   );
 };
@@ -60,9 +69,6 @@ const styles = StyleSheet.create({
   eye: {
     right: '14.5%',
     color: COLORS.black,
-    fontSize: 40,
-  },
-  error: {
-    color: COLORS.red,
+    fontSize: 36,
   },
 });
