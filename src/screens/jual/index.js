@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const Register = () => {
+const Jual = () => {
   return (
     <View>
-      <Text>Register</Text>
+      <Text>Jual</Text>
     </View>
   );
 };
 
-export default Register;
+export default Jual;
 
 const styles = StyleSheet.create({});
