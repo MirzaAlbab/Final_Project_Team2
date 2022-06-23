@@ -102,7 +102,7 @@ export default function ProfileScreen({navigation}) {
           handleBlur,
           touched,
         }) => (
-          <View style={{paddingHorizontal: 5, margin: 15}}>
+          <View style={styles.profile}>
             <Input
               leftIcon="account"
               label="Nama"
@@ -195,6 +195,10 @@ const styles = StyleSheet.create({
   borderText: {
     marginLeft: windowWidth * 0.3,
     marginTop: windowHeight * -0.06,
+  },
+  profile: {
+    paddingHorizontal: 5,
+    margin: 15,
   },
   text1: {
     color: '#112340',
