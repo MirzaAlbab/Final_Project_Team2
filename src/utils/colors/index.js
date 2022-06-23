@@ -1,4 +1,4 @@
-const mainColor = {
+export const mainColor = {
   white: '#FFFFFF',
   black: '#000000',
   purple: '#7126B5',
@@ -9,26 +9,4 @@ const mainColor = {
   brown: '#3C3C3C',
   darkbrown: '#151515',
   red: '#FF0000',
-};
-
-export const colors = {
-  background: {
-    primary: mainColor.white,
-    secondary: mainColor.orange,
-  },
-  text: {
-    white: mainColor.white,
-    black: mainColor.black,
-    gray: mainColor.gray,
-    brown: mainColor.brown,
-    darkbrown: mainColor.darkbrown,
-  },
-  button: {
-    active: mainColor.purple,
-    disable: mainColor.purpleLight,
-  },
-  alert: {
-    green: mainColor.green,
-    red: mainColor.red,
-  },
 };
