@@ -23,9 +23,10 @@ export default function Login({navigation}) {
         password: values.password,
       };
       const res = await axios.post(`${API_URL}/auth/login`, body);
-      dispatch(setUser(res));
+      dispatch(setUser(res.data));
+      console.log(res.data);
 
-      navigation.navigate('Home');
+      navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 16,
     fontSize: 16,
-    color: '#ffffff',
+    color: '#000',
     marginVertical: 10,
     borderColor: '#D0D0D0',
     borderWidth: 1,
