@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   containerInput: {
     paddingTop: 50,
-    paddingHorizontal: 5,
+    paddingHorizontal: 30,
   },
 
   register: {

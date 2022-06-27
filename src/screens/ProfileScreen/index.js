@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   pages: {
     flex: 1,
     backgroundColor: 'white',
-    margin: 16,
+    paddingHorizontal: 20,
   },
   borderText: {
     marginLeft: windowWidth * 0.3,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   Button: {
     width: 250,
     marginLeft: windowWidth * 0.1,
-    marginTop: windowHeight * 0.13,
+    marginTop: windowHeight * 0.1,
   },
 
   text: {
