@@ -1,7 +1,6 @@
-import {StyleSheet, View, Text, Alert} from 'react-native';
 import React from 'react';
+import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
 import {COLORS, fonts} from '../../utils';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
 import * as Yup from 'yup';
