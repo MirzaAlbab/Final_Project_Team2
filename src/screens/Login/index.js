@@ -95,6 +95,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     color: 'black',
+    marginLeft: ms(20),
+    paddingTop: ms(100),
   },
   container: {
     flexGrow: 1,
