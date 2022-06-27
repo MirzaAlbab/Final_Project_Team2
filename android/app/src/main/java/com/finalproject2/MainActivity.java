@@ -7,7 +7,12 @@ import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
   @Override
-protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(null);
 }
 
@@ -19,6 +24,7 @@ protected void onCreate(Bundle savedInstanceState) {
   protected String getMainComponentName() {
     return "finalproject2";
   }
+  
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
@@ -29,10 +35,7 @@ protected void onCreate(Bundle savedInstanceState) {
     return new MainActivityDelegate(this, getMainComponentName());
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-   super.onCreate(null);
-}
+  
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
