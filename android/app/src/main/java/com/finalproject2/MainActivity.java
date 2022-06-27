@@ -7,9 +7,9 @@ import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
   @Override
-protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(null);
-}
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -29,10 +29,7 @@ protected void onCreate(Bundle savedInstanceState) {
     return new MainActivityDelegate(this, getMainComponentName());
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-   super.onCreate(null);
-}
+  
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
