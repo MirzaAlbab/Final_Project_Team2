@@ -1,11 +1,12 @@
 import {showMessage} from 'react-native-flash-message';
 // import {colors} from '../colors';
+import COLORS from '../utils/colors';
 
 export function showError(message) {
   showMessage({
     message,
     type: 'danger',
-    color: colors.white,
+    color: COLORS.white,
     icon: 'danger',
   });
 }
@@ -14,7 +15,7 @@ export function showSuccess(message) {
   showMessage({
     message,
     type: 'success',
-    color: colors.white,
+    color: COLORS.white,
     icon: 'success',
   });
 }
@@ -23,7 +24,7 @@ export function showInfo(message) {
   showMessage({
     message,
     type: 'info',
-    color: colors.white,
+    color: COLORS.white,
     icon: 'info',
   });
 }

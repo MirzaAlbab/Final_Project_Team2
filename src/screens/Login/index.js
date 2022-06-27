@@ -1,18 +1,14 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../components/ValidateYup';
 import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
+import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
+import {Gap, Link, Button, InputComponent} from '../../components';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
@@ -33,7 +29,6 @@ export default function Login({navigation}) {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Masuk</Text>
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={values => _onLogin(values)}
@@ -48,7 +43,38 @@ export default function Login({navigation}) {
           handleSubmit,
         }) => (
           <View style={styles.form}>
-            <Text style={styles.labelem}>Email</Text>
+            <Text style={styles.header}>SIGN IN</Text>
+            <Gap height={30} />
+            <InputComponent
+              label={'Email'}
+              placeholder={'Email'}
+              value={values.email}
+              onChangeText={handleChange('email')}
+              errorMessage={
+                touched.email &&
+                errors.email && (
+                  <Text style={styles.textError}>{errors.email}</Text>
+                )
+              }
+            />
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+
+            <Gap height={10} />
+            <InputComponent
+              label={'Password'}
+              placeholder={'Password'}
+              value={values.password}
+              onChangeText={handleChange('password')}
+              errorMessage={
+                touched.password &&
+                errors.password && (
+                  <Text style={styles.error}>{errors.password}</Text>
+                )
+              }
+            />
+            {/* <Text style={styles.labelem}>Email</Text>
             <TextInput
               style={styles.inputBox}
               value={values.email}
@@ -70,9 +96,9 @@ export default function Login({navigation}) {
             />
             {touched.password && errors.password && (
               <Text style={styles.error}>{errors.password}</Text>
-            )}
+            )} */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.button}
               disabled={!isValid}
               onPress={handleSubmit}>
@@ -83,6 +109,21 @@ export default function Login({navigation}) {
               <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                 <Text style={styles.signupButton}> Signup</Text>
               </TouchableOpacity>
+            </View> */}
+
+            <Gap height={40} />
+
+            <Button title={'LOGIN'} onPress={handleSubmit} />
+            <Gap height={90} />
+            <View style={styles.account}>
+              <Text style={styles.text}>Belum punya akun ?</Text>
+              <Gap width={10} />
+              <Link
+                title="Daftar disini"
+                size={14}
+                align="center"
+                onPress={() => navigation.navigate('Register')}
+              />
             </View>
           </View>
         )}
@@ -93,10 +134,15 @@ export default function Login({navigation}) {
 
 const styles = StyleSheet.create({
   header: {
+    // fontSize: 24,
+
+    // marginLeft: ms(20),
+    fontFamily: fonts.Poppins['700'],
     fontSize: 24,
-    color: 'black',
-    marginLeft: ms(20),
-    paddingTop: ms(100),
+    color: COLORS.black,
+    lineHeight: 36,
+    fontStyle: 'normal',
+    left: 12,
   },
   container: {
     flexGrow: 1,
@@ -129,9 +175,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   form: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flexGrow: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+
+    paddingTop: ms(50),
+    paddingHorizontal: ms(30),
   },
   label: {
     marginRight: ms(200),
@@ -140,7 +189,7 @@ const styles = StyleSheet.create({
     marginRight: ms(220),
   },
   signupTextCont: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 16,
     flexDirection: 'row',
@@ -150,7 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   signupButton: {
-    color: '#ffffff',
+    color: 'black',
     fontSize: 16,
     fontWeight: '500',
   },
@@ -158,5 +207,16 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: 'red',
     alignSelf: 'center',
+  },
+  account: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  text: {
+    fontFamily: fonts.Poppins['400'],
+    fontSize: 14,
+    color: COLORS.black,
+    textAlign: 'center',
+    lineHeight: ms(20),
   },
 });

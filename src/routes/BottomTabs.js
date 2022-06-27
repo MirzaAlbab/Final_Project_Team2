@@ -1,5 +1,5 @@
 import React from 'react';
-import Profile from '../screens/Profile';
+import ProfileScreen from '../screens/ProfileScreen';
 import Home from '../screens/Home';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Profile"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -29,7 +29,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({color}) => {
             return (

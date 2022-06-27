@@ -12,6 +12,5 @@ export default function App() {
         <Root />
       </PersistGate>
     </Provider>
-
   );
 }

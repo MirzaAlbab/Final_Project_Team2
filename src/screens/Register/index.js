@@ -5,9 +5,9 @@ import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
-import {BASE_URL} from '../../helpers/API';
+import {API_URL} from '@env';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const validationSchema = Yup.object().shape({
     full_name: Yup.string()
       .label('full_name')
@@ -38,13 +38,14 @@ const Register = () => {
         image_url: 'null',
         city: 'null',
       };
-      const res = await axios.post(`${BASE_URL}/auth/register`, data);
+      const res = await axios.post(`${API_URL}/auth/register`, data);
 
       console.log(res, 'res');
       console.log(data, 'data post');
 
       if (res.status === 201) {
         Alert.alert('berhasil register');
+        navigation.navigate('Login');
       }
     } catch (error) {
       if (error.response.status === 400) {
@@ -132,7 +133,7 @@ const Register = () => {
                 title="Masuk disini"
                 size={14}
                 align="center"
-                onPress={console.log('submit register')}
+                onPress={() => navigation.navigate('Login')}
               />
             </View>
           </View>

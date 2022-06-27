@@ -102,7 +102,7 @@ export default function ProfileScreen({navigation}) {
           handleBlur,
           touched,
         }) => (
-          <View style={{paddingHorizontal: 5, margin: 15}}>
+          <View style={styles.form}>
             <Input
               leftIcon="account"
               label="Nama"
@@ -268,5 +268,9 @@ const styles = StyleSheet.create({
   },
   photo: {
     marginTop: windowHeight * 0.04,
+  },
+  form: {
+    paddingHorizontal: 5,
+    margin: 15,
   },
 });
