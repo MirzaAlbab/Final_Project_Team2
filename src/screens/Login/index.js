@@ -1,20 +1,14 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../components/ValidateYup';
-import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
-
-export default function Login({navigation}) {
+import {Button, Gap, InputComponent, Link} from '../../components';
+import {COLORS, fonts} from '../../utils';
+const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const _onLogin = async values => {
     try {
@@ -26,137 +20,112 @@ export default function Login({navigation}) {
       dispatch(setUser(res.data));
       console.log(res.data);
 
-      navigation.navigate('Dashboard');
+      navigation.navigate('BottomTabs');
     } catch (error) {
       console.log(error);
     }
   };
+  let initialValues = {
+    email: '',
+    password: '',
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Masuk</Text>
-      <Formik
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => _onLogin(values)}
-        validationSchema={SignInSchema}>
-        {({
-          values,
-          handleChange,
-          errors,
-          setFieldTouched,
-          touched,
-          isValid,
-          handleSubmit,
-        }) => (
-          <View style={styles.form}>
-            <Text style={styles.labelem}>Email</Text>
-            <TextInput
-              style={styles.inputBox}
+    <Formik
+      validationSchema={SignInSchema}
+      initialValues={initialValues}
+      onSubmit={_onLogin}>
+      {({values, handleChange, errors, touched, handleSubmit}) => (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.containerInput}>
+            <Text style={styles.register}>SIGN UP</Text>
+            <Gap height={30} />
+
+            <InputComponent
+              label={'Email'}
+              placeholder={'Example@gmail.com'}
               value={values.email}
               onChangeText={handleChange('email')}
-              onBlur={() => setFieldTouched('email')}
-              placeholder="E-mail"
+              errorMessage={
+                touched.email &&
+                errors.email && (
+                  <Text style={styles.textError}>{errors.email}</Text>
+                )
+              }
             />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.inputBox}
+
+            <Gap height={10} />
+
+            <InputComponent
+              password
+              label={'Password'}
+              placeholder={'Password'}
               value={values.password}
               onChangeText={handleChange('password')}
-              placeholder="Password"
-              onBlur={() => setFieldTouched('password')}
-              secureTextEntry={true}
+              errorMessage={
+                touched.password &&
+                errors.password && (
+                  <Text style={styles.textError}>{errors.password}</Text>
+                )
+              }
             />
-            {touched.password && errors.password && (
-              <Text style={styles.error}>{errors.password}</Text>
-            )}
 
-            <TouchableOpacity
-              style={styles.button}
-              disabled={!isValid}
-              onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableOpacity>
-            <View style={styles.signupTextCont}>
-              <Text style={styles.signupText}>Don't have an account yet?</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text style={styles.signupButton}> Signup</Text>
-              </TouchableOpacity>
+            <Gap height={40} />
+
+            <Button title={'LOGIN'} onPress={handleSubmit} />
+            <Gap height={90} />
+            <View style={styles.account}>
+              <Text style={styles.text}>Belum punya akun ?</Text>
+              <Gap width={10} />
+              <Link
+                title="Register disini"
+                size={14}
+                align="center"
+                onPress={() => navigation.navigate('Register')}
+              />
             </View>
           </View>
-        )}
-      </Formik>
-    </View>
+        </SafeAreaView>
+      )}
+    </Formik>
   );
-}
+};
+
+export default Login;
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 24,
-    color: 'black',
-    marginLeft: ms(20),
-    paddingTop: ms(100),
-  },
   container: {
-    flexGrow: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+    flex: 1,
+    backgroundColor: COLORS.white,
   },
-  inputBox: {
-    width: 300,
-    backgroundColor: 'rgba(255, 255,255,0.2)',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#000',
-    marginVertical: 10,
-    borderColor: '#D0D0D0',
-    borderWidth: 1,
+  containerInput: {
+    paddingTop: 50,
+    paddingHorizontal: 5,
   },
-  button: {
-    width: 300,
-    backgroundColor: '#7126B5',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 13,
+
+  register: {
+    fontFamily: fonts.Poppins['700'],
+    fontSize: 24,
+    color: COLORS.black,
+    lineHeight: 36,
+    fontStyle: 'normal',
+    left: 12,
   },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-  form: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  label: {
-    marginRight: ms(200),
-  },
-  labelem: {
-    marginRight: ms(220),
-  },
-  signupTextCont: {
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingVertical: 16,
+
+  account: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
-  signupText: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: 16,
+  text: {
+    fontFamily: fonts.Poppins['400'],
+    fontSize: 14,
+    color: COLORS.black,
+    textAlign: 'center',
+    lineHeight: 20,
   },
-  signupButton: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  error: {
-    fontSize: 10,
+  textError: {
     color: 'red',
-    alignSelf: 'center',
+    fontSize: 12,
+    marginTop: -15,
+    left: 14,
   },
 });

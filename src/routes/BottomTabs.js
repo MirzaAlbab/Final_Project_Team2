@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
+
 export default function BottomTabs() {
   return (
     <Tab.Navigator
@@ -12,7 +13,7 @@ export default function BottomTabs() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: '#A74442',
           borderRadius: 25,
           height: 60,
           elevation: 0,

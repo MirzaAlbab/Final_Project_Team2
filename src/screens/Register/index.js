@@ -1,33 +1,15 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
-import {COLORS, fonts} from '../../utils';
-import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
-import * as Yup from 'yup';
 import {Formik} from 'formik';
+import {COLORS, fonts} from '../../utils';
 import {BASE_URL} from '../../helpers/API';
+import {SignUpSchema} from '../../components/Validation';
+import {Gap, Link, Button, InputComponent} from '../../components';
+import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
 
-const Register = () => {
-  const validationSchema = Yup.object().shape({
-    full_name: Yup.string()
-      .label('full_name')
-      .min(5, 'Must Contain 5 Characters')
-      .max(20, 'Max 20 Characters')
-      .required('Please fill in the input full_name'),
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please fill in the input email'),
-    password: Yup.string()
-      .label('Password')
-      .required('Please fill in the input password')
-      .matches(
-        ' ((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
-  });
-
-  const submitRegister = async values => {
+const Register = ({navigation}) => {
+  const _onRegister = async values => {
+    console.log('data initial before', initialValues);
     try {
       let data = {
         full_name: values.full_name,
@@ -70,9 +52,9 @@ const Register = () => {
 
   return (
     <Formik
-      validationSchema={validationSchema}
+      validationSchema={SignUpSchema}
       initialValues={initialValues}
-      onSubmit={submitRegister}>
+      onSubmit={_onRegister}>
       {({values, handleChange, errors, touched, handleSubmit}) => (
         <SafeAreaView style={styles.container}>
           <View style={styles.containerInput}>
@@ -132,7 +114,7 @@ const Register = () => {
                 title="Masuk disini"
                 size={14}
                 align="center"
-                onPress={console.log('submit register')}
+                onPress={() => navigation.navigate('Login')}
               />
             </View>
           </View>

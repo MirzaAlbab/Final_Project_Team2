@@ -4,11 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
-=======
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
->>>>>>> f507eadafc4a5ff3146e8bae6a5767d33728d9c5
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
