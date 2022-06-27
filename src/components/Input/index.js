@@ -1,10 +1,63 @@
+
+import React, {memo, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
+// import {colors, fonts} from '../../../utils';
+
+export const memo Input({
+  onChangeText,
+  value,
+  label,
+  onBlur,
+  cannotEdited,
+  secureTextEntry,
+  leftIcon,
+}) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  return (
+    <View>
+      <TextInput
+        onChangeText={onChangeText}
+        value={value}
+        label={label}
+        onBlur={onBlur}
+        mode="outlined"
+        // activeOutlineColor={colors.lineTextInput}
+        // outlineColor={
+        //   cannotEdited ? colors.disable.background : colors.outlineInput
+        // }
+        style={styles.input}
+        secureTextEntry={secureTextEntry ? passwordVisible : false}
+        left={<TextInput.Icon name={leftIcon} />}
+        right={
+          secureTextEntry ? (
+            <TextInput.Icon
+              name={passwordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+              color={passwordVisible ? colors.background.black : colors.warning}
+            />
+          ) : null
+        }
+      />
+    </View>
+  );
+}
+
+
+
+const styles = StyleSheet.create({
+  input: {
+    // fontFamily: fonts.Poppins.Regular,
+    fontSize: 16,
+    // color: colors.text.primary,
+
 import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import {Input} from '@rneui/themed';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {fonts, COLORS} from '../../utils';
 
-const InputComponent = ({
+export const InputComponent = ({
   value,
   label,
   placeholder,
@@ -42,7 +95,7 @@ const InputComponent = ({
     </SafeAreaView>
   );
 };
-export default InputComponent;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -74,5 +127,6 @@ const styles = StyleSheet.create({
   },
   error: {
     color: COLORS.red,
+
   },
 });

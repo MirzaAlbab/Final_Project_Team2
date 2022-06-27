@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Provider} from 'react-redux';
 import {store} from './src/screens/redux/store';
 import {persistedStore} from './src/screens/redux/store';
@@ -11,5 +12,6 @@ export default function App() {
         <Root />
       </PersistGate>
     </Provider>
+
   );
 }
