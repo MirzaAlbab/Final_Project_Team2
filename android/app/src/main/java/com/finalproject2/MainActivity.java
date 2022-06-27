@@ -1,10 +1,20 @@
 package com.finalproject2;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -14,6 +24,7 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "finalproject2";
   }
+  
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
@@ -23,6 +34,8 @@ public class MainActivity extends ReactActivity {
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new MainActivityDelegate(this, getMainComponentName());
   }
+
+  
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
