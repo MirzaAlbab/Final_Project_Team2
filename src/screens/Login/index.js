@@ -21,7 +21,6 @@ export default function Login({navigation}) {
       const res = await axios.post(`${API_URL}/auth/login`, body);
       dispatch(setUser(res.data));
       console.log(res.data);
-
       navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);

@@ -28,16 +28,18 @@ const Register = ({navigation}) => {
   });
 
   const submitRegister = async values => {
+    console.log('test', values);
     try {
-      let data = {
+      const data = {
         full_name: values.full_name,
         email: values.email,
         password: values.password,
         phone_number: 'null',
         address: 'null',
-        image_url: 'null',
+        image: 'null',
         city: 'null',
       };
+      console.log(data);
       const res = await axios.post(`${API_URL}/auth/register`, data);
 
       console.log(res, 'res');
@@ -73,7 +75,7 @@ const Register = ({navigation}) => {
     <Formik
       validationSchema={validationSchema}
       initialValues={initialValues}
-      onSubmit={submitRegister}>
+      onSubmit={values => submitRegister(values)}>
       {({values, handleChange, errors, touched, handleSubmit}) => (
         <SafeAreaView style={styles.container}>
           <View style={styles.containerInput}>
