@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
 
 const Notifikasi = () => {
@@ -10,5 +10,3 @@ const Notifikasi = () => {
 };
 
 export default Notifikasi;
-
-const styles = StyleSheet.create({});
