@@ -1,7 +1,15 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {API_URL} from '@env';
-import AuthStack from './src/routes/AuthStack';
+import {Provider} from 'react-redux';
+import {store} from './src/screens/redux/store';
+import {persistedStore} from './src/screens/redux/store';
+import Root from './src/routes/Root';
+import {PersistGate} from 'redux-persist/integration/react';
 export default function App() {
-  return <AuthStack />;
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistedStore}>
+        <Root />
+      </PersistGate>
+    </Provider>
+  );
 }
