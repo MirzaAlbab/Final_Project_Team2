@@ -1,43 +1,89 @@
 import React from 'react';
-import ProfileScreen from '../screens/ProfileScreen';
-import Home from '../screens/Home';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Home from '../screens/home';
+import Notifikasi from '../screens/notifikasi';
+import Jual from '../screens/jual';
+import DaftarJual from '../screens/daftar-jual';
+import Akun from '../screens/akun';
+import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ms} from 'react-native-size-matters';
+
 const Tab = createBottomTabNavigator();
-export default function BottomTabs() {
+
+const BottomTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: '#7126b5',
+        tabBarLabelStyle: {
+          fontSize: ms(10),
+          marginBottom: ms(4),
+        },
         tabBarStyle: {
-          backgroundColor: '#fff',
-          borderRadius: 25,
-          height: 60,
-          elevation: 0,
+          margin: 0,
+          padding: 0,
+          paddingVertical: 8,
         },
       }}>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({color}) => {
-            return <Feather name="home" size={30} color={color} />;
-          },
+          title: 'Home',
+          tabBarIcon: ({color}) => (
+            <Feather name="home" color={color} size={ms(18)} />
+          ),
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="Notifikasi"
+        component={Notifikasi}
         options={{
-          tabBarIcon: ({color}) => {
-            return (
-              <MaterialCommunityIcons name="account" size={40} color={color} />
-            );
-          },
+          title: 'Notifikasi',
+          tabBarIcon: ({color}) => (
+            <Ionicons
+              name="notifications-outline"
+              color={color}
+              size={ms(18)}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Jual"
+        component={Jual}
+        options={{
+          title: 'Jual',
+          tabBarIcon: ({color}) => (
+            <Ionicons name="add-circle-outline" color={color} size={ms(18)} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DaftarJual"
+        component={DaftarJual}
+        options={{
+          title: 'Daftar Jual',
+          tabBarIcon: ({color}) => (
+            <Ionicons name="list-outline" color={color} size={ms(18)} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Akun"
+        component={Akun}
+        options={{
+          title: 'Akun',
+          tabBarIcon: ({color}) => (
+            <Feather name="user" color={color} size={ms(18)} />
+          ),
         }}
       />
     </Tab.Navigator>
   );
-}
+};
+
+export default BottomTabs;
