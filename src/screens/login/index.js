@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
-import {SignInSchema} from '../../components/ValidateYup';
+import {SignInSchema} from '../../utils/Validation';
 import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
 import {COLORS, fonts} from '../../utils';

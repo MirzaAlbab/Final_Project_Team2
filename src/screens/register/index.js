@@ -3,7 +3,7 @@ import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
 import {COLORS, fonts} from '../../utils';
 import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
-import SignupSchema from '../../utils/SignupSchema';
+import {SignupSchema} from '../../utils/Validation';
 import {Formik} from 'formik';
 import {API_URL} from '@env';
 
