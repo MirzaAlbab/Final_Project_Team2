@@ -2,12 +2,13 @@ import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../components/ValidateYup';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
 import {Button, Gap, InputComponent, Link} from '../../components';
 import {COLORS, fonts} from '../../utils';
+import {BASE_URL} from '../../helpers/API';
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const _onLogin = async values => {
@@ -16,7 +17,9 @@ const Login = ({navigation}) => {
         email: values.email,
         password: values.password,
       };
-      const res = await axios.post(`${API_URL}/auth/login`, body);
+      console.log(body, 'body');
+      const res = await axios.post(`${BASE_URL}/auth/login`, body);
+      console.log(res, 'res');
       dispatch(setUser(res.data));
       console.log(res.data);
 

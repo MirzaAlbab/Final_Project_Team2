@@ -17,9 +17,10 @@ const Register = ({navigation}) => {
         password: values.password,
         phone_number: 'null',
         address: 'null',
-        image_url: 'null',
+        image_url: '',
         city: 'null',
       };
+
       const res = await axios.post(`${BASE_URL}/auth/register`, data);
 
       console.log(res, 'res');
@@ -27,6 +28,7 @@ const Register = ({navigation}) => {
 
       if (res.status === 201) {
         Alert.alert('berhasil register');
+        navigation.navigate('Login');
       }
     } catch (error) {
       if (error.response.status === 400) {
