@@ -25,7 +25,7 @@ export const SignInSchema = Yup.object().shape({
   password: Yup.string().label('Password').required('Password is required'),
 });
 
-const SignUpSchema = Yup.object().shape({
+export const SignUpSchema = Yup.object().shape({
   full_name: Yup.string()
     .label('full_name')
     .min(5, 'Must Contain 5 Characters')
