@@ -1,14 +1,16 @@
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../components/ValidateYup';
+import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
+import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
-import {Button, Gap, InputComponent, Link} from '../../components';
-import {COLORS, fonts} from '../../utils';
-const Login = ({navigation}) => {
+import {Gap, Link, Button, InputComponent} from '../../components';
+
+export default function Login({navigation}) {
   const dispatch = useDispatch();
   const _onLogin = async values => {
     try {
@@ -19,30 +21,32 @@ const Login = ({navigation}) => {
       const res = await axios.post(`${API_URL}/auth/login`, body);
       dispatch(setUser(res.data));
       console.log(res.data);
-
-      navigation.navigate('BottomTabs');
+      navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);
     }
   };
-  let initialValues = {
-    email: '',
-    password: '',
-  };
   return (
-    <Formik
-      validationSchema={SignInSchema}
-      initialValues={initialValues}
-      onSubmit={_onLogin}>
-      {({values, handleChange, errors, touched, handleSubmit}) => (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.containerInput}>
-            <Text style={styles.register}>SIGN UP</Text>
+    <View style={styles.container}>
+      <Formik
+        initialValues={{email: '', password: ''}}
+        onSubmit={values => _onLogin(values)}
+        validationSchema={SignInSchema}>
+        {({
+          values,
+          handleChange,
+          errors,
+          setFieldTouched,
+          touched,
+          isValid,
+          handleSubmit,
+        }) => (
+          <View style={styles.form}>
+            <Text style={styles.header}>SIGN IN</Text>
             <Gap height={30} />
-
             <InputComponent
               label={'Email'}
-              placeholder={'Example@gmail.com'}
+              placeholder={'Email'}
               value={values.email}
               onChangeText={handleChange('email')}
               errorMessage={
@@ -52,11 +56,12 @@ const Login = ({navigation}) => {
                 )
               }
             />
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
 
             <Gap height={10} />
-
             <InputComponent
-              password
               label={'Password'}
               placeholder={'Password'}
               value={values.password}
@@ -64,10 +69,46 @@ const Login = ({navigation}) => {
               errorMessage={
                 touched.password &&
                 errors.password && (
-                  <Text style={styles.textError}>{errors.password}</Text>
+                  <Text style={styles.error}>{errors.password}</Text>
                 )
               }
             />
+            {/* <Text style={styles.labelem}>Email</Text>
+            <TextInput
+              style={styles.inputBox}
+              value={values.email}
+              onChangeText={handleChange('email')}
+              onBlur={() => setFieldTouched('email')}
+              placeholder="E-mail"
+            />
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.inputBox}
+              value={values.password}
+              onChangeText={handleChange('password')}
+              placeholder="Password"
+              onBlur={() => setFieldTouched('password')}
+              secureTextEntry={true}
+            />
+            {touched.password && errors.password && (
+              <Text style={styles.error}>{errors.password}</Text>
+            )} */}
+
+            {/* <TouchableOpacity
+              style={styles.button}
+              disabled={!isValid}
+              onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableOpacity>
+            <View style={styles.signupTextCont}>
+              <Text style={styles.signupText}>Don't have an account yet?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.signupButton}> Signup</Text>
+              </TouchableOpacity>
+            </View> */}
 
             <Gap height={40} />
 
@@ -77,32 +118,24 @@ const Login = ({navigation}) => {
               <Text style={styles.text}>Belum punya akun ?</Text>
               <Gap width={10} />
               <Link
-                title="Register disini"
+                title="Daftar disini"
                 size={14}
                 align="center"
                 onPress={() => navigation.navigate('Register')}
               />
             </View>
           </View>
-        </SafeAreaView>
-      )}
-    </Formik>
+        )}
+      </Formik>
+    </View>
   );
-};
-
-export default Login;
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  containerInput: {
-    paddingTop: 50,
-    paddingHorizontal: 5,
-  },
+  header: {
+    // fontSize: 24,
 
-  register: {
+    // marginLeft: ms(20),
     fontFamily: fonts.Poppins['700'],
     fontSize: 24,
     color: COLORS.black,
@@ -110,7 +143,70 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     left: 12,
   },
+  container: {
+    flexGrow: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  inputBox: {
+    width: 300,
+    backgroundColor: 'rgba(255, 255,255,0.2)',
+    borderRadius: 25,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    color: '#000',
+    marginVertical: 10,
+    borderColor: '#D0D0D0',
+    borderWidth: 1,
+  },
+  button: {
+    width: 300,
+    backgroundColor: '#7126B5',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 13,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+  form: {
+    // flexGrow: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
 
+    paddingTop: ms(50),
+    paddingHorizontal: ms(30),
+  },
+  label: {
+    marginRight: ms(200),
+  },
+  labelem: {
+    marginRight: ms(220),
+  },
+  signupTextCont: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    flexDirection: 'row',
+  },
+  signupText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 16,
+  },
+  signupButton: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  error: {
+    fontSize: 10,
+    color: 'red',
+    alignSelf: 'center',
+  },
   account: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -120,12 +216,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.black,
     textAlign: 'center',
-    lineHeight: 20,
-  },
-  textError: {
-    color: 'red',
-    fontSize: 12,
-    marginTop: -15,
-    left: 14,
+    lineHeight: ms(20),
   },
 });
