@@ -14,6 +14,7 @@
     "@react-native-async-storage/async-storage": "^1.17.6",
     "@react-native-community/netinfo": "=> 8.3.0",
     "@react-native-firebase/app": "^14.11.0",
+    "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-native-picker/picker": "^2.4.1",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
@@ -27,6 +28,7 @@
     "react-native": "0.68.2",
     "react-native-actions-sheet": "^0.6.1",
     "react-native-alert-notification": "^0.1.13",
+    "react-native-code-push": "^7.0.4",
     "react-native-dotenv": "^3.3.1",
     "react-native-dropdownalert": "=> 4.5.1",
     "react-native-elements": "^3.4.2",
@@ -62,6 +64,15 @@
     "react-test-renderer": "17.0.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./jestSetupFile.js"
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@react-native|react-native)).*/|(react-native-gesture-handler).*/"
+    ]
   }
 }

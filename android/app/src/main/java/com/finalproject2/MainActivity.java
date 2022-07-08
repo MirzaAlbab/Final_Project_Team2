@@ -7,9 +7,10 @@ import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
   @Override
-protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(null);
-}
+  }
+
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -19,6 +20,7 @@ protected void onCreate(Bundle savedInstanceState) {
   protected String getMainComponentName() {
     return "finalproject2";
   }
+  
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
@@ -28,6 +30,8 @@ protected void onCreate(Bundle savedInstanceState) {
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new MainActivityDelegate(this, getMainComponentName());
   }
+
+  
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
