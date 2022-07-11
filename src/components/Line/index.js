@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS} from '../../utils';
@@ -6,8 +6,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Line = ({onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.line} />
+    <TouchableOpacity style={styles.container}>
+      <Text style={styles.line} onPress={onPress} />
     </TouchableOpacity>
   );
 };
