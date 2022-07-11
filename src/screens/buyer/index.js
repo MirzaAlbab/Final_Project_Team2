@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import jam from '../../assets/images/jam.png';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -12,16 +12,32 @@ import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
 import {InputComponent} from '../../components';
+import axios from 'axios';
+import {API_URL} from '@env';
 
 const Buyer = () => {
+  const [data, setData] = useState({});
+  const getProductByItem = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/buyer/product/1493`);
+      console.log(res.data, 'data res');
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getProductByItem();
+  });
+
   const ActionRef = useRef();
   const showActionSheet = () => {
     ActionRef.current.show();
   };
-
+  console.log(data, 'dataa luar');
   const hideActionSheet = () => {
-    console.log('ide');
-    Alert.alert('ale');
+    console.log('hide');
+    Alert.alert('hide');
     ActionRef.current.hide();
   };
 
@@ -63,7 +79,7 @@ const Buyer = () => {
       <View style={styles.containerComponents}>
         <View>
           <CardBarangInfo
-            title={'Jam Action Sheet'}
+            title={'Jam Casino'}
             category={'Aksesoris'}
             price={'Rp. 250.000'}
           />
