@@ -1,32 +1,77 @@
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import jam from '../../assets/images/jam.png';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarang';
-import CardSeller from '../../components/Card/CardSeller';
+import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
 import Button from '../../components/Button';
+import ActionSheet from 'react-native-actions-sheet';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import Line from '../../components/Line';
+import {InputComponent} from '../../components';
 
 const Buyer = () => {
+  const ActionRef = useRef();
+  const showActionSheet = () => {
+    ActionRef.current.show();
+  };
+
+  const hideActionSheet = () => {
+    console.log('ide');
+    Alert.alert('ale');
+    ActionRef.current.hide();
+  };
+
   return (
     <View style={styles.container}>
+      <ActionSheet ref={ActionRef}>
+        <SafeAreaView style={styles.containerActionSheet}>
+          <Line onPress={hideActionSheet} />
+          <View style={styles.containerContent}>
+            <Text style={styles.textHargaTawar}>Masukkan Harga Tawarmu </Text>
+            <Text style={styles.textInfo}>
+              Harga tawaranmu akan diketahui penual, jika penjual cocok kamu
+              akan segera dihubungi penjual
+            </Text>
+
+            <View style={{top: ms(-250)}}>
+              <View style={{marginLeft: ms(-32)}}>
+                <CardInfoWithImage
+                  image={jam}
+                  title={'jama tangan Casino'}
+                  price={'Rp. 250.000'}
+                />
+              </View>
+              <View style={{top: ms(480)}}>
+                <InputComponent
+                  label={'Harga Tawar'}
+                  placeholder={'Rp 0,00'}
+                  keyboardType={'numeric'}
+                />
+                <Button title={'Kirim'} onPress={() => Alert.alert('Kirim')} />
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      </ActionSheet>
       <View>
         <Image source={jam} style={styles.image} resizeMode="cover" />
       </View>
       <View style={styles.containerComponents}>
         <View>
           <CardBarangInfo
-            title={'Jam Tangan Casino'}
+            title={'Jam Action Sheet'}
             category={'Aksesoris'}
             price={'Rp. 250.000'}
           />
         </View>
         <View>
-          <CardSeller
-            imageSeller={people}
-            seller={'Team 2'}
+          <CardInfoWithImage
+            image={people}
+            title={'Team 2'}
             city={'Online City'}
           />
         </View>
@@ -36,28 +81,64 @@ const Buyer = () => {
           <Text style={styles.content}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            ad minim veniam, qu
           </Text>
           <Button
             title={'Saya tertarik dan ingin nego'}
-            onPress={() => Alert.alert('Saya Tertarik')}
+            onPress={showActionSheet}
           />
         </View>
       </View>
     </View>
   );
 };
-
 export default Buyer;
 
 const styles = StyleSheet.create({
   container: {
-    // position: 'absolute',
     flex: 1,
+  },
+
+  containerActionSheet: {
+    width: wp('100%'),
+    height: ms(422),
+    left: 0,
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: ms(16),
+    borderTopRightRadius: ms(16),
+    position: 'relative',
+  },
+  containerContent: {
+    // maxWidth: wp(84),
+    top: ms(-30),
+    paddingHorizontal: ms(32),
+  },
+  textHargaTawar: {
+    fontFamily: fonts.Poppins['500'],
+    fontStyle: 'normal',
+    color: COLORS.black,
+    lineHeight: ms(20),
+    top: ms(42),
+    // paddingHorizontal: 5,
+    left: ms(32),
+
+    width: ms(191),
+    height: ms(20),
+    position: 'absolute',
+  },
+
+  textInfo: {
+    fontFamily: fonts.Poppins['400'],
+    // backgroundColor: COLORS.black,
+
+    fontStyle: 'normal',
+    color: COLORS.black,
+    position: 'absolute',
+    lineHeight: ms(20),
+    top: ms(70),
+    paddingHorizontal: 32,
+    height: ms(60),
+    textAlign: 'justify',
   },
   containerComponents: {maxWidth: wp('92%')},
   image: {

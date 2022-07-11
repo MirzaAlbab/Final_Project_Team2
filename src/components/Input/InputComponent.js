@@ -7,6 +7,9 @@ import React, {useState} from 'react';
 const InputComponent = ({
   value,
   label,
+  multiline,
+  numberOfLines,
+  keyboardType,
   placeholder,
   errorMessage,
   onChangeText,
@@ -19,6 +22,9 @@ const InputComponent = ({
     <SafeAreaView style={styles.container}>
       <Input
         value={value}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        keyboardType={keyboardType}
         placeholder={placeholder}
         label={label}
         labelStyle={styles.label}

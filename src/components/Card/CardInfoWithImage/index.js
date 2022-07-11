@@ -4,25 +4,22 @@ import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-const CardSeller = ({imageSeller, seller, city}) => {
+const CardInfoWithImage = ({image, title, city, price}) => {
   return (
     <View style={styles.container}>
       <View style={styles.onContainer}>
-        <Image
-          source={imageSeller}
-          resizeMode={'cover'}
-          style={styles.peopleImage}
-        />
+        <Image source={image} resizeMode={'cover'} style={styles.peopleImage} />
         <View>
-          <Text style={styles.sellerName}>{seller}</Text>
+          <Text style={styles.sellerName}>{title}</Text>
           <Text style={styles.city}>{city}</Text>
+          <Text style={styles.price}>{price}</Text>
         </View>
       </View>
     </View>
   );
 };
 
-export default CardSeller;
+export default CardInfoWithImage;
 
 const styles = StyleSheet.create({
   container: {
@@ -74,5 +71,14 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: wp(69),
     height: ms(14),
+  },
+  price: {
+    fontFamily: fonts.Poppins['400'],
+    lineHeight: ms(14),
+    left: ms(16),
+    alignSelf: 'stretch',
+    width: wp(69),
+    height: ms(14),
+    color: COLORS.black,
   },
 });
