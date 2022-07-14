@@ -53,24 +53,24 @@ const Jual = ({navigation}) => {
     // getCategory();
   }, []);
 
-  const getCategory = () => {
-    try {
-      axios
-        .get(`${API_URL}/seller/category`, {})
-        .then(res => {
-          console.log(res.data);
-          const allkategori = res.data;
-          allkategori.map(item => {
-            kategori.push(item.name);
-          });
-        })
-        .catch(err => {
-          console.log('err : ', err);
-        });
-    } catch (error) {
-      console.log('error : ', error);
-    }
-  };
+  // const getCategory = () => {
+  //   try {
+  //     axios
+  //       .get(`${API_URL}/seller/category`, {})
+  //       .then(res => {
+  //         console.log(res.data);
+  //         const allkategori = res.data;
+  //         allkategori.map(item => {
+  //           kategori.push(item.name);
+  //         });
+  //       })
+  //       .catch(err => {
+  //         console.log('err : ', err);
+  //       });
+  //   } catch (error) {
+  //     console.log('error : ', error);
+  //   }
+  // };
   const onSubmit = values => {
     console.log('masuk');
     console.log('values : ', values);
