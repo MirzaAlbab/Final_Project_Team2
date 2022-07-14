@@ -4,6 +4,7 @@ import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import propTypes from 'prop-types';
 import CardListAccount from './CardListAccount';
+import CardListNotif from './CardListNotif';
 
 function CardList({
   source,
