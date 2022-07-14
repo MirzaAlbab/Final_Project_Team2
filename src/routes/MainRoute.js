@@ -9,12 +9,11 @@ import Home from '../screens/Home';
 
 import ProfileScreen from '../screens/ProfileScreen';
 
-
 const Stack = createStackNavigator();
 export default function MainRoute() {
   return (
     <Stack.Navigator
-      initialRouteName="Buyer"
+      initialRouteName="Register"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />

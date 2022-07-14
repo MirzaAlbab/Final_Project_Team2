@@ -85,8 +85,8 @@ const Buyer = () => {
       />
 
       <CardInfoWithImage
-        image={data.image_url}
-        title={data.user_id}
+        image={data.User?.image_url}
+        title={data.User?.full_name}
         city={data.location}
       />
 
