@@ -8,7 +8,7 @@ import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import Input from '../../components/Input';
 
-import Profile2 from '../../components/Profile2';
+import {Profile2} from '../../components';
 import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
 import Gap from '../../components/Gap';
@@ -88,7 +88,7 @@ export default function ProfileScreen({navigation}) {
         />
       </View>
       <View style={styles.photo}>
-        <Profile2 source={photo} isRemove onPress={getImage} />
+        <Profile2 source={photo} isRemove={true} onPress={getImage} />
       </View>
       <Formik
         initialValues={{fullname: '', kota: '', alamat: '', nomortelepon: ''}}
@@ -175,7 +175,7 @@ export default function ProfileScreen({navigation}) {
             )}
             <Gap height={10} />
             <View style={styles.Button}>
-              <Button title="Simpan" titleColor="black" color="#FF8303" />
+              <Button title="Simpan" titleColor="black" color="#7126B5" />
             </View>
           </View>
         )}
@@ -216,8 +216,10 @@ const styles = StyleSheet.create({
   },
   Button: {
     width: 250,
+
     marginLeft: windowWidth * 0.1,
     marginTop: windowHeight * 0.1,
+    borderRadius: 12,
   },
 
   text: {
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   dropdown1BtnStyle: {
-    width: windowWidth * 0.82,
+    width: windowWidth * 0.9,
     height: 50,
     backgroundColor: '#F0F0F0',
     borderRadius: 4,
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 0.04,
   },
   form: {
-    paddingHorizontal: 5,
-    margin: 15,
+    // paddingHorizontal: 5,
+    // margin: 15,
   },
 });

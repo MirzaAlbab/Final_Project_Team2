@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import Notifikasi from '../screens/notifikasi';
+import notifikasi from '../screens/notifikasi';
 import Jual from '../screens/jual';
 import DaftarJual from '../screens/daftar-jual';
 import Akun from '../screens/akun';
@@ -40,7 +40,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="Notifikasi"
-        component={Notifikasi}
+        component={notifikasi}
         options={{
           title: 'Notifikasi',
           tabBarIcon: ({color}) => (
