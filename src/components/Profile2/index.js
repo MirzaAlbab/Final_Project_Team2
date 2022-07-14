@@ -4,7 +4,6 @@ import {windowHeight, windowWidth} from '../../utils/Dimension';
 import IconRemovePhoto from '../../assets/icons';
 
 const Profile2 = ({isRemove = false, source, onPress}) => {
-  console.log('Profile', isRemove);
   return (
     <View style={styles.photoSection}>
       {!isRemove ? (
