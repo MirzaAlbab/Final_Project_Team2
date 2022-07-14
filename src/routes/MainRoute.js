@@ -3,10 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import BottomTabs from './BottomTabs';
-
 import Buyer from '../screens/buyer';
 import Home from '../screens/Home';
-
 import ProfileScreen from '../screens/ProfileScreen';
 import PengaturanScreen from '../screens/PengaturanScreen';
 
