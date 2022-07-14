@@ -7,7 +7,6 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import Input from '../../components/Input';
-
 import Profile2 from '../../components/Profile2';
 import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
