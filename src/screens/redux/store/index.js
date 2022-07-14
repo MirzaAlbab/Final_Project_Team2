@@ -8,7 +8,7 @@ const config = {
   key: 'root',
   storage: AsyncStorage,
   timeout: null,
-  whitelist: ['login'],
+  whitelist: ['login', 'profile'],
 };
 
 const persistedReducer = persistReducer(config, allReducers);
