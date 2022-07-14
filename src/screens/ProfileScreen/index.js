@@ -196,6 +196,10 @@ const styles = StyleSheet.create({
     marginLeft: windowWidth * 0.3,
     marginTop: windowHeight * -0.06,
   },
+  profile: {
+    paddingHorizontal: 5,
+    margin: 15,
+  },
   text1: {
     color: '#112340',
     fontSize: 16,
