@@ -1,4 +1,4 @@
-import {StyleSheet, View, Button, Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -7,8 +7,8 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import Input from '../../components/Input';
-
-import Profile2 from '../../components/Profile2';
+import Button from '../../components';
+import {Profile2} from '../../components';
 import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
 import Gap from '../../components/Gap';
@@ -88,7 +88,7 @@ export default function ProfileScreen({navigation}) {
         />
       </View>
       <View style={styles.photo}>
-        <Profile2 source={photo} isRemove onPress={getImage} />
+        <Profile2 source={photo} isRemove={true} onPress={getImage} />
       </View>
       <Formik
         initialValues={{fullname: '', kota: '', alamat: '', nomortelepon: ''}}
@@ -174,8 +174,8 @@ export default function ProfileScreen({navigation}) {
               <Text style={styles.errorText}>{errors.nomortelepon}</Text>
             )}
             <Gap height={10} />
-            <View style={styles.Button}>
-              <Button title="Simpan" titleColor="black" color="#FF8303" />
+            <View style={styles.button}>
+              <Button title="Simpan" onPress={handleSubmit} />
             </View>
           </View>
         )}
@@ -218,10 +218,12 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.93,
     borderRadius: 12,
   },
-  Button: {
+  button: {
     width: 250,
+
     marginLeft: windowWidth * 0.1,
     marginTop: windowHeight * 0.1,
+    borderRadius: 12,
   },
 
   text: {
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   dropdown1BtnStyle: {
-    width: windowWidth * 0.82,
+    width: windowWidth * 0.9,
     height: 50,
     backgroundColor: '#F0F0F0',
     borderRadius: 4,
@@ -274,7 +276,7 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 0.04,
   },
   form: {
-    paddingHorizontal: 5,
-    margin: 15,
+    // paddingHorizontal: 5,
+    // margin: 15,
   },
 });

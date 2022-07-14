@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import propTypes from 'prop-types';
+import CardListAccount from './CardListAccount';
 import CardListNotif from './CardListNotif';
 
 function CardList({
@@ -18,6 +19,10 @@ function CardList({
   status,
   read,
 }) {
+  if (type === 'account') {
+    return <CardListAccount title={title} name={name} onPress={onPress} />;
+  }
+
   if (type === 'notif') {
     return (
       <CardListNotif
@@ -63,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
+    borderBottomColor: 'red',
     // borderBottomColor: colors.border.primary,
   },
   wrapper: {

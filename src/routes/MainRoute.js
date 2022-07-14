@@ -8,7 +8,7 @@ import Buyer from '../screens/buyer';
 import Home from '../screens/Home';
 
 import ProfileScreen from '../screens/ProfileScreen';
-
+import PengaturanScreen from '../screens/PengaturanScreen';
 
 const Stack = createStackNavigator();
 export default function MainRoute() {
@@ -21,6 +21,7 @@ export default function MainRoute() {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Dashboard" component={BottomTabs} />
+      <Stack.Screen name="PengaturanScreen" component={PengaturanScreen} />
       <Stack.Screen name="Buyer" component={Buyer} />
     </Stack.Navigator>
   );
