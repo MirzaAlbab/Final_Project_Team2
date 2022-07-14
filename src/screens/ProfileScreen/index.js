@@ -7,10 +7,11 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import Input from '../../components/Input';
-import Button from '../../components';
+import ButtonComponent from '../../components/Button';
 import {Profile2} from '../../components';
 import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
+import {ms} from 'react-native-size-matters';
 import Gap from '../../components/Gap';
 import {updateProfileSchema} from '../../utils/Validation';
 
@@ -175,7 +176,7 @@ export default function ProfileScreen({navigation}) {
             )}
             <Gap height={10} />
             <View style={styles.button}>
-              <Button title="Simpan" onPress={handleSubmit} />
+              <ButtonComponent title="Simpan" onPress={handleSubmit} />
             </View>
           </View>
         )}
@@ -189,7 +190,7 @@ export default function ProfileScreen({navigation}) {
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    backgroundColor: 'white',
+
     paddingHorizontal: 20,
   },
   borderText: {
@@ -219,11 +220,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   button: {
-    width: 250,
-
-    marginLeft: windowWidth * 0.1,
-    marginTop: windowHeight * 0.1,
+    width: 230,
+    alignSelf: 'center',
     borderRadius: 12,
+    marginTop: ms(15),
   },
 
   text: {
