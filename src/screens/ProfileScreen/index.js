@@ -1,4 +1,4 @@
-import {StyleSheet, View, Button, Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -7,7 +7,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import Input from '../../components/Input';
-
+import Button from '../../components';
 import {Profile2} from '../../components';
 import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
@@ -174,8 +174,8 @@ export default function ProfileScreen({navigation}) {
               <Text style={styles.errorText}>{errors.nomortelepon}</Text>
             )}
             <Gap height={10} />
-            <View style={styles.Button}>
-              <Button title="Simpan" titleColor="black" color="#7126B5" />
+            <View style={styles.button}>
+              <Button title="Simpan" onPress={handleSubmit} />
             </View>
           </View>
         )}
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.93,
     borderRadius: 12,
   },
-  Button: {
+  button: {
     width: 250,
 
     marginLeft: windowWidth * 0.1,
