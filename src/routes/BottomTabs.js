@@ -40,7 +40,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="Notifikasi"
-        component={notifikasi}
+        component={Notifikasi}
         options={{
           title: 'Notifikasi',
           tabBarIcon: ({color}) => (
