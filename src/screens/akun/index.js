@@ -10,9 +10,29 @@ import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
+import {setUser} from '../Login/redux/action';
+import {API_URL} from '@env';
+import axios from 'axios';
 
 function Akun({navigation}) {
+  const dispatch = useDispatch();
+  const [image, setImage] = useState('');
+  const {setUser} = useSelector(state => state.login);
   const [photo, setPhoto] = useState(ILNullPhoto);
+  // useEffect(() => {
+  //   getImage();
+  // });
+  // const getImage = async () => {
+  //   try {
+  //     const res = await axios.get(`${API_URL}/auth/user`, {
+  //       headers: {access_token: `${setUser.access_token}`},
+  //     });
+  //     console.log(res.data);
+  //     setImage(res.data.image_url);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
