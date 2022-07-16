@@ -3,7 +3,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {IconNotLogin} from '../../assets';
-import Button from '../Button';
+import Button from '../ButtonComponent';
 
 function NotLogin({onPress}) {
   return (
