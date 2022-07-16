@@ -3,8 +3,9 @@ import React, {useRef, useEffect, useState} from 'react';
 import jam from '../../assets/images/jam.png';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import CardBarangInfo from '../../components/Card/CardBarang';
+
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
+import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
 import Button from '../../components/Button';

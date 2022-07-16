@@ -33,9 +33,9 @@ export default Headers;
 
 const styles = StyleSheet.create({
   title: {
-    // fontFamily: fonts.Poppins.Bold,
+    fontFamily: 'Poppins-Bold',
     fontSize: 20,
-    // color: colors.text.primary,
+    color: 'black',
   },
 
   container: {
@@ -46,10 +46,9 @@ const styles = StyleSheet.create({
   },
 
   titleBack: {
-    // fontFamily: fonts.Poppins.Bold,
+    fontFamily: 'Poppins-Bold',
     fontSize: 14,
-    color: COLORS.black,
-    // color: colors.text.primary,
+    color: 'black',
     textAlign: 'center',
     flex: 1,
     marginRight: ms(50),
