@@ -6,7 +6,7 @@ import Headers from '../../components/Headers';
 import NotLogin from '../../components/NotLogin';
 import ProfileScreen from '../ProfileScreen';
 import {Profile2} from '../../components';
-import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
+// import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
