@@ -15,79 +15,72 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
 import {API_URL} from '@env';
 import {useSelector} from 'react-redux';
+import {ACCESS_TOKEN} from '../../helpers/AccesTokenDumy';
 const Jual = ({navigation}) => {
   const [photo, setPhoto] = useState([]);
+  const [prevPhoto, setPrevPhoto] = useState([]);
   const {user} = useSelector(state => state.login);
   const [kategori, setKategori] = useState([]);
   const token = user.access_token;
   const openImagePicker = () => {
-    // let Imagelist = [];
-
     launchImageLibrary(
       {
         quality: 0.5,
-        maxWidth: 200,
-        maxHeight: 200,
-        includeBase64: true,
-        multiple: true,
+        mediaType: 'photo',
       },
       response => {
         // console.log('response : ', response);
         if (response.didCancel || response.error) {
           showError('Anda belum memilih foto');
         } else {
-          const source = response?.assets[0];
-
-          const Uri = {uri: source.uri};
-
-          setPhoto(Uri);
-          // const source = response?.assets[0];
-          // // console.log('response GetImage : ', source);
-          // const Uri = {uri: source.uri};
-          // setPhoto(Uri);
+          const source = response?.assets[0].uri;
+          setPrevPhoto(source);
+          setPhoto(response.assets[0]);
         }
       },
     );
   };
   useEffect(() => {
-    // getCategory();
+    getCategory();
   }, []);
 
-  // const getCategory = () => {
-  //   try {
-  //     axios
-  //       .get(`${API_URL}/seller/category`, {})
-  //       .then(res => {
-  //         console.log(res.data);
-  //         const allkategori = res.data;
-  //         allkategori.map(item => {
-  //           kategori.push(item.name);
-  //         });
-  //       })
-  //       .catch(err => {
-  //         console.log('err : ', err);
-  //       });
-  //   } catch (error) {
-  //     console.log('error : ', error);
-  //   }
-  // };
-  const onSubmit = values => {
-    console.log('masuk');
-    console.log('values : ', values);
-    const body = {
-      name: values.nama,
-      description: values.deskripsi,
-      base_price: values.harga,
-      category_ids: values.kategori,
-      location: values.lokasi,
-      images: photo,
-    };
+  const getCategory = () => {
     try {
-      const res = axios.post(`${API_URL}/seller/product`, body, {
-        headers: {access_token: `${token}`},
+      axios
+        .get(`${API_URL}/seller/category`, {})
+        .then(res => {
+          console;
+
+          setKategori(res.data);
+        })
+        .catch(err => {
+          console.log('err : ', err);
+        });
+    } catch (error) {
+      console.log('error : ', error);
+    }
+  };
+  const onSubmit = values => {
+    const data = new FormData();
+    data.append('name', values.name);
+    data.append('price', values.price);
+    data.append('description', values.description);
+    data.append('category_ids', values.category_id);
+    data.append('location', values.location);
+    data.append('image', {
+      uri: photo.uri,
+      type: photo.type,
+      name: photo.fileName,
+    });
+
+    try {
+      const res = axios.post(`${API_URL}/seller/product`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          access_token: `${ACCESS_TOKEN}`,
+        },
       });
-      console.log(`${token}`);
-      console.log('res : ', res);
+      console.log('res : ', res.status);
     } catch (error) {
       console.log('error : ', error);
     }
@@ -135,7 +128,14 @@ const Jual = ({navigation}) => {
               <Text style={styles.errorText}>{errors.harga}</Text>
             )}
             <Gap height={10} />
-
+            {/* <SelectDropdown
+              label="name"
+              onSelect={(value, label) => {}}
+              onValueChange={handleChange('category_id')}
+              value={values.kategori.id}
+              data={kategori}
+              style={styles.select}
+            /> */}
             <SelectDropdown
               data={kategori}
               label="Kategori"
