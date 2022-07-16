@@ -14,9 +14,11 @@ import Headers from '../../components/Headers';
 import {ms} from 'react-native-size-matters';
 import Gap from '../../components/Gap';
 import {updateProfileSchema} from '../../utils/Validation';
+import {useSelector} from 'react-redux';
 
 export default function ProfileScreen({navigation}) {
   const [photo, setPhoto] = useState(ILNullPhoto);
+  const {user} = useSelector(state => state.login);
   const getImage = () => {
     launchImageLibrary(
       {

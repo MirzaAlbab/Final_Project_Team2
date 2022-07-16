@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import CardList from '../../components/CardList';
@@ -11,28 +18,76 @@ import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
 import {setUser} from '../Login/redux/action';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
 import axios from 'axios';
+import {BASE_URL} from '../../helpers/API';
 
 function Akun({navigation}) {
   const dispatch = useDispatch();
   const [image, setImage] = useState('');
-  const {setUser} = useSelector(state => state.login);
+
   const [photo, setPhoto] = useState(ILNullPhoto);
-  // useEffect(() => {
-  //   getImage();
-  // });
-  // const getImage = async () => {
-  //   try {
-  //     const res = await axios.get(`${API_URL}/auth/user`, {
-  //       headers: {access_token: `${setUser.access_token}`},
-  //     });
-  //     console.log(res.data);
-  //     setImage(res.data.image_url);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+  const {user} = useSelector(state => state.login);
+
+  useEffect(() => {
+    getImage();
+  });
+
+  const getImage = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/auth/user`, {
+        headers: {access_token: `${user.access_token}`},
+      });
+      console.log(res.data);
+      setImage(res.data.image_url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // exit;
+  // const exit = () => {
+  //   const backAction = () => {
+  //     Alert.alert('Hold on!', 'Do you want to exit the application?', [
+  //       {
+  //         text: 'Cancel',
+  //         onPress: () => null,
+  //         style: 'cancel',
+  //       },
+  //       {text: 'YES', onPress: () => BackHandler.exitApp()},
+  //     ]);
+  //     return true;
+  //   };
+
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     backAction,
+  //   );
+
+  //   return () => backHandler.remove();
   // };
+
+  // useEffect(() => {
+  //   exit();
+  // }, []);
+
+  // const logout = () => {
+  //   Alert.alert('Hold on!', 'Do you want to logout?', [
+  //     {
+  //       text: 'Cancel',
+  //       onPress: () => null,
+  //     },
+  //     {
+  //       text: 'YES',
+  //       onPress: () => {
+  //         dispatch(setUser({}));
+  //         navigate('Home');
+  //       },
+  //     },
+  //   ]);
+  // };
+
+  // const pengaturanAkun = () => null;
+  // const ubahAkun = () => navigate('Profile');
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
@@ -57,6 +112,7 @@ function Akun({navigation}) {
             title="Keluar"
             onPress={() => navigation.navigate('Login')}
           />
+          {/* <MenuAkun nameIcon="log-out" menuName="Keluar" onPress={logout} /> */}
           <Text style={styles.version}>Version {version}</Text>
         </ScrollView>
       </View>
