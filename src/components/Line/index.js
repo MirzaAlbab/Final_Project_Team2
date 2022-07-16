@@ -6,8 +6,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Line = ({onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.line} />
+    <TouchableOpacity style={styles.container}>
+      <Text style={styles.line} onPress={onPress} />
     </TouchableOpacity>
   );
 };

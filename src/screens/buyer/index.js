@@ -1,12 +1,9 @@
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
-import jam from '../../assets/images/jam.png';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-
-import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
-import people from '../../assets/images/people.png';
+import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import {COLORS, fonts} from '../../utils';
 import Button from '../../components/Button';
 import ActionSheet from 'react-native-actions-sheet';
@@ -18,27 +15,28 @@ import {API_URL} from '@env';
 
 const Buyer = () => {
   const [data, setData] = useState({});
+  const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/1493`);
+      const res = await axios.get(`${API_URL}/buyer/product/98`);
       console.log(res.data, 'data res');
-      setData(data);
+      setData(res.data);
+      setCategory(res.data.Categories[0].name);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getProductByItem();
-  });
+  }, []);
 
   const ActionRef = useRef();
+
   const showActionSheet = () => {
     ActionRef.current.show();
   };
-  console.log(data, 'dataa luar');
   const hideActionSheet = () => {
-    console.log('hide');
-    Alert.alert('hide');
     ActionRef.current.hide();
   };
 
@@ -53,16 +51,15 @@ const Buyer = () => {
               Harga tawaranmu akan diketahui penual, jika penjual cocok kamu
               akan segera dihubungi penjual
             </Text>
-
-            <View style={{top: ms(-250)}}>
-              <View style={{marginLeft: ms(-32)}}>
+            <View style={styles.containerInfo}>
+              <View style={styles.containerInfoCard}>
                 <CardInfoWithImage
-                  image={jam}
-                  title={'jama tangan Casino'}
-                  price={'Rp. 250.000'}
+                  image={data.image_url}
+                  title={data.name}
+                  price={data.base_price}
                 />
               </View>
-              <View style={{top: ms(480)}}>
+              <View style={styles.containerComponent}>
                 <InputComponent
                   label={'Harga Tawar'}
                   placeholder={'Rp 0,00'}
@@ -74,39 +71,35 @@ const Buyer = () => {
           </View>
         </SafeAreaView>
       </ActionSheet>
-      <View>
-        <Image source={jam} style={styles.image} resizeMode="cover" />
-      </View>
-      <View style={styles.containerComponents}>
-        <View>
-          <CardBarangInfo
-            title={'Jam Casino'}
-            category={'Aksesoris'}
-            price={'Rp. 250.000'}
-          />
-        </View>
-        <View>
-          <CardInfoWithImage
-            image={people}
-            title={'Team 2'}
-            city={'Online City'}
-          />
-        </View>
 
-        <View style={styles.containerDeskripsi}>
-          <Text style={styles.title}>Deskripsi</Text>
-          <Text style={styles.content}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, qu
-          </Text>
-          <Button
-            title={'Saya tertarik dan ingin nego'}
-            onPress={showActionSheet}
-          />
-        </View>
+      <Image
+        source={{uri: data.image_url}}
+        style={styles.image}
+        resizeMode="cover"
+      />
+
+      <CardBarangInfo
+        title={data.name}
+        category={category}
+        price={data.base_price}
+      />
+
+      <CardInfoWithImage
+        image={data.User?.image_url}
+        title={data.User?.full_name}
+        city={data.location}
+      />
+
+      <View style={styles.containerDeskripsi}>
+        <Text style={styles.title}>Deskripsi</Text>
+        <Text style={styles.content}>{data.description}</Text>
+        <Button
+          title={'Saya tertarik dan ingin nego'}
+          onPress={showActionSheet}
+        />
       </View>
     </View>
+    // </View>
   );
 };
 export default Buyer;
@@ -126,7 +119,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   containerContent: {
-    // maxWidth: wp(84),
     top: ms(-30),
     paddingHorizontal: ms(32),
   },
@@ -136,18 +128,18 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     lineHeight: ms(20),
     top: ms(42),
-    // paddingHorizontal: 5,
-    left: ms(32),
-
+    paddingLeft: ms(29),
     width: ms(191),
     height: ms(20),
     position: 'absolute',
   },
-
+  containerInfo: {
+    top: ms(-250),
+  },
+  containerInfoCard: {right: ms(32)},
+  containerComponent: {top: ms(480)},
   textInfo: {
     fontFamily: fonts.Poppins['400'],
-    // backgroundColor: COLORS.black,
-
     fontStyle: 'normal',
     color: COLORS.black,
     position: 'absolute',
@@ -157,7 +149,7 @@ const styles = StyleSheet.create({
     height: ms(60),
     textAlign: 'justify',
   },
-  containerComponents: {maxWidth: wp('92%')},
+  // backgroundColor: COLORS.black,
   image: {
     position: 'absolute',
     width: wp('100%'),

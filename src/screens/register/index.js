@@ -1,32 +1,13 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
-import {COLORS, fonts} from '../../utils';
-import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
-import * as Yup from 'yup';
-import {Formik} from 'formik';
 import {API_URL} from '@env';
+import {Formik} from 'formik';
+import {COLORS, fonts} from '../../utils';
+import {SignUpSchema} from '../../utils/Validation';
+import {Gap, Link, Button, InputComponent} from '../../components';
+import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
 
 const Register = ({navigation}) => {
-  const validationSchema = Yup.object().shape({
-    full_name: Yup.string()
-      .label('full_name')
-      .min(5, 'Must Contain 5 Characters')
-      .max(20, 'Max 20 Characters')
-      .required('Please fill in the input full_name'),
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please fill in the input email'),
-    password: Yup.string()
-      .label('Password')
-      .required('Please fill in the input password')
-      .matches(
-        ' ((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
-  });
-
   const submitRegister = async values => {
     console.log('test', values);
     try {
@@ -36,7 +17,7 @@ const Register = ({navigation}) => {
         password: values.password,
         phone_number: 'null',
         address: 'null',
-        image: 'null',
+        image: '',
         city: 'null',
       };
       console.log(data);
@@ -73,7 +54,7 @@ const Register = ({navigation}) => {
 
   return (
     <Formik
-      validationSchema={validationSchema}
+      validationSchema={SignUpSchema}
       initialValues={initialValues}
       onSubmit={values => submitRegister(values)}>
       {({values, handleChange, errors, touched, handleSubmit}) => (

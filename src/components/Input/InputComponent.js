@@ -7,10 +7,12 @@ import React, {useState} from 'react';
 const InputComponent = ({
   value,
   label,
+  placeholder,
   multiline,
   numberOfLines,
   keyboardType,
-  placeholder,
+  onSubmitEditing,
+  blurOnSubmit,
   errorMessage,
   onChangeText,
   password,
@@ -22,10 +24,12 @@ const InputComponent = ({
     <SafeAreaView style={styles.container}>
       <Input
         value={value}
+        placeholder={placeholder}
         multiline={multiline}
         numberOfLines={numberOfLines}
         keyboardType={keyboardType}
-        placeholder={placeholder}
+        onSubmitEditing={onSubmitEditing}
+        blurOnSubmit={blurOnSubmit}
         label={label}
         labelStyle={styles.label}
         inputStyle={styles.inputStyle}
