@@ -10,6 +10,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Gap} from '../../components';
 import Headers from '../../components/Headers';
+import {gantiPassSchema} from '../../utils/Validation';
 
 const ForgotPassword = () => {
   return (
