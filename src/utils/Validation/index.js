@@ -25,13 +25,8 @@ export const SignInSchema = Yup.object().shape({
   password: Yup.string().label('Password').required('Password is required'),
 });
 export const gantiPassSchema = Yup.object().shape({
-  current_password: Yup.string()
-    .required('Please Enter your password')
-    .trim()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+  current_password: Yup.string().required('Please Enter your password').trim(),
+
   new_password: Yup.string()
     .required('Please Enter your password')
     .trim()

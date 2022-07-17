@@ -14,7 +14,7 @@ export default ButtonComponent;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: COLORS.purple,
+    backgroundColor: COLORS.purple,
     paddingHorizontal: 16,
     paddingVertical: 15,
     marginHorizontal: 10,

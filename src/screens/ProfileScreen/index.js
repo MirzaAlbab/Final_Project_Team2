@@ -13,6 +13,7 @@ import {ILNullPhoto} from '../../assets/icons/images';
 import Headers from '../../components/Headers';
 import {ms} from 'react-native-size-matters';
 import Gap from '../../components/Gap';
+
 import {updateProfileSchema} from '../../utils/Validation';
 
 export default function ProfileScreen({navigation}) {

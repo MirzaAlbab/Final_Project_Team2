@@ -9,16 +9,18 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser, setAccesToken} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
+import {BASE_URL} from '../../helpers/API';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
+  // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
       const body = {
         email: values.email,
         password: values.password,
       };
-      const res = await axios.post(`${API_URL}/auth/login`, body);
+      const res = await axios.post(`${BASE_URL}/auth/login`, body);
       dispatch(setUser(res.data));
       dispatch(setUser(res.data, setAccesToken));
       console.log(res.data);

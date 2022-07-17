@@ -16,10 +16,23 @@ import {Formik} from 'formik';
 import {windowHeight} from '../../utils/Dimension';
 import ButtonComponent from '../../components/ButtonComponent';
 import {gantiPass} from './redux/action';
+import {COLORS} from '../../utils';
+import axios from 'axios';
+import {BASE_URL} from '../../helpers/API';
+import {gantiPassSuccess} from './redux/action';
+import {fonts} from '../../utils';
+import InputComponent from '../../components';
 
 function ForgotPasswordScreen({navigation}) {
   const dispatch = useDispatch();
-  const stateGlobal = useSelector(state => state.dataGlobal);
+  const stateGlobal = useSelector(state => state.global);
+
+  const updatePass = (current_password, new_password, confirm_password) =>
+    axios.put(`${BASE_URL}/auth/change-password`, {
+      current_password,
+      new_password,
+      confirm_password,
+    });
 
   const onSubmit = (current, newPass, confirmPass) => {
     dispatch(gantiPass(current, newPass, confirmPass, navigation));
@@ -27,8 +40,8 @@ function ForgotPasswordScreen({navigation}) {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={{flex: 1, margin: 16}}>
-        <Headers type="back" onPress={() => navigation.goBack()} />
+      <View style={styles.container}>
+        <Headers type="back-title" onPress={() => navigation.goBack()} />
         <Formik
           initialValues={{
             current_password: '',
@@ -55,16 +68,7 @@ function ForgotPasswordScreen({navigation}) {
             dirty,
           }) => (
             <SafeAreaView>
-              <Text
-                style={{
-                  marginTop: windowHeight * 0.05,
-                  alignSelf: 'flex-start',
-                  // fontFamily: fonts.Poppins.Bold,
-                  // color: colors.text.tertiary,
-                  fontSize: 30,
-                }}>
-                Ganti Password
-              </Text>
+              <Text style={styles.header}>Ganti Password</Text>
               <Gap height={windowHeight * 0.05} />
               <Input2
                 onChangeText={handleChange('current_password')}
@@ -98,7 +102,12 @@ function ForgotPasswordScreen({navigation}) {
               {errors.confirm_password && touched.confirm_password && (
                 <Text style={styles.errorText}>{errors.confirm_password}</Text>
               )}
-              <Gap height={24} />
+              <Gap height={40} />
+              {/* <ButtonComponent
+                title="Confirm"
+                onPress={handleSubmit}
+                disable={!(dirty && isValid) || stateGlobal.isLoading}
+              /> */}
               <ButtonComponent
                 title="Confirm"
                 onPress={handleSubmit}
@@ -116,15 +125,30 @@ function ForgotPasswordScreen({navigation}) {
 export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({
-  // errorText: {
-  //   fontFamily: fonts.Poppins.Medium,
-  //   color: colors.warning,
-  //   fontSize: fontSize.small,
-  // },
+  errorText: {
+    // fontFamily: fonts.Poppins.Medium,
+    color: COLORS.red,
+    // fontSize: fontSize.small,
+  },
   // RegisterText: {
   //   color: colors.text.secondary,
   //   fontFamily: fonts.Poppins.Bold,
   // },
+  container: {
+    flex: 1,
+    margin: 16,
+
+    // backgroundColor: '#fff',
+  },
+  header: {
+    marginTop: windowHeight * 0.05,
+    alignSelf: 'flex-start',
+    // fontFamily: fonts.Poppins.Bold,
+    // color: colors.text.tertiary,
+    fontFamily: fonts.Poppins['700'],
+    fontSize: 30,
+    color: COLORS.black,
+  },
 
   goRegisterWrapper: {
     alignItems: 'center',
