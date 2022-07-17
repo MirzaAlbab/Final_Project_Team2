@@ -5,13 +5,14 @@ import Register from '../screens/Register';
 import BottomTabs from './BottomTabs';
 import Buyer from '../screens/buyer';
 import ProfileScreen from '../screens/ProfileScreen';
+import PrevJual from '../screens/Prev-Jual';
 import PengaturanScreen from '../screens/PengaturanScreen';
 
 const Stack = createStackNavigator();
 export default function MainRoute() {
   return (
     <Stack.Navigator
-      initialRouteName="Buyer"
+      initialRouteName="PrevJual"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
@@ -19,6 +20,7 @@ export default function MainRoute() {
       <Stack.Screen name="Dashboard" component={BottomTabs} />
       <Stack.Screen name="PengaturanScreen" component={PengaturanScreen} />
       <Stack.Screen name="Buyer" component={Buyer} />
+      <Stack.Screen name="PrevJual" component={PrevJual} />
     </Stack.Navigator>
   );
 }
