@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default function MainRoute() {
   return (
     <Stack.Navigator
-      initialRouteName="Register"
+      initialRouteName="Dashboard"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
