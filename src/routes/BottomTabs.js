@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/home';
 import Notifikasi from '../screens/Notifikasi';
 import Jual from '../screens/jual';
-import DaftarJual from '../screens/daftar-jual';
+import DaftarJual from '../screens/DaftarJual';
 import Akun from '../screens/akun';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
