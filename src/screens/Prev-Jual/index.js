@@ -94,10 +94,7 @@ const Buyer = () => {
       <View style={styles.containerDeskripsi}>
         <Text style={styles.title}>Deskripsi</Text>
         <Text style={styles.content}>{data.description}</Text>
-        <Button
-          title={'Saya tertarik dan ingin nego'}
-          onPress={showActionSheet}
-        />
+        <Button title={'Terbitkan'} onPress={showActionSheet} />
       </View>
     </View>
     // </View>

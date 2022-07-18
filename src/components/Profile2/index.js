@@ -3,8 +3,7 @@ import React from 'react';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {IconRemovePhoto} from '../../assets';
 
-const Profile2 = ({isRemove, source, onPress}) => {
-  console.log('Profile', isRemove);
+const Profile2 = ({isRemove = false, source, onPress}) => {
   return (
     <View style={styles.photoSection}>
       {!isRemove ? (
