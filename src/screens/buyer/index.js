@@ -18,7 +18,7 @@ const Buyer = () => {
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/98`);
+      const res = await axios.get(`${API_URL}/buyer/product/667`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);

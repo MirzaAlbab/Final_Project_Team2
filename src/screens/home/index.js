@@ -1,12 +1,158 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ms} from 'react-native-size-matters';
+import {COLORS, fonts} from '../../utils';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Button, Gap, InputComponent} from '../../components';
+import CardBarang2 from '../../components/Card/CardBarang2';
+import axios from 'axios';
+import {API_URL} from '@env';
+// import gift from '../../assets/images/gift.png';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const [data, setData] = useState({});
+  const [category, setCategory] = useState([]);
+  const getProduct = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/buyer/product/667`);
+      console.log(res.data, 'data resgggg');
+      setData(res.data);
+      setCategory(res.data.Categories[0].name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getProduct();
+  }, []);
+  console.log('haolo dara', data);
+
+  // const RenderItem = ({item}) => {
+  //   <TouchableOpacity onPress={console.log('Halo')}>
+  //     <CardBarang2
+  //       image={item.User?.image_url}
+  //       title={data?.name}
+  //       category={'category'}
+  //       price={item?.base_price}
+  //     />
+  //     ;
+  //   </TouchableOpacity>;
+  // };
+
   return (
-    <View>
-      <Text>Home</Text>
+    <View style={styles.containerAll}>
+      <View style={styles.container}>
+        <Gap height={35} />
+        <InputComponent placeholder={'Cari Disini'} />
+        <View>
+          <Text style={styles.textHeader}>Bulan Ramadhan Banyak Diskon</Text>
+          <Gap height={86} />
+          <Text style={styles.textDiskon}>Diskon Hingga</Text>
+          <Text style={styles.textPersen}>60%</Text>
+        </View>
+        <Gap height={48} />
+        <View>
+          <Text style={styles.textTitleKategory}>Telusuri Kategory</Text>
+          <Gap height={16} />
+
+          <View style={styles.buttonRow}>
+            <Button title={'Semua'} />
+            <Button title={'Hobi'} />
+            <Button title={'Kendaraan'} />
+          </View>
+        </View>
+      </View>
+      <Gap height={20} />
+
+      <View style={styles.containerBarang}>
+        <CardBarang2
+          image={data.User?.image_url}
+          title={data?.name}
+          category={'category'}
+          price={data?.base_price}
+        />
+        <CardBarang2
+          image={data.User?.image_url}
+          title={data?.name}
+          category={category}
+          price={data?.base_price}
+        />
+      </View>
     </View>
   );
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+  containerAll: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  bg: {
+    height: 250,
+    width: 200,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  container: {
+    position: 'absolute',
+    width: wp('100%'),
+    height: ms(398),
+    left: ms(0),
+    top: ms(0),
+  },
+  input: {top: ms(38)},
+  textGlobal: {},
+  textHeader: {
+    fontFamily: fonts.Poppins['700'],
+    lineHeight: ms(30),
+    fontSize: ms(20),
+    fontStyle: 'normal',
+    color: COLORS.darkBrown,
+    position: 'absolute',
+    width: ms(200),
+    height: ms(60),
+    left: ms(16),
+  },
+  textDiskon: {
+    fontFamily: fonts.Poppins['400'],
+    lineHeight: ms(14),
+    fontSize: ms(10),
+    fontStyle: 'normal',
+    color: COLORS.darkBrown,
+    width: ms(200),
+    height: ms(14),
+    left: ms(16),
+  },
+  textPersen: {
+    fontFamily: fonts.Poppins['500'],
+    lineHeight: ms(26),
+    fontSize: ms(18),
+    fontStyle: 'normal',
+    color: COLORS.red,
+    width: ms(200),
+    height: ms(26),
+    left: ms(16),
+  },
+  textTitleKategory: {
+    fontFamily: fonts.Poppins['500'],
+    lineHeight: ms(20),
+    fontSize: ms(14),
+    fontStyle: 'normal',
+    color: COLORS.darkBrown,
+    width: ms(200),
+    height: ms(20),
+    left: ms(16),
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-evenly',
+  },
+  containerBarang: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+});
