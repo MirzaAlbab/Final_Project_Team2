@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import {StyleSheet, View, FlatList} from 'react-native';
 import {API_URL} from '@env';
 import Headers from '../../components/Headers';
@@ -5,30 +7,32 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import CardList from '../../components/CardList';
-import {setNotifikasi} from './action';
+import {getNotifikasi} from './redux/action';
 
 const Notifikasi = () => {
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
-
+  const {user} = useSelector(state => state.login);
   const dataNotif = useSelector(state => state.dataNotifikasi);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(getNotifikasi());
+  }, []);
 
-  const _onNotifikasi = async values => {
-    try {
-      const res = await axios.get(`${API_URL}/notification`);
+  // const _onNotifikasi = async values => {
+  //   try {
+  //     const res = await axios.get(`${API_URL}/notification`);
 
-      dispatch(setNotifikasi(res.data));
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     dispatch(getNotifikasi(res.data));
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const onRefresh = () => {
     setRefreshing(true);
-    dispatch(setNotifikasi());
+    dispatch(getNotifikasi());
     setRefreshing(false);
   };
 
