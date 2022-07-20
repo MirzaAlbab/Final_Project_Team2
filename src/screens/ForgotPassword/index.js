@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   SafeAreaView,
   Text,
@@ -14,13 +15,13 @@ import {gantiPassSchema} from '../../utils/Validation';
 import Input2 from '../../components/Input2';
 import {Formik} from 'formik';
 import {windowHeight} from '../../utils/Dimension';
-import ButtonComponent from '../../components/ButtonComponent';
 import {gantiPass} from './redux/action';
 import {COLORS} from '../../utils';
 import axios from 'axios';
 import {BASE_URL} from '../../helpers/API';
 import {gantiPassSuccess} from './redux/action';
 import {fonts} from '../../utils';
+import ButtonComponent from '../../components/ButtonComponent';
 import InputComponent from '../../components';
 
 function ForgotPasswordScreen({navigation}) {
