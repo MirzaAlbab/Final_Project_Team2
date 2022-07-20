@@ -11,4 +11,5 @@ export const COLORS = {
   brown: '#3C3C3C',
   darkBrown: '#151515',
   red: '#FF0000',
+  neutral2: '#D0D0D0',
 };

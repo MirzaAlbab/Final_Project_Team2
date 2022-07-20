@@ -8,7 +8,7 @@ import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
-import Button from '../../components/Button';
+import ButtonComponent from '../../components/ButtonComponent';
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
@@ -68,7 +68,10 @@ const Buyer = () => {
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <Button title={'Kirim'} onPress={() => Alert.alert('Kirim')} />
+                <ButtonComponent
+                  title={'Kirim'}
+                  onPress={() => Alert.alert('Kirim')}
+                />
               </View>
             </View>
           </View>
@@ -100,7 +103,7 @@ const Buyer = () => {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, qu
           </Text>
-          <Button
+          <ButtonComponent
             title={'Saya tertarik dan ingin nego'}
             onPress={showActionSheet}
           />

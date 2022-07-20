@@ -18,7 +18,9 @@ import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
 import {setUser} from '../Login/redux/action';
+import {navigate} from '../../helpers/navigate';
 // import {API_URL} from '@env';
+import {logout} from '../Login/redux/action';
 import axios from 'axios';
 import {BASE_URL} from '../../helpers/API';
 
@@ -28,6 +30,11 @@ function Akun({navigation}) {
 
   const [photo, setPhoto] = useState(ILNullPhoto);
   const {user} = useSelector(state => state.login);
+
+  const onLogout = () => {
+    dispatch(logout());
+    navigation.replace('Login');
+  };
 
   useEffect(() => {
     getImage();
@@ -44,7 +51,7 @@ function Akun({navigation}) {
       console.log(error);
     }
   };
-  // exit;
+
   // const exit = () => {
   //   const backAction = () => {
   //     Alert.alert('Hold on!', 'Do you want to exit the application?', [
@@ -110,8 +117,15 @@ function Akun({navigation}) {
             type="account"
             name="logout"
             title="Keluar"
-            onPress={() => navigation.navigate('Login')}
+            // onPress={() => navigation.navigate('Login')}
+            onPress={onLogout}
           />
+          {/* <CardList
+            type="account"
+            name="logout"
+            title="Keluar"
+            onPress={onLogout}
+          /> */}
           {/* <MenuAkun nameIcon="log-out" menuName="Keluar" onPress={logout} /> */}
           <Text style={styles.version}>Version {version}</Text>
         </ScrollView>
