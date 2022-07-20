@@ -1,3 +1,7 @@
+// import axios from 'axios';
+// import {BASE_URL} from '../../../helpers/API';
+// import {setLoading} from '../../redux/reducer/globalAction';
+
 import {getNotif, detailNotif} from '../../../helpers/notifikasi';
 import {showError} from '../../../utils/ShowMessage';
 import {setLoading} from '../../redux/reducer/globalAction';
@@ -68,10 +72,3 @@ export const getNotifikasiId = id => async dispatch => {
       dispatch(setLoading(false));
     });
 };
-
-// export const setNotifikasi = payload => {
-//   return {
-//     type: 'SET_NOTIFIKASI',
-//     payload,
-//   };
-// };
