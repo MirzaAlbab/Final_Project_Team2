@@ -14,13 +14,12 @@ import {InputComponent} from '../../components';
 import axios from 'axios';
 import {API_URL} from '@env';
 
-const Buyer = ({navigation, route}) => {
-  const id = route.params.id;
+const Buyer = () => {
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
+      const res = await axios.get(`${API_URL}/buyer/product/98`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);
@@ -31,7 +30,7 @@ const Buyer = ({navigation, route}) => {
 
   useEffect(() => {
     getProductByItem();
-  });
+  }, []);
 
   const ActionRef = useRef();
 
@@ -95,10 +94,7 @@ const Buyer = ({navigation, route}) => {
       <View style={styles.containerDeskripsi}>
         <Text style={styles.title}>Deskripsi</Text>
         <Text style={styles.content}>{data.description}</Text>
-        <Button
-          title={'Saya tertarik dan ingin nego'}
-          onPress={showActionSheet}
-        />
+        <Button title={'Terbitkan'} onPress={showActionSheet} />
       </View>
     </View>
     // </View>
