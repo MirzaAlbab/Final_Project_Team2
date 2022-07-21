@@ -19,7 +19,6 @@ import {gantiPass} from './redux/action';
 import {COLORS} from '../../utils';
 import axios from 'axios';
 import {BASE_URL} from '../../helpers/API';
-import {gantiPassSuccess} from './redux/action';
 import {fonts} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 import InputComponent from '../../components';
@@ -34,6 +33,7 @@ function ForgotPasswordScreen({navigation}) {
       new_password,
       confirm_password,
     });
+  // console.log(updatePass);
 
   const onSubmit = (current, newPass, confirmPass) => {
     dispatch(gantiPass(current, newPass, confirmPass, navigation));
