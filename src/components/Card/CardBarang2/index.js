@@ -27,7 +27,7 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
-    width: ms(165),
+    width: ms(166),
     height: ms(216),
     top: ms(398),
     marginHorizontal: ms(15),
