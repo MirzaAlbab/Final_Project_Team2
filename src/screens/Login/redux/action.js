@@ -4,3 +4,8 @@ export const setUser = payload => {
     payload,
   };
 };
+
+export const logout = payload => ({
+  type: 'LOGOUT',
+  payload,
+});
