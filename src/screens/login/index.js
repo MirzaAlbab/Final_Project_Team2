@@ -8,7 +8,7 @@ import {BASE_URL} from '../../helpers/API';
 import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
-import {setUser, setAccesToken} from './redux/action';
+import {setUser} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
 
 export default function Login({navigation}) {
@@ -20,10 +20,8 @@ export default function Login({navigation}) {
         password: values.password,
       };
       const res = await axios.post(`${BASE_URL}/auth/login`, body);
-      dispatch(setUser(res.data));
-      dispatch(setUser(res.data, setAccesToken));
+      dispatch(setUser(res.data.access_token));
       console.log(res.data);
-      console.log(res.data.access_token);
       navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);
@@ -59,9 +57,9 @@ export default function Login({navigation}) {
                 )
               }
             />
-            {/* {touched.email && errors.email && (
+            {touched.email && errors.email && (
               <Text style={styles.error}>{errors.email}</Text>
-            )} */}
+            )}
 
             <Gap height={10} />
             <InputComponent

@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.Poppins[500],
+    letterSpacing: 2,
     lineHeight: 20,
     textAlign: 'center',
     color: COLORS.white,

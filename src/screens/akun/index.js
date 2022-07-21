@@ -13,7 +13,7 @@ import Headers from '../../components/Headers';
 import NotLogin from '../../components/NotLogin';
 import ProfileScreen from '../ProfileScreen';
 import {Profile2} from '../../components';
-import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
+// import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
@@ -32,7 +32,7 @@ function Akun({navigation}) {
   const {user} = useSelector(state => state.login);
 
   const onLogout = () => {
-    dispatch(logout());
+    dispatch(logout(null));
     navigation.replace('Login');
   };
 
@@ -43,7 +43,7 @@ function Akun({navigation}) {
   const getImage = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/user`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       console.log(res.data);
       setImage(res.data.image_url);

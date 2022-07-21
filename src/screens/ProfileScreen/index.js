@@ -63,7 +63,7 @@ export default function ProfileScreen({navigation}) {
   const getProfile = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/user`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       setUser({
         full_name: res.data.full_name,
@@ -103,7 +103,7 @@ export default function ProfileScreen({navigation}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });
@@ -209,75 +209,78 @@ export default function ProfileScreen({navigation}) {
         }) => {
           return (
             <View>
-              <Headers
-                title={'Lengkapi Info Akun'}
-                type={'back-title'}
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              />
-              <View style={styles.contentContainer}>
-                <ButtonCamera onPress={getImage} url={photo} />
-
-                <InputProfile
-                  inputName="Nama*"
-                  placeholder="Nama Lengkap"
-                  onChangeText={handleChange('full_name')}
-                  onBlur={handleBlur('full_name')}
-                  value={values.full_name}
+              <ScrollView>
+                <Headers
+                  title={'Lengkapi Info Akun'}
+                  type={'back-title'}
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
                 />
-              </View>
-              {touched.full_name && errors.full_name && (
-                <Text style={styles.errorValidation}>{errors.full_name}</Text>
-              )}
+                <View style={styles.contentContainer}>
+                  <ButtonCamera onPress={getImage} url={photo} />
 
-              <View style={styles.contentContainer}>
-                <Text style={styles.kota}>Kota*</Text>
-                <DropDownPicker
-                  style={styles.dropdownPicker}
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
-              </View>
-              <View style={styles.contentContainer2}>
-                <InputProfile
-                  inputName="Alamat*"
-                  placeholder="Contoh: Jalan Manggala 2"
-                  multiline={true}
-                  numberOfLines={4}
-                  styleInput={styles.alamatContainer}
-                  onChangeText={handleChange('address')}
-                  onBlur={handleBlur('address')}
-                  value={values.address}
-                />
-              </View>
+                  <InputProfile
+                    inputName="Nama"
+                    placeholder="Nama Lengkap"
+                    onChangeText={handleChange('full_name')}
+                    onBlur={handleBlur('full_name')}
+                    value={values.full_name}
+                  />
+                </View>
+                {touched.full_name && errors.full_name && (
+                  <Text style={styles.errorValidation}>{errors.full_name}</Text>
+                )}
 
-              {touched.address && errors.address && (
-                <Text style={styles.errorValidation}>{errors.address}</Text>
-              )}
-              <View style={styles.contentContainer2}>
-                <InputProfile
-                  keyboardType={'numeric'}
-                  inputName="No Handphone*"
-                  onChangeText={handleChange('phone_number')}
-                  onBlur={handleBlur('phone_number')}
-                  value={values.phone_number}
-                />
-              </View>
+                <View style={styles.contentContainer}>
+                  <Text style={styles.kota}>Kota</Text>
+                  <DropDownPicker
+                    style={styles.dropdownPicker}
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+                </View>
+                <View style={styles.contentContainer2}>
+                  <InputProfile
+                    inputName="Alamat"
+                    placeholder="Contoh: Jalan Manggala 2"
+                    multiline={true}
+                    numberOfLines={4}
+                    styleInput={styles.alamatContainer}
+                    onChangeText={handleChange('address')}
+                    onBlur={handleBlur('address')}
+                    value={values.address}
+                  />
+                </View>
 
-              {touched.phone_number && errors.phone_number && (
-                <Text style={styles.errorValidation}>
-                  {errors.phone_number}
-                </Text>
-              )}
+                {touched.address && errors.address && (
+                  <Text style={styles.errorValidation}>{errors.address}</Text>
+                )}
+                <View style={styles.contentContainer2}>
+                  <InputProfile
+                    keyboardType={'numeric'}
+                    placeholder="Contoh: 0877368437"
+                    inputName="No Handphone"
+                    onChangeText={handleChange('phone_number')}
+                    onBlur={handleBlur('phone_number')}
+                    value={values.phone_number}
+                  />
+                </View>
 
-              <View style={styles.btnSimpan}>
-                <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
-              </View>
+                {touched.phone_number && errors.phone_number && (
+                  <Text style={styles.errorValidation}>
+                    {errors.phone_number}
+                  </Text>
+                )}
+
+                <View style={styles.btnSimpan}>
+                  <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
+                </View>
+              </ScrollView>
             </View>
           );
         }}
