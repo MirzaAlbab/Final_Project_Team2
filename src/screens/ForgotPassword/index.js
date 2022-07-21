@@ -100,14 +100,7 @@ function ForgotPasswordScreen({navigation}) {
             new_password: '',
             confirm_password: '',
           }}
-          onSubmit={(values, {resetForm}) => {
-            onSubmit(
-              values.current_password,
-              values.new_password,
-              values.confirm_password,
-            );
-            resetForm();
-          }}
+          onSubmit={putPassword}
           validationSchema={gantiPassSchema}>
           {({
             handleChange,
