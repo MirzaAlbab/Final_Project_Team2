@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
-import Register from '../screens/Register';
+import Register from '../screens/register';
 import BottomTabs from './BottomTabs';
 
 import Buyer from '../screens/buyer';
