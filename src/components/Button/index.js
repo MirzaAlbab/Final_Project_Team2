@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.purple,
     paddingHorizontal: 16,
-    paddingVertical: 24,
+    paddingVertical: 18,
     marginHorizontal: 10,
     alignItems: 'center',
     borderRadius: 16,
   },
   title: {
     fontFamily: fonts.Poppins[500],
-    letterSpacing: 5,
+    letterSpacing: 2,
     lineHeight: 20,
     textAlign: 'center',
     color: COLORS.white,

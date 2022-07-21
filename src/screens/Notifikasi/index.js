@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import {StyleSheet, View, FlatList} from 'react-native';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
 import Headers from '../../components/Headers';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import CardList from '../../components/CardList';
 import {getNotifikasi} from './redux/action';
 

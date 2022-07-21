@@ -8,6 +8,11 @@ const InputComponent = ({
   value,
   label,
   placeholder,
+  multiline,
+  numberOfLines,
+  keyboardType,
+  onSubmitEditing,
+  blurOnSubmit,
   errorMessage,
   onChangeText,
   password,
@@ -20,6 +25,11 @@ const InputComponent = ({
       <Input
         value={value}
         placeholder={placeholder}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        keyboardType={keyboardType}
+        onSubmitEditing={onSubmitEditing}
+        blurOnSubmit={blurOnSubmit}
         label={label}
         labelStyle={styles.label}
         inputStyle={styles.inputStyle}
