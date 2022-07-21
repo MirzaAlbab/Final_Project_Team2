@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Gap} from '../../components';
 import Headers from '../../components/Headers';
@@ -22,21 +22,72 @@ import {BASE_URL} from '../../helpers/API';
 import {fonts} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 import InputComponent from '../../components';
-
+import {setLoading} from '../redux/reducer/globalAction';
 function ForgotPasswordScreen({navigation}) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector(state => state.global);
+  const {user} = useSelector(state => state.login);
+  const [value, setValue] = useState(null);
 
-  const updatePass = (current_password, new_password, confirm_password) =>
-    axios.put(`${BASE_URL}/auth/change-password`, {
-      current_password,
-      new_password,
-      confirm_password,
-    });
-  // console.log(updatePass);
+  const [User, setUser] = useState({
+    current_password: '',
+    new_password: '',
+    confirm_password: '',
+  });
+
+  // const updatePass = (current_password, new_password, confirm_password) =>
+  //   axios.put(`${BASE_URL}/auth/change-password`, {
+
+  //     current_password,
+  //     new_password,
+  //     confirm_password,
+  //   });
+  // // console.log(updatePass);
 
   const onSubmit = (current, newPass, confirmPass) => {
     dispatch(gantiPass(current, newPass, confirmPass, navigation));
+  };
+
+  const gantiPassword = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/auth/change-password`, {
+        headers: {access_token: `${user.access_token}`},
+      });
+      console.log(BASE_URL);
+      setUser({
+        current_password: res.data.current_password,
+        new_password: res.new_password,
+        confirm_password: res.confirm_password,
+      });
+      // setPhoto(res.data.image_url);
+      // setValue(res.data.city);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const putPassword = async values => {
+    try {
+      const body = new FormData();
+      body.append('current_password', values.current_password);
+      body.append('new_password', values.new_password);
+      body.append('confirm_password', values.confirm_password);
+      console.log(user);
+      const res = await fetch(`${BASE_URL}/auth/change-password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          access_token: `${user.access_token}`,
+        },
+        body: body,
+      });
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
   };
 
   return (
@@ -112,7 +163,7 @@ function ForgotPasswordScreen({navigation}) {
               <ButtonComponent
                 title="Confirm"
                 onPress={handleSubmit}
-                disable={!(dirty && isValid) || stateGlobal.isLoading}
+                // disable={!(dirty && isValid) || stateGlobal.isLoading}
               />
             </SafeAreaView>
           )}
