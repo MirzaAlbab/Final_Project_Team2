@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../utils';
@@ -7,14 +14,14 @@ import {Button, Gap, InputComponent} from '../../components';
 import CardBarang2 from '../../components/Card/CardBarang2';
 import axios from 'axios';
 import {API_URL} from '@env';
-// import gift from '../../assets/images/gift.png';
+import gift from '../../assets/images/gift.png';
 
 const Home = ({navigation}) => {
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProduct = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/667`);
+      const res = await axios.get(`${API_URL}/buyer/product`);
       console.log(res.data, 'data resgggg');
       setData(res.data);
       setCategory(res.data.Categories[0].name);
@@ -27,17 +34,20 @@ const Home = ({navigation}) => {
   }, []);
   console.log('haolo dara', data);
 
-  // const RenderItem = ({item}) => {
-  //   <TouchableOpacity onPress={console.log('Halo')}>
-  //     <CardBarang2
-  //       image={item.User?.image_url}
-  //       title={data?.name}
-  //       category={'category'}
-  //       price={item?.base_price}
-  //     />
-  //     ;
-  //   </TouchableOpacity>;
-  // };
+  const RenderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Buyer', {id: item.id})}>
+        <CardBarang2
+          image={item?.image_url}
+          title={item?.name}
+          category={category ? category : 'category'}
+          price={item?.base_price}
+          onPress={() => navigation.navigate('Buyer', {id: item.id})}
+        />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.containerAll}>
@@ -58,24 +68,18 @@ const Home = ({navigation}) => {
           <View style={styles.buttonRow}>
             <Button title={'Semua'} />
             <Button title={'Hobi'} />
-            <Button title={'Kendaraan'} />
+            <Button title={'Kendarcaan'} />
           </View>
         </View>
       </View>
-      <Gap height={20} />
 
+      <Image source={gift} resizeMode={'cover'} style={styles.image} />
       <View style={styles.containerBarang}>
-        <CardBarang2
-          image={data.User?.image_url}
-          title={data?.name}
-          category={'category'}
-          price={data?.base_price}
-        />
-        <CardBarang2
-          image={data.User?.image_url}
-          title={data?.name}
-          category={category}
-          price={data?.base_price}
+        <FlatList
+          data={data}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={RenderItem}
         />
       </View>
     </View>
@@ -86,7 +90,6 @@ export default Home;
 
 const styles = StyleSheet.create({
   containerAll: {
-    flex: 1,
     backgroundColor: COLORS.white,
   },
   bg: {
@@ -152,7 +155,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   containerBarang: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    top: ms(-120),
+  },
+  image: {
+    height: ms(127),
+    width: ms(123),
+    left: ms(239),
+    top: ms(124),
+    opacity: 0.8,
   },
 });

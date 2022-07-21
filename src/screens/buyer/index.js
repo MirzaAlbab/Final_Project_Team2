@@ -13,12 +13,13 @@ import {InputComponent} from '../../components';
 import axios from 'axios';
 import {API_URL} from '@env';
 
-const Buyer = () => {
+const Buyer = ({navigation, route}) => {
+  const id = route.params.id;
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/667`);
+      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);
@@ -29,7 +30,7 @@ const Buyer = () => {
 
   useEffect(() => {
     getProductByItem();
-  }, []);
+  });
 
   const ActionRef = useRef();
 

@@ -27,9 +27,11 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
-    width: ms(156),
-    height: ms(206),
+    width: ms(165),
+    height: ms(216),
     top: ms(398),
+    marginHorizontal: ms(15),
+    marginVertical: ms(10),
     backgroundColor: COLORS.white,
     shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
@@ -40,7 +42,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.84,
     elevation: 5,
     borderRadius: 4,
-    // backgroundColor: COLORS.LightGray,
   },
   title: {
     fontFamily: fonts.Poppins['500'],
