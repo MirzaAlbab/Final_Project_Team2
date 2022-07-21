@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 // import axios from 'axios';
 import CardList from '../../components/CardList';
+
 import {setNotifikasi} from './action';
 
 const Notifikasi = () => {

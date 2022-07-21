@@ -8,11 +8,7 @@ const CardInfoWithImage = ({image, title, city, price}) => {
   return (
     <View style={styles.container}>
       <View style={styles.onContainer}>
-        <Image
-          source={{uri: image}}
-          resizeMode={'cover'}
-          style={styles.peopleImage}
-        />
+        <Image source={image} resizeMode={'cover'} style={styles.peopleImage} />
         <View>
           <Text style={styles.sellerName}>{title}</Text>
           <Text style={styles.city}>{city}</Text>

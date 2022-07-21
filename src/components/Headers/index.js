@@ -8,10 +8,12 @@ import {ms} from 'react-native-size-matters';
 function Headers({onPress, title, type}) {
   if (type === 'back-title') {
     return (
-      <TouchableOpacity style={styles.container} onPress={onPress}>
-        <Icon name="arrow-left" size={24} color="black" />
+      <View style={styles.container}>
+        <TouchableOpacity style={{position: 'absolute'}} onPress={onPress}>
+          <Icon name="arrow-left" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.titleBack}>{title}</Text>
-      </TouchableOpacity>
+      </View>
     );
   }
 
@@ -54,5 +56,6 @@ const styles = StyleSheet.create({
     marginRight: ms(50),
 
     zIndex: 1,
+    alignSelf: 'center',
   },
 });
