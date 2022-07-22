@@ -31,16 +31,17 @@ import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
 import Profile2 from '../../components';
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen({navigation, route}) {
+  const {imageProfile} = route.params;
   const [User, setUser] = useState({
     full_name: '',
     city: '',
     address: '',
     phone_number: '',
-    image: '',
+    image: imageProfile,
   });
   const dispatch = useDispatch();
-  const [photo, setPhoto] = useState(User?.image);
+  const [photo, setPhoto] = useState(imageProfile);
   const {user} = useSelector(state => state.login);
 
   const [open, setOpen] = useState(false);
@@ -58,7 +59,8 @@ export default function ProfileScreen({navigation}) {
   useEffect(() => {
     getProfile();
     // console.log('User', User.image);
-  }, [photo]);
+    console.log('Bebas nihh', imageProfile);
+  }, []);
 
   const getProfile = async () => {
     try {

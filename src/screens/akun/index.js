@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   StyleSheet,
   Text,
@@ -23,23 +24,19 @@ import {navigate} from '../../helpers/navigate';
 import {logout} from '../Login/redux/action';
 import axios from 'axios';
 import {BASE_URL} from '../../helpers/API';
+import {useIsFocused} from '@react-navigation/native';
 
 function Akun({navigation}) {
   const dispatch = useDispatch();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(image !== null ? image : ILNullPhoto);
 
-  const [photo, setPhoto] = useState(ILNullPhoto);
+  // const [photo, setPhoto] = useState(ILNullPhoto);
   const {user} = useSelector(state => state.login);
-
+  const isFocused = useIsFocused();
   const onLogout = () => {
     dispatch(logout(null));
     navigation.replace('Login');
   };
-
-  useEffect(() => {
-    getImage();
-  });
-
   const getImage = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/user`, {
@@ -51,6 +48,22 @@ function Akun({navigation}) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    getImage();
+    console.log('ini image', image);
+  }, [image, isFocused]);
+
+  // const getImage = async () => {
+  //   try {
+  //     const res = await axios.get(`${BASE_URL}/auth/user`, {
+  //       headers: {access_token: `${user}`},
+  //     });
+  //     console.log(res.data);
+  //     setImage(res.data.image_url);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const exit = () => {
   //   const backAction = () => {
@@ -98,14 +111,18 @@ function Akun({navigation}) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
-      <Profile2 source={photo} />
+      <Profile2 source={image !== null ? {uri: image} : ILNullPhoto} />
       <View style={styles.form}>
         <ScrollView>
           <CardList
             type="account"
             name="edit"
             title="Ubah Akun"
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() =>
+              navigation.navigate('Profile', {
+                imageProfile: image,
+              })
+            }
           />
           <CardList
             type="account"
