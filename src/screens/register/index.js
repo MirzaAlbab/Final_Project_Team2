@@ -3,31 +3,11 @@ import {StyleSheet, SafeAreaView, View, Text, Alert} from 'react-native';
 import {COLORS, fonts} from '../../utils';
 import {Gap, Link, Button, InputComponent} from '../../components';
 import axios from 'axios';
-import * as Yup from 'yup';
+import {SignUpSchema} from '../../utils/Validation';
 import {Formik} from 'formik';
 import {API_URL} from '@env';
-import {BASE_URL} from '../../helpers/API';
 
 const Register = ({navigation}) => {
-  const validationSchema = Yup.object().shape({
-    full_name: Yup.string()
-      .label('full_name')
-      .min(5, 'Must Contain 5 Characters')
-      .max(20, 'Max 20 Characters')
-      .required('Please fill in the input full_name'),
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please fill in the input email'),
-    password: Yup.string()
-      .label('Password')
-      .required('Please fill in the input password')
-      .matches(
-        ' ((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
-  });
-
   const submitRegister = async values => {
     console.log('test', values);
     try {
@@ -41,13 +21,13 @@ const Register = ({navigation}) => {
         city: 'null',
       };
       console.log(data);
-      const res = await axios.post(`${BASE_URL}/auth/register`, data);
+      const res = await axios.post(`${API_URL}/auth/register`, data);
 
-      console.log(res, 'res');
-      console.log(data, 'data post');
+      // console.log(res, 'res');
+      // console.log(data, 'data post');
 
       if (res.status === 201) {
-        Alert.alert('berhasil register');
+        Alert.alert('Berhasil register');
         navigation.navigate('Login');
       }
     } catch (error) {
@@ -74,7 +54,7 @@ const Register = ({navigation}) => {
 
   return (
     <Formik
-      validationSchema={validationSchema}
+      validationSchema={SignUpSchema}
       initialValues={initialValues}
       onSubmit={values => submitRegister(values)}>
       {({values, handleChange, errors, touched, handleSubmit}) => (

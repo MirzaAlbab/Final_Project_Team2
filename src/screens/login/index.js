@@ -4,7 +4,6 @@ import {Formik} from 'formik';
 import {SignInSchema} from '../../utils/Validation';
 import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
-import {BASE_URL} from '../../helpers/API';
 import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
@@ -20,7 +19,7 @@ export default function Login({navigation}) {
         email: values.email,
         password: values.password,
       };
-      const res = await axios.post(`${BASE_URL}/auth/login`, body);
+      const res = await axios.post(`${API_URL}/auth/login`, body);
       dispatch(setUser(res.data));
       console.log(res.data);
       navigation.navigate('Dashboard');
@@ -58,12 +57,10 @@ export default function Login({navigation}) {
                 )
               }
             />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
 
             <Gap height={10} />
             <InputComponent
+              password
               label={'Password'}
               placeholder={'Password'}
               value={values.password}

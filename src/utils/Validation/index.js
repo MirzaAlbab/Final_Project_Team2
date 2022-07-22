@@ -45,7 +45,7 @@ export const gantiPassSchema = Yup.object().shape({
 
 export const SignUpSchema = Yup.object().shape({
   full_name: Yup.string()
-    .label('full_name')
+    .label('Fullname')
     .min(5, 'Must Contain 5 Characters')
     .max(20, 'Max 20 Characters')
     .required('Please fill in the input full_name'),

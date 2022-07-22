@@ -2,7 +2,6 @@ import {StyleSheet, Text, View, Image, Alert} from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import people from '../../assets/images/people.png';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import {COLORS, fonts} from '../../utils';
@@ -98,11 +97,8 @@ const Buyer = ({navigation, route}) => {
 
       <View style={styles.containerDeskripsi}>
         <Text style={styles.title}>Deskripsi</Text>
-        <Text style={styles.content}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, qu
-        </Text>
+
+        <Text style={styles.content}>{data.description}</Text>
         <ButtonComponent
           title={'Saya tertarik dan ingin nego'}
           onPress={showActionSheet}

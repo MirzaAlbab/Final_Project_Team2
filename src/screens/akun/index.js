@@ -1,24 +1,17 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  BackHandler,
-  Alert,
-} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import CardList from '../../components/CardList';
 import Headers from '../../components/Headers';
-import NotLogin from '../../components/NotLogin';
-import ProfileScreen from '../ProfileScreen';
+// import NotLogin from '../../components/NotLogin';
+// import ProfileScreen from '../ProfileScreen';
 import {Profile2} from '../../components';
 // import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
-import {setUser} from '../Login/redux/action';
-import {navigate} from '../../helpers/navigate';
+// import {setUser} from '../Login/redux/action';
+// import {navigate} from '../../helpers/navigate';
 // import {API_URL} from '@env';
 import {logout} from '../Login/redux/action';
 import axios from 'axios';
@@ -26,8 +19,6 @@ import {BASE_URL} from '../../helpers/API';
 
 function Akun({navigation}) {
   const dispatch = useDispatch();
-  const [image, setImage] = useState('');
-
   const [photo, setPhoto] = useState(ILNullPhoto);
   const {user} = useSelector(state => state.login);
 
@@ -46,7 +37,7 @@ function Akun({navigation}) {
         headers: {access_token: `${user}`},
       });
       console.log(res.data);
-      setImage(res.data.image_url);
+      setPhoto(res.data.image_url);
     } catch (error) {
       console.log(error);
     }
