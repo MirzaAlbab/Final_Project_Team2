@@ -4,8 +4,8 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import BottomTabs from './BottomTabs';
 import Buyer from '../screens/buyer';
-import Home from '../screens/Home';
 import ProfileScreen from '../screens/ProfileScreen';
+import PrevJual from '../screens/Prev-Jual';
 import PengaturanScreen from '../screens/PengaturanScreen';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 
@@ -15,7 +15,6 @@ export default function MainRoute() {
     <Stack.Navigator
       initialRouteName="Dashboard"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -26,6 +25,7 @@ export default function MainRoute() {
         component={ForgotPasswordScreen}
       />
       <Stack.Screen name="Buyer" component={Buyer} />
+      <Stack.Screen name="PrevJual" component={PrevJual} />
     </Stack.Navigator>
   );
 }

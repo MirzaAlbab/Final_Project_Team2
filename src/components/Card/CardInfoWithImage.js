@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     padding: ms(16),
     position: 'absolute',
     height: ms(80),
+    // marginLeft: ms(32),
     width: wp('92%'),
     left: ms(16),
     top: ms(379),

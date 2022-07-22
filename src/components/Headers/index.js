@@ -2,6 +2,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {windowWidth} from '../../utils/Dimension';
+import {COLORS} from '../../utils';
+import {ms} from 'react-native-size-matters';
 
 function Headers({onPress, title, type}) {
   if (type === 'back-title') {
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: windowWidth,
-    height: 50,
+    height: ms(50),
     alignItems: 'center',
   },
 
@@ -51,7 +53,9 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     flex: 1,
+    marginRight: ms(50),
+
+    zIndex: 1,
     alignSelf: 'center',
-    zIndex: -1,
   },
 });

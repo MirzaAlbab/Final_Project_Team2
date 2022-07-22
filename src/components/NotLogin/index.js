@@ -1,9 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import propTypes from 'prop-types';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
+import ButtonComponent from '../ButtonComponent';
 import {IconNotLogin} from '../../assets';
-import Button from '../ButtonComponent';
 
 function NotLogin({onPress}) {
   return (
@@ -14,7 +15,7 @@ function NotLogin({onPress}) {
           Anda belum login, Silahkan login terlebih dahulu
         </Text>
       </View>
-      <Button onPress={onPress} title="Login" style={styles.button} />
+      <ButtonComponent onPress={onPress} title="Login" style={styles.button} />
     </View>
   );
 }

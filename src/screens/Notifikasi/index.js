@@ -1,9 +1,9 @@
 import {StyleSheet, View, FlatList} from 'react-native';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
 import Headers from '../../components/Headers';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import CardList from '../../components/CardList';
 
 import {setNotifikasi} from './action';
@@ -16,16 +16,16 @@ const Notifikasi = () => {
 
   useEffect(() => {}, []);
 
-  const _onNotifikasi = async values => {
-    try {
-      const res = await axios.get(`${API_URL}/notification`);
+  // const _onNotifikasi = async values => {
+  //   try {
+  //     const res = await axios.get(`${API_URL}/notification`);
 
-      dispatch(setNotifikasi(res.data));
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     dispatch(setNotifikasi(res.data));
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const onRefresh = () => {
     setRefreshing(true);

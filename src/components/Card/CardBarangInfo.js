@@ -10,7 +10,7 @@ const CardBarangInfo = ({title, category, price}) => {
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.category}>{category}</Text>
-        <Text style={styles.price}>{price}</Text>
+        <Text style={styles.price}>Rp {price}</Text>
       </View>
     </View>
   );
