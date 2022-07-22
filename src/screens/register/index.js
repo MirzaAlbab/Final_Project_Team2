@@ -6,7 +6,7 @@ import axios from 'axios';
 import {SignUpSchema} from '../../utils/Validation';
 import {Formik} from 'formik';
 import {API_URL} from '@env';
-
+import {BASE_URL} from '../../helpers/API';
 const Register = ({navigation}) => {
   const submitRegister = async values => {
     console.log('test', values);
@@ -21,7 +21,7 @@ const Register = ({navigation}) => {
         city: 'null',
       };
       console.log(data);
-      const res = await axios.post(`${API_URL}/auth/register`, data);
+      const res = await axios.post(`${BASE_URL}/auth/register`, data);
 
       // console.log(res, 'res');
       // console.log(data, 'data post');

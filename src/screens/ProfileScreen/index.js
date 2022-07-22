@@ -9,6 +9,12 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 
 import {windowHeight, windowWidth} from '../../utils/Dimension';
+
+import Profile2 from '../../components';
+
+
+import {ILNullPhoto} from '../../assets/icons/images';
+
 import {ms} from 'react-native-size-matters';
 
 import {fonts, COLORS} from '../../utils';
@@ -16,6 +22,7 @@ import ButtonComponent from '../../components/ButtonComponent';
 // import {InputComponent} from '../../components';
 // import {ILNullPhoto} from '../../assets/icons/images';
 import axios from 'axios';
+
 import Headers from '../../components/Headers';
 
 import {putDataProfile} from './redux/action';
