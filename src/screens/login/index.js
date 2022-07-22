@@ -13,6 +13,7 @@ import {BASE_URL} from '../../helpers/API';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
+  // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
       const body = {
@@ -57,12 +58,10 @@ export default function Login({navigation}) {
                 )
               }
             />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
 
             <Gap height={10} />
             <InputComponent
+              password
               label={'Password'}
               placeholder={'Password'}
               value={values.password}

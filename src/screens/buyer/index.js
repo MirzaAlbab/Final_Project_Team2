@@ -4,9 +4,9 @@ import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
-import {COLORS} from '../../utils';
-import {fonts} from '../../utils';
-import Button from '../../components/Button';
+import {COLORS, fonts} from '../../utils';
+import Button from '../../components/ButtonComponent';
+import ButtonComponent from '../../components/ButtonComponent';
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
@@ -14,12 +14,13 @@ import {InputComponent} from '../../components';
 import axios from 'axios';
 import {API_URL} from '@env';
 
-const Buyer = () => {
+const Buyer = ({navigation, route}) => {
+  const id = route.params.id;
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/98`);
+      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);
@@ -30,7 +31,7 @@ const Buyer = () => {
 
   useEffect(() => {
     getProductByItem();
-  }, []);
+  });
 
   const ActionRef = useRef();
 
@@ -66,7 +67,10 @@ const Buyer = () => {
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <Button title={'Kirim'} onPress={() => Alert.alert('Kirim')} />
+                <ButtonComponent
+                  title={'Kirim'}
+                  onPress={() => Alert.alert('Kirim')}
+                />
               </View>
             </View>
           </View>
@@ -93,8 +97,9 @@ const Buyer = () => {
 
       <View style={styles.containerDeskripsi}>
         <Text style={styles.title}>Deskripsi</Text>
+
         <Text style={styles.content}>{data.description}</Text>
-        <Button
+        <ButtonComponent
           title={'Saya tertarik dan ingin nego'}
           onPress={showActionSheet}
         />

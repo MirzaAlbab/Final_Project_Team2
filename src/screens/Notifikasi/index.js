@@ -12,12 +12,15 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback} from 'react';
 import CardList from '../../components/CardList';
+
 import {setUser} from '../Login/redux/action';
 import Poppins from '../../components/FontComponent/Poppins';
 import {setNotification, setRefreshing} from './redux/action';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ItemCardNotification from '../../components/ItemCardNotification';
+
+
 
 const Notification = ({navigation}) => {
   const dispatch = useDispatch();

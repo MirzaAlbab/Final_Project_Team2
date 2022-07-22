@@ -24,10 +24,28 @@ export const SignInSchema = Yup.object().shape({
     .required('Email is required'),
   password: Yup.string().label('Password').required('Password is required'),
 });
+export const gantiPassSchema = Yup.object().shape({
+  current_password: Yup.string().required('Please Enter your password').trim(),
+
+  new_password: Yup.string()
+    .required('Please Enter your password')
+    .trim()
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
+    ),
+  confirm_password: Yup.string()
+    .required('Please Enter your password')
+    .trim()
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
+    ),
+});
 
 export const SignUpSchema = Yup.object().shape({
   full_name: Yup.string()
-    .label('full_name')
+    .label('Fullname')
     .min(5, 'Must Contain 5 Characters')
     .max(20, 'Max 20 Characters')
     .required('Please fill in the input full_name'),
