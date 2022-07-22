@@ -22,7 +22,6 @@ const Jual = ({navigation}) => {
   const [prevPhoto, setPrevPhoto] = useState([]);
   // const {user} = useSelector(state => state.login);
   const [kategori, setKategori] = useState([]);
-
   const openImagePicker = () => {
     launchImageLibrary(
       {
@@ -173,7 +172,9 @@ const Jual = ({navigation}) => {
 
             <Gap height={20} />
             <ButtonComponent title="Simpan" onPress={handleSubmit} />
+
             <Gap height={20} />
+
           </View>
         )}
       </Formik>

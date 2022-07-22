@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';
 import Gap from '../../Gap';
 import people from '../../../assets/images/people.png';
 
-const CardBarang2 = ({title, category, price, image}) => {
+const CardBarang2 = ({title, category, price, image, onPress}) => {
   return (
+
     <SafeAreaView>
       <View style={styles.container}>
         <Image
@@ -20,6 +21,7 @@ const CardBarang2 = ({title, category, price, image}) => {
         <Text style={styles.price}>Rp {price ? price : 'price'}</Text>
       </View>
     </SafeAreaView>
+
   );
 };
 
@@ -27,6 +29,7 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
+
     width: ms(170),
     height: ms(220),
     marginHorizontal: ms(10),

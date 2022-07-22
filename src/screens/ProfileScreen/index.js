@@ -1,31 +1,50 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Text} from 'react-native';
+
+import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
+
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
 import {useEffect} from 'react';
+
 // import Gap from '../../components';
+
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
-// import {windowHeight, windowWidth} from '../../utils/Dimension';
-// import Input from '../../components/Input';
+
+import {windowHeight, windowWidth} from '../../utils/Dimension';
+
+
+import Profile2 from '../../components';
+
+
+import {ILNullPhoto} from '../../assets/icons/images';
+
+import {ms} from 'react-native-size-matters';
+
 import {fonts, COLORS} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 // import {InputComponent} from '../../components';
 // import {ILNullPhoto} from '../../assets/icons/images';
 import axios from 'axios';
+
 import Headers from '../../components/Headers';
-// import {putDataProfile} from './redux/action';
+
+import {putDataProfile} from './redux/action';
+
 // import {ms} from 'react-native-size-matters';
+
 
 import {BASE_URL} from '../../helpers/API';
 
 import {moderateScale} from 'react-native-size-matters';
 // import {updateProfileSchema} from '../../utils/Validation';
+
 import {useSelector, useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {kota} from '../../helpers/kota';
+
 import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
 // import Profile2 from '../../components';
@@ -125,6 +144,7 @@ export default function ProfileScreen({navigation}) {
     address: Yup.string().required('Alamat tidak boleh kosong'),
     phone_number: Yup.string().required('No. Handphone tidak boleh kosong'),
   });
+
 
   const getImage = () => {
     launchImageLibrary(
@@ -277,6 +297,7 @@ export default function ProfileScreen({navigation}) {
               <View style={styles.btnSimpan}>
                 <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
               </View>
+
             </View>
           );
         }}
@@ -295,39 +316,42 @@ const styles = StyleSheet.create({
   },
   alamatContainer: {height: moderateScale(100), textAlignVertical: 'top'},
   errorValidation: {
-    marginLeft: moderateScale(15),
+
+    marginLeft: ms(15),
     color: 'red',
-    marginBottom: moderateScale(10),
+    marginBottom: ms(10),
   },
   contentContainer: {
-    marginHorizontal: moderateScale(10),
+    marginHorizontal: ms(10),
   },
   btnSimpan: {
-    marginTop: moderateScale(19),
-    width: moderateScale(300),
+    marginTop: ms(19),
+    width: ms(300),
     alignSelf: 'center',
   },
   contentContainer2: {
-    marginTop: moderateScale(10),
-    marginHorizontal: moderateScale(10),
+    marginTop: ms(10),
+    marginHorizontal: ms(10),
   },
   dropdownPicker: {
-    width: moderateScale(310),
-    marginLeft: moderateScale(18),
+    width: ms(310),
+    marginLeft: ms(18),
     // backgroundColor: COLORS.white,
     borderColor: COLORS.black,
 
-    borderRadius: moderateScale(10),
+    borderRadius: ms(10),
   },
   kota: {
     // color: COLORS.black,
     // marginStart: moderateScale(5),
     // fontFamily: 'Poppins-SemiBold',
-    marginTop: moderateScale(10),
+
+    marginTop: ms(10),
     fontSize: moderateScale(15),
     // color: 'yellow',
     fontFamily: fonts.Poppins['700'],
-    marginLeft: moderateScale(19),
+    marginLeft: ms(19),
+
     color: COLORS.black,
   },
   imageContainer: {

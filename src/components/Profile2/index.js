@@ -2,6 +2,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {IconRemovePhoto} from '../../assets';
+import {cameraPic} from '../../assets';
 
 const Profile2 = ({isRemove = false, source, onPress}) => {
   return (

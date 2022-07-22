@@ -23,7 +23,7 @@ function PengaturanScreen({navigation}) {
           type="account"
           name="key"
           title="Ganti Password"
-          //   onPress={() => navigation.navigate('ForgotPasswordScreen')}
+          onPress={() => navigation.navigate('ForgotPasswordScreen')}
         />
       </ScrollView>
     </View>

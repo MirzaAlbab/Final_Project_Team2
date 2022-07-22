@@ -8,11 +8,7 @@ const CardInfoWithImage = ({image, title, city, price}) => {
   return (
     <View style={styles.container}>
       <View style={styles.onContainer}>
-        <Image
-          source={{uri: image}}
-          resizeMode={'cover'}
-          style={styles.peopleImage}
-        />
+        <Image source={image} resizeMode={'cover'} style={styles.peopleImage} />
         <View>
           <Text style={styles.sellerName}>{title}</Text>
           <Text style={styles.city}>{city}</Text>
@@ -33,7 +29,6 @@ const styles = StyleSheet.create({
     padding: ms(16),
     position: 'absolute',
     height: ms(80),
-    // marginLeft: ms(32),
     width: wp('92%'),
     left: ms(16),
     top: ms(379),
