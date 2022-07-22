@@ -15,6 +15,7 @@ import {API_URL} from '@env';
 
 const Buyer = ({navigation, route}) => {
   const id = route.params.id;
+
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
@@ -28,9 +29,7 @@ const Buyer = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
-    getProductByItem();
-  });
+  useEffect;
 
   const ActionRef = useRef();
 
