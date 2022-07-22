@@ -1,2 +1,0 @@
-export const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlyZmFuMTIzQG1haWwuY29tIiwiaWF0IjoxNjU3NTMxMzc4fQ.IP05gr74qX9KOtM1RVbXBvjMaMigge4ZUkotVKw6YHU';
