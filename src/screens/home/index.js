@@ -34,8 +34,7 @@ const Home = ({navigation}) => {
 
   const RenderItem = ({item}) => {
     return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Buyer', {id: item.id})}>
+      <TouchableOpacity>
         <CardBarang2
           image={item?.image_url}
           title={item?.name}
@@ -55,6 +54,7 @@ const Home = ({navigation}) => {
         <View>
           <Text style={styles.textHeader}>Bulan Ramadhan Banyak Diskon</Text>
           <Text style={styles.textDiskon}>Diskon Hingga</Text>
+
           <Text style={styles.textPersen}>60%</Text>
           <Image source={gift} resizeMode={'cover'} style={styles.image} />
         </View>
@@ -82,13 +82,9 @@ export default Home;
 const styles = StyleSheet.create({
   containerAll: {
     backgroundColor: COLORS.white,
+    flex: 1,
   },
-  bg: {
-    height: 250,
-    width: 200,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
+
   container: {
     width: wp('100%'),
     marginVertical: ms(20),
@@ -144,6 +140,7 @@ const styles = StyleSheet.create({
   },
   containerBarang: {
     top: ms(-120),
+    // backgroundColor: COLORS.gray,
   },
   image: {
     height: ms(127),
@@ -151,5 +148,6 @@ const styles = StyleSheet.create({
     width: ms(123),
     left: ms(239),
     opacity: 0.8,
+    position: 'absolute',
   },
 });
