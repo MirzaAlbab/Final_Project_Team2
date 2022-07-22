@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
@@ -77,6 +77,10 @@ export default function ProfileScreen({navigation, route}) {
       setPhoto(res.data.image_url);
       setValue(res.data.city);
       console.log(user);
+      // if (res.status === 200) {
+      //   Alert.alert('berhasil register');
+      //   navigation.navigate('Dashboard');
+      // }
     } catch (error) {
       console.log(error);
     }
