@@ -1,4 +1,13 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import CardList from '../../components/CardList';
@@ -10,26 +19,28 @@ import {Profile2} from '../../components';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
-// import {setUser} from '../Login/redux/action';
-// import {navigate} from '../../helpers/navigate';
+
+import {cameraPic} from '../../assets';
+import {setUser} from '../Login/redux/action';
+import {navigate} from '../../helpers/navigate';
 // import {API_URL} from '@env';
 import {logout} from '../Login/redux/action';
 import axios from 'axios';
+import ButtonCamera from '../../components/ButtonCamera';
 import {BASE_URL} from '../../helpers/API';
+import {useIsFocused} from '@react-navigation/native';
 
 function Akun({navigation}) {
   const dispatch = useDispatch();
-  const [photo, setPhoto] = useState(ILNullPhoto);
-  const {user} = useSelector(state => state.login);
+  const [image, setImage] = useState(image !== null ? image : ILNullPhoto);
 
+  // const [photo, setPhoto] = useState(ILNullPhoto);
+  const {user} = useSelector(state => state.login);
+  const isFocused = useIsFocused();
   const onLogout = () => {
-    dispatch(logout());
+    dispatch(logout(null));
     navigation.replace('Login');
   };
-
-  useEffect(() => {
-    getImage();
-  });
 
   const getImage = async () => {
     try {
@@ -37,11 +48,31 @@ function Akun({navigation}) {
         headers: {access_token: `${user}`},
       });
       console.log(res.data);
+
       setPhoto(res.data.image_url);
+
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getImage();
+    console.log('ini image', image);
+  }, [image, isFocused]);
+
+  // const getImage = async () => {
+  //   try {
+  //     const res = await axios.get(`${BASE_URL}/auth/user`, {
+  //       headers: {access_token: `${user}`},
+  //     });
+  //     console.log(res.data);
+  //     setImage(res.data.image_url);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
 
   // const exit = () => {
   //   const backAction = () => {
@@ -89,18 +120,24 @@ function Akun({navigation}) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
+
       {/* {
         !user.isLoggedIn ? (
           <NotLogin onPress={() => navigation.navigate('Login')} />
         ) : ( */}
       <Profile2 source={photo} />
+
       <View style={styles.form}>
         <ScrollView>
           <CardList
             type="account"
             name="edit"
             title="Ubah Akun"
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() =>
+              navigation.navigate('Profile', {
+                imageProfile: image,
+              })
+            }
           />
           <CardList
             type="account"

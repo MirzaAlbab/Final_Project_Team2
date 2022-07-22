@@ -13,7 +13,12 @@ const LoginReducer = (state = initialState, action) => {
       };
 
     case 'LOGOUT':
-      return initialState;
+
+      return {
+        ...state,
+        user: action.payload,
+      };
+
 
     default:
       return state;

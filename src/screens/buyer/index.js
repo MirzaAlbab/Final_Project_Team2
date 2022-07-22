@@ -3,10 +3,11 @@ import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
-import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
+import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
-import Button from '../../components/ButtonComponent';
 import ButtonComponent from '../../components/ButtonComponent';
+import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
+
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';

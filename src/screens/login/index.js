@@ -4,6 +4,7 @@ import {Formik} from 'formik';
 import {SignInSchema} from '../../utils/Validation';
 import {ms} from 'react-native-size-matters';
 import {API_URL} from '@env';
+import {BASE_URL} from '../../helpers/API';
 import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
@@ -21,7 +22,9 @@ export default function Login({navigation}) {
         password: values.password,
       };
       const res = await axios.post(`${BASE_URL}/auth/login`, body);
-      dispatch(setUser(res.data));
+
+      dispatch(setUser(res.data.access_token));
+
       console.log(res.data);
       navigation.navigate('Dashboard');
     } catch (error) {

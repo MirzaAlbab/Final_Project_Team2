@@ -6,7 +6,9 @@ export const setUser = (payload, token) => {
   };
 };
 
+
 export const logout = payload => ({
   type: 'LOGOUT',
   payload,
+
 });

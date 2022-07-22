@@ -4,6 +4,7 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import BottomTabs from './BottomTabs';
 import Buyer from '../screens/buyer';
+
 import ProfileScreen from '../screens/ProfileScreen';
 import PrevJual from '../screens/Prev-Jual';
 import PengaturanScreen from '../screens/PengaturanScreen';

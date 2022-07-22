@@ -1,14 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Text} from 'react-native';
+
+import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
+
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
 import {useEffect} from 'react';
+
 // import Gap from '../../components';
+
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 
 import {windowHeight, windowWidth} from '../../utils/Dimension';
+
 
 import Profile2 from '../../components';
 
@@ -34,10 +39,12 @@ import {BASE_URL} from '../../helpers/API';
 
 import {moderateScale} from 'react-native-size-matters';
 // import {updateProfileSchema} from '../../utils/Validation';
+
 import {useSelector, useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {kota} from '../../helpers/kota';
+
 import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
 // import Profile2 from '../../components';
@@ -137,6 +144,7 @@ export default function ProfileScreen({navigation}) {
     address: Yup.string().required('Alamat tidak boleh kosong'),
     phone_number: Yup.string().required('No. Handphone tidak boleh kosong'),
   });
+
 
   const getImage = () => {
     launchImageLibrary(
@@ -289,6 +297,7 @@ export default function ProfileScreen({navigation}) {
               <View style={styles.btnSimpan}>
                 <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
               </View>
+
             </View>
           );
         }}
@@ -307,6 +316,7 @@ const styles = StyleSheet.create({
   },
   alamatContainer: {height: moderateScale(100), textAlignVertical: 'top'},
   errorValidation: {
+
     marginLeft: ms(15),
     color: 'red',
     marginBottom: ms(10),
@@ -335,11 +345,13 @@ const styles = StyleSheet.create({
     // color: COLORS.black,
     // marginStart: moderateScale(5),
     // fontFamily: 'Poppins-SemiBold',
+
     marginTop: ms(10),
     fontSize: moderateScale(15),
     // color: 'yellow',
     fontFamily: fonts.Poppins['700'],
     marginLeft: ms(19),
+
     color: COLORS.black,
   },
   imageContainer: {

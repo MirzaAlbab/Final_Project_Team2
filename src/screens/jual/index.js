@@ -22,7 +22,6 @@ const Jual = ({navigation}) => {
   const [prevPhoto, setPrevPhoto] = useState([]);
   // const {user} = useSelector(state => state.login);
   const [kategori, setKategori] = useState([]);
-
   const openImagePicker = () => {
     launchImageLibrary(
       {

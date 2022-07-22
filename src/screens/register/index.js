@@ -7,6 +7,7 @@ import {SignUpSchema} from '../../utils/Validation';
 import {Formik} from 'formik';
 import {API_URL} from '@env';
 import {BASE_URL} from '../../helpers/API';
+
 const Register = ({navigation}) => {
   const submitRegister = async values => {
     console.log('test', values);
