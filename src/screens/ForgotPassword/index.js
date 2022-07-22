@@ -6,6 +6,7 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -84,6 +85,10 @@ function ForgotPasswordScreen({navigation}) {
       });
 
       console.log(res);
+      if (res.status === 200) {
+        Alert.alert('Ubah Pasword berhasil');
+        navigation.navigate('Dashboard');
+      }
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
