@@ -17,6 +17,7 @@ import Input from '../../components/Input';
 import axios from 'axios';
 import Headers from '../../components/Headers';
 import {putDataProfile} from './redux/action';
+import ButtonCamera from '../../components/ButtonCamera';
 // import {ms} from 'react-native-size-matters';
 
 import {BASE_URL} from '../../helpers/API';
@@ -27,7 +28,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {kota} from '../../helpers/kota';
-import ButtonCamera from '../../components/ButtonCamera';
+
 import {setLoading} from '../redux/reducer/globalAction';
 import Profile2 from '../../components';
 
@@ -115,9 +116,17 @@ export default function ProfileScreen({navigation, route}) {
       });
 
       console.log(res);
+      if (res.status === 200) {
+        Alert.alert('Berhasil Ubah Akun');
+        navigation.navigate('Dashboard');
+      }
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
+      if (error.response.status === 500) {
+        Alert.alert('Internal Service Error');
+      }
+      console.log(error);
     }
   };
 

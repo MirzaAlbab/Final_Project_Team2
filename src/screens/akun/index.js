@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   StyleSheet,
@@ -18,11 +19,13 @@ import {Profile2} from '../../components';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
+import {cameraPic} from '../../assets';
 import {setUser} from '../Login/redux/action';
 import {navigate} from '../../helpers/navigate';
 // import {API_URL} from '@env';
 import {logout} from '../Login/redux/action';
 import axios from 'axios';
+import ButtonCamera from '../../components/ButtonCamera';
 import {BASE_URL} from '../../helpers/API';
 import {useIsFocused} from '@react-navigation/native';
 
