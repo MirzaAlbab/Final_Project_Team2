@@ -1,25 +1,23 @@
-import {StyleSheet, Text, View, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';
 import Gap from '../../Gap';
 import people from '../../../assets/images/people.png';
 
-const CardBarang2 = ({title, category, price, image}) => {
+const CardBarang2 = ({title, category, price, image, onPress}) => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image
-          source={image ? {uri: image} : people}
-          resizeMode={'cover'}
-          style={styles.image}
-        />
-        <Gap height={20} />
-        <Text style={styles.title}>{title ? title : 'title'}</Text>
-        <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
-        <Text style={styles.price}>{price ? price : 'price'}</Text>
-      </View>
-    </SafeAreaView>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Image
+        source={image ? {uri: image} : people}
+        resizeMode={'cover'}
+        style={styles.image}
+      />
+      <Gap height={20} />
+      <Text style={styles.title}>{title ? title : 'title'}</Text>
+      <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
+      <Text style={styles.price}>{price ? price : 'price'}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     width: ms(166),
     height: ms(216),
-    top: ms(398),
+    // top: ms(398),
     marginHorizontal: ms(15),
     marginVertical: ms(10),
     backgroundColor: COLORS.white,

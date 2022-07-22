@@ -36,8 +36,7 @@ const Home = ({navigation}) => {
 
   const RenderItem = ({item}) => {
     return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Buyer', {id: item.id})}>
+      <TouchableOpacity>
         <CardBarang2
           image={item?.image_url}
           title={item?.name}
@@ -58,7 +57,8 @@ const Home = ({navigation}) => {
           <Text style={styles.textHeader}>Bulan Ramadhan Banyak Diskon</Text>
           <Gap height={86} />
           <Text style={styles.textDiskon}>Diskon Hingga</Text>
-          <Text style={styles.textPersen}>60%</Text>
+          <Text style={styles.textPersen}>600%</Text>
+          <Image source={gift} resizeMode={'cover'} style={styles.image} />
         </View>
         <Gap height={48} />
         <View>
@@ -68,19 +68,19 @@ const Home = ({navigation}) => {
           <View style={styles.buttonRow}>
             <Button title={'Semua'} />
             <Button title={'Hobi'} />
-            <Button title={'Kendarcaan'} />
+            <Button title={'Kendaraan'} />
           </View>
         </View>
-      </View>
+        <Gap height={36} />
 
-      <Image source={gift} resizeMode={'cover'} style={styles.image} />
-      <View style={styles.containerBarang}>
-        <FlatList
-          data={data}
-          numColumns={2}
-          keyExtractor={item => item.id}
-          renderItem={RenderItem}
-        />
+        <View>
+          <FlatList
+            data={data}
+            numColumns={2}
+            keyExtractor={item => item.id}
+            renderItem={RenderItem}
+          />
+        </View>
       </View>
     </View>
   );
@@ -91,13 +91,9 @@ export default Home;
 const styles = StyleSheet.create({
   containerAll: {
     backgroundColor: COLORS.white,
+    flex: 1,
   },
-  bg: {
-    height: 250,
-    width: 200,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
+
   container: {
     position: 'absolute',
     width: wp('100%'),
@@ -156,12 +152,13 @@ const styles = StyleSheet.create({
   },
   containerBarang: {
     top: ms(-120),
+    // backgroundColor: COLORS.gray,
   },
   image: {
     height: ms(127),
     width: ms(123),
     left: ms(239),
-    top: ms(124),
     opacity: 0.8,
+    position: 'absolute',
   },
 });
