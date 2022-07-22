@@ -5,6 +5,8 @@ import {useSelector} from 'react-redux';
 import CardList from '../../components/CardList';
 import Headers from '../../components/Headers';
 import {Profile2} from '../../components';
+import {ms} from 'react-native-size-matters';
+import {COLORS} from '../../utils';
 
 function PengaturanScreen({navigation}) {
   const profile = useSelector(state => state.profile);
@@ -15,13 +17,13 @@ function PengaturanScreen({navigation}) {
         type="back-title"
         onPress={() => navigation.goBack()}
       />
-      <ScrollView>
+      <ScrollView style={styles.menu}>
         <Profile2 source={{uri: profile.profile?.image_url}} />
         <CardList
           type="account"
           name="key"
           title="Ganti Password"
-          //   onPress={() => navigation.navigate('ForgotPasswordScreen')}
+          onPress={() => navigation.navigate('ForgotPasswordScreen')}
         />
       </ScrollView>
     </View>
@@ -30,4 +32,8 @@ function PengaturanScreen({navigation}) {
 
 export default PengaturanScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  menu: {
+    marginHorizontal: ms(10),
+  },
+});

@@ -1,5 +1,6 @@
 const initialState = {
   user: null,
+  token: '',
 };
 
 const LoginReducer = (state = initialState, action) => {
@@ -8,7 +9,11 @@ const LoginReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        token: action.token,
       };
+
+    case 'LOGOUT':
+      return initialState;
 
     default:
       return state;
