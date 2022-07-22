@@ -12,6 +12,7 @@ import {Gap, Link, Button, InputComponent} from '../../components';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
+  // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
       const body = {

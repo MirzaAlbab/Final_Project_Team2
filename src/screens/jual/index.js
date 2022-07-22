@@ -173,7 +173,9 @@ const Jual = ({navigation}) => {
 
             <Gap height={20} />
             <ButtonComponent title="Simpan" onPress={handleSubmit} />
+
             <Gap height={20} />
+
           </View>
         )}
       </Formik>

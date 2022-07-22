@@ -89,6 +89,10 @@ function Akun({navigation}) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
+      {/* {
+        !user.isLoggedIn ? (
+          <NotLogin onPress={() => navigation.navigate('Login')} />
+        ) : ( */}
       <Profile2 source={photo} />
       <View style={styles.form}>
         <ScrollView>
