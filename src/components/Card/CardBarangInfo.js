@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {COLORS, fonts} from '../../../utils';
+import {COLORS, fonts} from '../../utils';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
@@ -10,7 +10,7 @@ const CardBarangInfo = ({title, category, price}) => {
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.category}>{category}</Text>
-        <Text style={styles.price}>{price}</Text>
+        <Text style={styles.price}>Rp {price}</Text>
       </View>
     </View>
   );

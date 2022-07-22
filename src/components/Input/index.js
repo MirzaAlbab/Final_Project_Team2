@@ -1,7 +1,6 @@
 import React, {memo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-// import {colors, fonts} from '../../../utils';
 
 function Input({
   onChangeText,
@@ -21,10 +20,6 @@ function Input({
         label={label}
         onBlur={onBlur}
         mode="outlined"
-        // activeOutlineColor={colors.lineTextInput}
-        // outlineColor={
-        //   cannotEdited ? colors.disable.background : colors.outlineInput
-        // }
         style={styles.input}
         secureTextEntry={secureTextEntry ? passwordVisible : false}
         left={<TextInput.Icon name={leftIcon} />}
@@ -47,7 +42,6 @@ const styles = StyleSheet.create({
   input: {
     // fontFamily: fonts.Poppins.Regular,
     fontSize: 16,
-    // color: colors.text.primary,
   },
 });
 

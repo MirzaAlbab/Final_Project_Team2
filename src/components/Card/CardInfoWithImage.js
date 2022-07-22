@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
-import {COLORS, fonts} from '../../../utils';
+import {COLORS, fonts} from '../../utils';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const CardInfoWithImage = ({image, title, city, price}) => {
