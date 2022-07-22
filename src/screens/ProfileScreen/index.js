@@ -1,35 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
 import {useEffect} from 'react';
-import Gap from '../../components';
+// import Gap from '../../components';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
-import {windowHeight, windowWidth} from '../../utils/Dimension';
+// import {windowHeight, windowWidth} from '../../utils/Dimension';
 // import Input from '../../components/Input';
 import {fonts, COLORS} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
-import {InputComponent} from '../../components';
-import {ILNullPhoto} from '../../assets/icons/images';
-import Input from '../../components/Input';
+// import {InputComponent} from '../../components';
+// import {ILNullPhoto} from '../../assets/icons/images';
 import axios from 'axios';
 import Headers from '../../components/Headers';
-import {putDataProfile} from './redux/action';
+// import {putDataProfile} from './redux/action';
 // import {ms} from 'react-native-size-matters';
 
 import {BASE_URL} from '../../helpers/API';
 
 import {moderateScale} from 'react-native-size-matters';
-import {updateProfileSchema} from '../../utils/Validation';
+// import {updateProfileSchema} from '../../utils/Validation';
 import {useSelector, useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {kota} from '../../helpers/kota';
 import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
-import Profile2 from '../../components';
+// import Profile2 from '../../components';
 
 export default function ProfileScreen({navigation}) {
   const [User, setUser] = useState({

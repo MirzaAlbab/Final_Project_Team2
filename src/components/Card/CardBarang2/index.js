@@ -14,10 +14,10 @@ const CardBarang2 = ({title, category, price, image}) => {
           resizeMode={'cover'}
           style={styles.image}
         />
-        <Gap height={20} />
+        <Gap height={10} />
         <Text style={styles.title}>{title ? title : 'title'}</Text>
         <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
-        <Text style={styles.price}>{price ? price : 'price'}</Text>
+        <Text style={styles.price}>Rp {price ? price : 'price'}</Text>
       </View>
     </SafeAreaView>
   );
@@ -27,11 +27,11 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
-    width: ms(166),
-    height: ms(216),
-    top: ms(398),
-    marginHorizontal: ms(15),
+    width: ms(170),
+    height: ms(220),
+    marginHorizontal: ms(10),
     marginVertical: ms(10),
+    alignContent: 'center',
     backgroundColor: COLORS.white,
     shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
@@ -49,38 +49,31 @@ const styles = StyleSheet.create({
     lineHeight: ms(14),
     color: COLORS.darkBrown,
     width: ms(190),
-    height: ms(20),
-    left: ms(8),
-    position: 'absolute',
-    top: ms(120),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   category: {
     fontFamily: fonts.Poppins['400'],
     color: COLORS.gray,
     fontStyle: 'normal',
-    position: 'absolute',
     lineHeight: ms(14),
-    width: ms(140),
-    height: ms(14),
-    left: ms(8),
-    top: ms(140),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   price: {
     fontFamily: fonts.Poppins['400'],
     color: COLORS.darkBrown,
     fontStyle: 'normal',
     lineHeight: ms(20),
-    position: 'absolute',
-    width: ms(140),
-    height: ms(20),
-    left: ms(8),
-    marginTop: ms(165),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   image: {
     height: ms(100),
     width: ms(140),
     borderRadius: ms(4),
-    flexGrow: 0,
-    margin: ms(8),
+    marginVertical: ms(5),
+    marginHorizontal: ms(10),
+    alignSelf: 'center',
   },
 });

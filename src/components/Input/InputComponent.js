@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     display: 'flex',
     flexDirection: 'row',
-    paddingVertical: 12,
+
     paddingHorizontal: 16,
     alignItems: 'center',
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   eye: {
     right: '14.5%',
     color: COLORS.black,
-    fontSize: 40,
+    fontSize: 30,
   },
   error: {
     color: COLORS.red,

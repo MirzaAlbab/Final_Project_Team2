@@ -45,7 +45,7 @@ const Register = () => {
       console.log(data, 'data post');
 
       if (res.status === 201) {
-        Alert.alert('berhasil register');
+        Alert.alert('Berhasil register');
       }
     } catch (error) {
       if (error.response.status === 400) {
