@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {setLoading} from '../redux/reducer/globalAction';
@@ -53,19 +54,15 @@ const Notification = ({navigation}) => {
 
       if ((error.message = 'Request failed with status code 401')) {
         await AsyncStorage.setItem('@access_token', '');
-        Alert.alert(
-          'Pemberitahuan',
-          'Token Sudah Expired, silahkan Login kembali!',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                navigation.navigate('Login');
-                dispatch(setUser(''));
-              },
+        Alert.alert('Pemberitahuan', 'Silahkan Login Kembali', [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Login');
+              dispatch(setUser(''));
             },
-          ],
-        );
+          },
+        ]);
       }
     } finally {
       dispatch(setLoading(false));
