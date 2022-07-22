@@ -9,7 +9,9 @@ function Headers({onPress, title, type}) {
   if (type === 'back-title') {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={{position: 'absolute'}} onPress={onPress}>
+
+        <TouchableOpacity style={styles.tombolheader} onPress={onPress}>
+
           <Icon name="arrow-left" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.titleBack}>{title}</Text>
@@ -36,8 +38,11 @@ export default Headers;
 const styles = StyleSheet.create({
   title: {
     fontFamily: 'Poppins-Bold',
+
     fontSize: ms(20),
-    color: 'black',
+
+    color: COLORS.black,
+
   },
 
   container: {
@@ -53,7 +58,14 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     flex: 1,
+
+    marginRight: ms(50),
+
+    zIndex: 1,
     alignSelf: 'center',
-    zIndex: -1,
+  },
+  tombolheader: {
+    marginLeft: ms(20),
+
   },
 });

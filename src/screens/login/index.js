@@ -10,9 +10,11 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
+import {BASE_URL} from '../../helpers/API';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
+  // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
       const body = {
@@ -20,7 +22,9 @@ export default function Login({navigation}) {
         password: values.password,
       };
       const res = await axios.post(`${BASE_URL}/auth/login`, body);
+
       dispatch(setUser(res.data.access_token));
+
       console.log(res.data);
       navigation.navigate('Dashboard');
     } catch (error) {
@@ -57,12 +61,10 @@ export default function Login({navigation}) {
                 )
               }
             />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
 
             <Gap height={10} />
             <InputComponent
+              password
               label={'Password'}
               placeholder={'Password'}
               value={values.password}

@@ -7,6 +7,7 @@ import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
+
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
@@ -14,12 +15,13 @@ import {InputComponent} from '../../components';
 import axios from 'axios';
 import {API_URL} from '@env';
 
-const Buyer = () => {
+const Buyer = ({navigation, route}) => {
+  const id = route.params.id;
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/98`);
+      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);
@@ -30,7 +32,7 @@ const Buyer = () => {
 
   useEffect(() => {
     getProductByItem();
-  }, []);
+  });
 
   const ActionRef = useRef();
 
@@ -96,6 +98,7 @@ const Buyer = () => {
 
       <View style={styles.containerDeskripsi}>
         <Text style={styles.title}>Deskripsi</Text>
+
         <Text style={styles.content}>{data.description}</Text>
         <ButtonComponent
           title={'Saya tertarik dan ingin nego'}

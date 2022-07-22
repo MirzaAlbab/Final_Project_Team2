@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import propTypes from 'prop-types';
@@ -7,7 +8,7 @@ import {IconNotLogin} from '../../assets';
 
 function NotLogin({onPress}) {
   return (
-    <View style={{flex: 1, justifyContent: 'center'}}>
+    <View style={styles.container}>
       <View style={styles.notLogin}>
         <IconNotLogin style={styles.image} />
         <Text style={styles.notLoginText}>
@@ -45,6 +46,10 @@ const styles = StyleSheet.create({
     bottom: 15,
     left: 0,
     right: 0,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 

@@ -12,13 +12,14 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import CardList from '../../components/CardList';
 import Headers from '../../components/Headers';
-import NotLogin from '../../components/NotLogin';
-import ProfileScreen from '../ProfileScreen';
+// import NotLogin from '../../components/NotLogin';
+// import ProfileScreen from '../ProfileScreen';
 import {Profile2} from '../../components';
 // import {Fade, Placeholder, PlaceholderMedia} from 'rn-placeholder';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
+
 import {cameraPic} from '../../assets';
 import {setUser} from '../Login/redux/action';
 import {navigate} from '../../helpers/navigate';
@@ -40,17 +41,21 @@ function Akun({navigation}) {
     dispatch(logout(null));
     navigation.replace('Login');
   };
+
   const getImage = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/user`, {
         headers: {access_token: `${user}`},
       });
       console.log(res.data);
-      setImage(res.data.image_url);
+
+      setPhoto(res.data.image_url);
+
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getImage();
     console.log('ini image', image);
@@ -67,6 +72,7 @@ function Akun({navigation}) {
   //     console.log(error);
   //   }
   // };
+
 
   // const exit = () => {
   //   const backAction = () => {
@@ -114,7 +120,13 @@ function Akun({navigation}) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
-      <Profile2 source={image !== null ? {uri: image} : ILNullPhoto} />
+
+      {/* {
+        !user.isLoggedIn ? (
+          <NotLogin onPress={() => navigation.navigate('Login')} />
+        ) : ( */}
+      <Profile2 source={photo} />
+
       <View style={styles.form}>
         <ScrollView>
           <CardList

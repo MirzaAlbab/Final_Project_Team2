@@ -1,27 +1,27 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Formik} from 'formik';
-import SelectDropdown from 'react-native-select-dropdown';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import DropdownSelect from './DropdownSelect';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
-import Input from '../../components/Input';
+import {InputComponent} from '../../components';
 import Headers from '../../components/Headers';
 import Gap from '../../components/Gap';
 import ButtonComponent from '../../components/ButtonComponent';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
 import {API_URL} from '@env';
 import {useSelector} from 'react-redux';
 import {ACCESS_TOKEN} from '../../helpers/AccesTokenDumy';
+import {ms} from 'react-native-size-matters';
+import {COLORS} from '../../utils';
 const Jual = ({navigation}) => {
   const [photo, setPhoto] = useState([]);
   const [prevPhoto, setPrevPhoto] = useState([]);
-  const {user} = useSelector(state => state.login);
+  // const {user} = useSelector(state => state.login);
   const [kategori, setKategori] = useState([]);
-  const token = user;
   const openImagePicker = () => {
     launchImageLibrary(
       {
@@ -41,7 +41,7 @@ const Jual = ({navigation}) => {
     );
   };
   useEffect(() => {
-    getCategory();
+    // getCategory();
   }, []);
 
   const getCategory = () => {
@@ -49,9 +49,8 @@ const Jual = ({navigation}) => {
       axios
         .get(`${API_URL}/seller/category`, {})
         .then(res => {
-          console;
-
           setKategori(res.data);
+          console.log(res.data);
         })
         .catch(err => {
           console.log('err : ', err);
@@ -87,7 +86,7 @@ const Jual = ({navigation}) => {
   };
 
   return (
-    <View style={styles.pages}>
+    <ScrollView style={styles.pages}>
       <View>
         <Headers
           title="Lengkapi Detail Produk"
@@ -108,97 +107,78 @@ const Jual = ({navigation}) => {
           touched,
         }) => (
           <View style={styles.form}>
-            <Input
+            <InputComponent
               label="Nama Produk"
               onChangeText={handleChange('namaproduk')}
               value={values.namaproduk}
               onBlur={handleBlur('namaproduk')}
+              errorMessage={
+                touched.namaproduk &&
+                errors.namaproduk && (
+                  <Text style={styles.textError}>{errors.namaproduk}</Text>
+                )
+              }
             />
-            {errors.namaproduk && touched.namaproduk && (
-              <Text style={styles.errorText}>{errors.namaproduk}</Text>
-            )}
+
             <Gap height={10} />
-            <Input
+            <InputComponent
               label="Harga"
               onChangeText={handleChange('harga')}
               value={values.harga}
               onBlur={handleBlur('harga')}
+              errorMessage={
+                touched.harga &&
+                errors.harga && (
+                  <Text style={styles.textError}>{errors.harga}</Text>
+                )
+              }
             />
-            {errors.harga && touched.harga && (
-              <Text style={styles.errorText}>{errors.harga}</Text>
-            )}
             <Gap height={10} />
-            {/* <SelectDropdown
-              label="name"
-              onSelect={(value, label) => {}}
-              onValueChange={handleChange('category_id')}
-              value={values.kategori.id}
-              data={kategori}
-              style={styles.select}
-            /> */}
-            <SelectDropdown
-              data={kategori}
-              label="Kategori"
-              // defaultValueByIndex={1}
-              // defaultValue={'Egypt'}
-              onSelect={(index, value) => {
-                console.log('index : ', index);
-                console.log('value : ', value);
-                setKategori(value);
-              }}
-              defaultButtonText="Pilih Kategori"
-              buttonTextAfterSelection={selectedItem => selectedItem}
-              rowTextForSelection={item => item}
-              buttonStyle={styles.dropdown1BtnStyle}
-              buttonTextStyle={styles.dropdown1BtnTxtStyle}
-              renderDropdownIcon={isOpened => (
-                <FontAwesome
-                  name={isOpened ? 'chevron-up' : 'chevron-down'}
-                  color="#444"
-                  size={18}
-                />
-              )}
-              dropdownIconPosition="right"
-              dropdownStyle={styles.dropdown1DropdownStyle}
-              rowStyle={styles.dropdown1RowStyle}
-              rowTextStyle={styles.dropdown1RowTxtStyle}
-              selectedRowStyle={styles.dropdown1SelectedRowStyle}
-              search
-              searchInputStyle={styles.dropdown1searchInputStyleStyle}
-              searchPlaceHolder="Search here"
-              searchPlaceHolderColor="darkgrey"
-              renderSearchInputLeftIcon={() => (
-                <FontAwesome name="search" color="#444" size={18} />
-              )}
-            />
-            {errors.kota && touched.kota && (
-              <Text style={styles.errorText}>{errors.kota}</Text>
-            )}
-            <Gap height={10} />
-            <Input
+            <InputComponent
               label="Deskripsi"
               onChangeText={handleChange('deskripsi')}
               value={values.deskripsi}
               onBlur={handleBlur('deskripsi')}
+              numberOfLines={3}
+              errorMessage={
+                touched.deskripsi &&
+                errors.deskripsi && (
+                  <Text style={styles.textError}>{errors.deskripsi}</Text>
+                )
+              }
             />
-            {errors.deskripsi && touched.deskripsi && (
-              <Text style={styles.errorText}>{errors.deskripsi}</Text>
-            )}
+
             <Gap height={10} />
-            <TouchableOpacity onPress={openImagePicker}>
+            {/* <DropdownSelect
+              // data={kategori}
+              // value={values.category_ids}
+              title={'Kategori'}
+              // labelField="name"
+              // valueField="id"
+              // onChange={item => {}}
+            /> */}
+
+            <Gap height={20} />
+            <TouchableOpacity
+              onPress={openImagePicker}
+              style={styles.rectangle}>
               <MaterialCommunityIcons
                 name="image-plus"
                 size={30}
                 color="#444"
+                style={styles.icon1}
               />
             </TouchableOpacity>
 
             <Gap height={20} />
             <ButtonComponent title="Simpan" onPress={handleSubmit} />
+
+            <Gap height={20} />
+
           </View>
         )}
       </Formik>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -219,7 +199,8 @@ const styles = StyleSheet.create({
     // fontFamily: fonts.Poppins.SemiBold,
   },
   icon1: {
-    marginRight: 64,
+    alignSelf: 'center',
+    lineHeight: ms(150),
   },
   name: {
     marginTop: windowHeight * 0.3,
@@ -285,7 +266,16 @@ const styles = StyleSheet.create({
 
   form: {
     paddingHorizontal: 5,
-    margin: 15,
+    marginTop: ms(20),
+  },
+  rectangle: {
+    width: 150,
+    height: 200,
+    marginLeft: ms(20),
+    borderWidth: 1,
+    borderStyle: 'dotted',
+    borderColor: COLORS.black,
+    borderRadius: 10,
   },
 });
 
