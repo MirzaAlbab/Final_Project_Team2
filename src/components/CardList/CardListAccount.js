@@ -2,6 +2,7 @@ import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import propTypes from 'prop-types';
+import {COLORS, fonts} from '../../utils';
 
 function CardListAccount({onPress, name, title}) {
   return (
@@ -19,15 +20,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: 'grey',
+    borderColor: 'grey',
     flexDirection: 'row',
+    borderRadius: 5,
   },
 
   text: {
     marginLeft: 20,
     // fontSize: fontSize.small,
-    fontFamily: 'Poppins',
-    color: 'black',
+
+    fontFamily: fonts.Poppins[400],
+    color: COLORS.black,
   },
 });
 
