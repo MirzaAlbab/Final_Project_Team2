@@ -43,7 +43,7 @@ function Akun({navigation}) {
   const getImage = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/user`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       console.log(res.data);
       setImage(res.data.image_url);
@@ -98,6 +98,10 @@ function Akun({navigation}) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
+      {/* {
+        !user.isLoggedIn ? (
+          <NotLogin onPress={() => navigation.navigate('Login')} />
+        ) : ( */}
       <Profile2 source={photo} />
       <View style={styles.form}>
         <ScrollView>
