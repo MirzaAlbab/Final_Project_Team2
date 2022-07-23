@@ -1,4 +1,4 @@
-import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';
@@ -7,16 +7,18 @@ import people from '../../../assets/images/people.png';
 
 const CardBarang2 = ({title, category, price, image, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Image
-        source={image ? {uri: image} : people}
-        resizeMode={'cover'}
-        style={styles.image}
-      />
-      <Gap height={20} />
-      <Text style={styles.title}>{title ? title : 'title'}</Text>
-      <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
-      <Text style={styles.price}>{price ? price : 'price'}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Image
+          source={image ? {uri: image} : people}
+          resizeMode={'cover'}
+          style={styles.image}
+        />
+        <Gap height={10} />
+        <Text style={styles.title}>{title ? title : 'title'}</Text>
+        <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
+        <Text style={styles.price}>Rp {price ? price : 'price'}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
     // top: ms(398),
     marginHorizontal: ms(12),
     marginVertical: ms(10),
+    alignContent: 'center',
     backgroundColor: COLORS.white,
     shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
@@ -47,38 +50,31 @@ const styles = StyleSheet.create({
     lineHeight: ms(14),
     color: COLORS.darkBrown,
     width: ms(190),
-    height: ms(20),
-    left: ms(8),
-    position: 'absolute',
-    top: ms(120),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   category: {
     fontFamily: fonts.Poppins['400'],
     color: COLORS.gray,
     fontStyle: 'normal',
-    position: 'absolute',
     lineHeight: ms(14),
-    width: ms(140),
-    height: ms(14),
-    left: ms(8),
-    top: ms(140),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   price: {
     fontFamily: fonts.Poppins['400'],
     color: COLORS.darkBrown,
     fontStyle: 'normal',
     lineHeight: ms(20),
-    position: 'absolute',
-    width: ms(140),
-    height: ms(20),
-    left: ms(8),
-    marginTop: ms(165),
+    marginHorizontal: ms(10),
+    marginVertical: ms(5),
   },
   image: {
     height: ms(100),
     width: ms(140),
     borderRadius: ms(4),
-    flexGrow: 0,
-    margin: ms(8),
+    marginVertical: ms(5),
+    marginHorizontal: ms(10),
+    alignSelf: 'center',
   },
 });

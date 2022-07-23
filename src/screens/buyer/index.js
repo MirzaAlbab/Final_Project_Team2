@@ -71,7 +71,10 @@ const Buyer = ({navigation, route}) => {
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <Button title={'Kirim'} onPress={OnButtonKirim} />
+                <ButtonComponent
+                  title={'Kirim'}
+                  onPress={() => Alert.alert('Kirim')}
+                />
               </View>
             </View>
           </View>
