@@ -33,7 +33,7 @@ const Buyer = ({navigation, route}) => {
 
   useEffect(() => {
     getProductByItem();
-  }, []);
+  });
 
   const ActionRef = useRef();
 
