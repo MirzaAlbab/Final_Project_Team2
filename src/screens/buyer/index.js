@@ -42,6 +42,10 @@ const Buyer = ({navigation, route}) => {
     ActionRef.current.hide();
   };
 
+  const OnButtonKirim = () => {
+    Alert.alert('halxxao');
+  };
+
   return (
     <View style={styles.container}>
       <ActionSheet ref={ActionRef}>
@@ -67,7 +71,7 @@ const Buyer = ({navigation, route}) => {
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <Button title={'Kirim'} onPress={() => Alert.alert('Kirim')} />
+                <Button title={'Kirim'} onPress={OnButtonKirim} />
               </View>
             </View>
           </View>
