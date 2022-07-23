@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../utils/Validation';
@@ -7,14 +7,17 @@ import {API_URL} from '@env';
 import {BASE_URL} from '../../helpers/API';
 import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
+import {setLoading} from '../redux/reducer/globalAction';
 
 export default function Login({navigation}) {
+  const {loading} = useSelector(state => state.global);
   const dispatch = useDispatch();
   const _onLogin = async values => {
     try {
+      dispatch(setLoading(true));
       const body = {
         email: values.email,
         password: values.password,
@@ -25,6 +28,8 @@ export default function Login({navigation}) {
       navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (
@@ -112,8 +117,12 @@ export default function Login({navigation}) {
             </View> */}
 
             <Gap height={40} />
+            {loading ? (
+              <ActivityIndicator />
+            ) : (
+              <Button title={'LOGIN'} onPress={handleSubmit} />
+            )}
 
-            <Button title={'LOGIN'} onPress={handleSubmit} />
             <Gap height={90} />
             <View style={styles.account}>
               <Text style={styles.text}>Belum punya akun ?</Text>

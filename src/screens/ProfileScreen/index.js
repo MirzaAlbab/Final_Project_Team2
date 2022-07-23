@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
@@ -33,6 +40,7 @@ import {setLoading} from '../redux/reducer/globalAction';
 import Profile2 from '../../components';
 
 export default function ProfileScreen({navigation, route}) {
+  const {loading} = useSelector(state => state.global);
   const {imageProfile} = route.params;
   const [User, setUser] = useState({
     full_name: '',
@@ -65,6 +73,7 @@ export default function ProfileScreen({navigation, route}) {
 
   const getProfile = async () => {
     try {
+      dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/auth/user`, {
         headers: {access_token: `${user}`},
       });
@@ -84,6 +93,8 @@ export default function ProfileScreen({navigation, route}) {
       // }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -209,97 +220,105 @@ export default function ProfileScreen({navigation, route}) {
 
   return (
     <View style={styles.container}>
-      <Formik
-        validationSchema={validationProfile}
-        initialValues={User}
-        enableReinitialize={true}
-        onSubmit={putProfile}>
-        {({
-          handleChange,
-          handleSubmit,
-          handleBlur,
-          values,
-          errors,
-          touched,
-        }) => {
-          return (
-            <View>
-              <ScrollView>
-                <Headers
-                  title={'Lengkapi Info Akun'}
-                  type={'back-title'}
-                  onPress={() => {
-                    navigation.goBack();
-                  }}
-                />
-                <View style={styles.contentContainer}>
-                  <ButtonCamera onPress={getImage} url={photo} />
-
-                  <InputProfile
-                    inputName="Nama"
-                    placeholder="Nama Lengkap"
-                    onChangeText={handleChange('full_name')}
-                    onBlur={handleBlur('full_name')}
-                    value={values.full_name}
+      {loading ? (
+        <View style={{justifyContent: 'center', flex: 1}}>
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <Formik
+          validationSchema={validationProfile}
+          initialValues={User}
+          enableReinitialize={true}
+          onSubmit={putProfile}>
+          {({
+            handleChange,
+            handleSubmit,
+            handleBlur,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View>
+                <ScrollView>
+                  <Headers
+                    title={'Lengkapi Info Akun'}
+                    type={'back-title'}
+                    onPress={() => {
+                      navigation.goBack();
+                    }}
                   />
-                </View>
-                {touched.full_name && errors.full_name && (
-                  <Text style={styles.errorValidation}>{errors.full_name}</Text>
-                )}
+                  <View style={styles.contentContainer}>
+                    <ButtonCamera onPress={getImage} url={photo} />
 
-                <View style={styles.contentContainer}>
-                  <Text style={styles.kota}>Kota</Text>
-                  <DropDownPicker
-                    style={styles.dropdownPicker}
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                  />
-                </View>
-                <View style={styles.contentContainer2}>
-                  <InputProfile
-                    inputName="Alamat"
-                    placeholder="Contoh: Jalan Manggala 2"
-                    multiline={true}
-                    numberOfLines={4}
-                    styleInput={styles.alamatContainer}
-                    onChangeText={handleChange('address')}
-                    onBlur={handleBlur('address')}
-                    value={values.address}
-                  />
-                </View>
+                    <InputProfile
+                      inputName="Nama"
+                      placeholder="Nama Lengkap"
+                      onChangeText={handleChange('full_name')}
+                      onBlur={handleBlur('full_name')}
+                      value={values.full_name}
+                    />
+                  </View>
+                  {touched.full_name && errors.full_name && (
+                    <Text style={styles.errorValidation}>
+                      {errors.full_name}
+                    </Text>
+                  )}
 
-                {touched.address && errors.address && (
-                  <Text style={styles.errorValidation}>{errors.address}</Text>
-                )}
-                <View style={styles.contentContainer2}>
-                  <InputProfile
-                    keyboardType={'numeric'}
-                    placeholder="Contoh: 0877368437"
-                    inputName="No Handphone"
-                    onChangeText={handleChange('phone_number')}
-                    onBlur={handleBlur('phone_number')}
-                    value={values.phone_number}
-                  />
-                </View>
+                  <View style={styles.contentContainer}>
+                    <Text style={styles.kota}>Kota</Text>
+                    <DropDownPicker
+                      style={styles.dropdownPicker}
+                      open={open}
+                      value={value}
+                      items={items}
+                      setOpen={setOpen}
+                      setValue={setValue}
+                      setItems={setItems}
+                    />
+                  </View>
+                  <View style={styles.contentContainer2}>
+                    <InputProfile
+                      inputName="Alamat"
+                      placeholder="Contoh: Jalan Manggala 2"
+                      multiline={true}
+                      numberOfLines={4}
+                      styleInput={styles.alamatContainer}
+                      onChangeText={handleChange('address')}
+                      onBlur={handleBlur('address')}
+                      value={values.address}
+                    />
+                  </View>
 
-                {touched.phone_number && errors.phone_number && (
-                  <Text style={styles.errorValidation}>
-                    {errors.phone_number}
-                  </Text>
-                )}
+                  {touched.address && errors.address && (
+                    <Text style={styles.errorValidation}>{errors.address}</Text>
+                  )}
+                  <View style={styles.contentContainer2}>
+                    <InputProfile
+                      keyboardType={'numeric'}
+                      placeholder="Contoh: 0877368437"
+                      inputName="No Handphone"
+                      onChangeText={handleChange('phone_number')}
+                      onBlur={handleBlur('phone_number')}
+                      value={values.phone_number}
+                    />
+                  </View>
 
-                <View style={styles.btnSimpan}>
-                  <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
-                </View>
-              </ScrollView>
-            </View>
-          );
-        }}
-      </Formik>
+                  {touched.phone_number && errors.phone_number && (
+                    <Text style={styles.errorValidation}>
+                      {errors.phone_number}
+                    </Text>
+                  )}
+
+                  <View style={styles.btnSimpan}>
+                    <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
+                  </View>
+                </ScrollView>
+              </View>
+            );
+          }}
+        </Formik>
+      )}
     </View>
   );
 }
