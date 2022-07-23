@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
-import Register from '../screens/register';
+import Register from '../screens/Register';
 import BottomTabs from './BottomTabs';
 import Buyer from '../screens/buyer';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default function MainRoute() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Dashboard"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
