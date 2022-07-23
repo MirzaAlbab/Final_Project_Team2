@@ -53,6 +53,7 @@ import {setLoading} from '../redux/reducer/globalAction';
 
 export default function ProfileScreen({navigation, route}) {
   const {loading} = useSelector(state => state.global);
+
   const {imageProfile} = route.params;
   const [User, setUser] = useState({
     full_name: '',
@@ -69,13 +70,6 @@ export default function ProfileScreen({navigation, route}) {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(kota);
   const [image, setImage] = useState('');
-  // const [User, setUser] = useState({
-  //   full_name: '',
-  //   city: '',
-  //   address: '',
-  //   phone_number: '',
-  //   image: '',
-  // });
 
   useEffect(() => {
     getProfile();
@@ -86,7 +80,7 @@ export default function ProfileScreen({navigation, route}) {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/auth/user`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       setUser({
         full_name: res.data.full_name,
@@ -128,14 +122,14 @@ export default function ProfileScreen({navigation, route}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });
 
       console.log(res);
       if (res.status === 200) {
-        Alert.alert('Berhasil register');
+        Alert.alert('Berhasil Ubah Akun');
         navigation.navigate('Dashboard');
       }
     } catch (error) {

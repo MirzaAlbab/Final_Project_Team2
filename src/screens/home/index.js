@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import {
   StyleSheet,
   Text,
@@ -15,13 +16,14 @@ import CardBarang2 from '../../components/Card/CardBarang2';
 import axios from 'axios';
 import {API_URL} from '@env';
 import gift from '../../assets/images/gift.png';
+import {BASE_URL} from '../../helpers/API';
 
 const Home = ({navigation}) => {
   const [data, setData] = useState({});
   // const [category, setCategory] = useState([]);
   const getProduct = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product`);
+      const res = await axios.get(`${BASE_URL}/buyer/product`);
       console.log(res.data, 'data resgggg');
       setData(res.data);
     } catch (error) {
@@ -34,13 +36,13 @@ const Home = ({navigation}) => {
 
   const RenderItem = ({item}) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Buyer', {id: item.id})}>
         <CardBarang2
           image={item?.image_url}
           title={item?.name}
           category={item?.Categories[0].name}
           price={item?.base_price}
-          onPress={() => navigation.navigate('Buyer', {id: item.id})}
         />
       </TouchableOpacity>
     );

@@ -37,7 +37,7 @@ const Notification = ({navigation}) => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/notification`, {
-        headers: {access_token: `${user}`},
+        headers: {access_token: `${user}`, notification_type: 'buyer'},
       });
       setnotifikasi([...res.data]);
       console.log('Data Notification: ', res.data);
@@ -89,9 +89,12 @@ const Notification = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Poppins style={styles.textHeader}>Notifikasi</Poppins>
-
+      <Headers title={'Notifikasi'} />
+      <View style={{marginTop: 300}}>
+        {/* <Poppins style={styles.textHeader}>Notifikasi</Poppins>
+        {!user.isLoggedIn ? (
+          <NotLogin />
+        ) : ( */}
         <View style={styles.containerNotifBar}>
           <FlatList
             // refreshControl={
@@ -105,6 +108,7 @@ const Notification = ({navigation}) => {
             ListFooterComponent={<View style={styles.footerComponent} />}
           />
         </View>
+        {/* )} */}
       </View>
     </View>
   );
@@ -171,10 +175,3 @@ export default Notification;
 // };
 
 // export default Notifikasi;
-
-// const styles = StyleSheet.create({
-//   pages: {
-//     flex: 1,
-//     margin: 16,
-//   },
-// });

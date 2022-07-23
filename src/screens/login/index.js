@@ -1,5 +1,12 @@
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  BackHandler,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../utils/Validation';
 import {ms} from 'react-native-size-matters';
@@ -35,6 +42,30 @@ export default function Login({navigation}) {
       dispatch(setLoading(false));
     }
   };
+  const exit = () => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Do you want to exit the application?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  };
+
+  useEffect(() => {
+    exit();
+  }, []);
   return (
     <View style={styles.container}>
       <Formik
