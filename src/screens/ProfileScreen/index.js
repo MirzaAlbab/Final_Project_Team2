@@ -1,21 +1,141 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {StyleSheet, View, Text} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
-import SelectDropdown from 'react-native-select-dropdown';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import InputProfile from '../../components/InputProfile';
+import {useEffect} from 'react';
+// import Gap from '../../components';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
+
 import {windowHeight, windowWidth} from '../../utils/Dimension';
-import Input from '../../components/Input';
-import Button from '../../components';
-import {Profile2} from '../../components';
+
+import Profile2 from '../../components';
+
 import {ILNullPhoto} from '../../assets/icons/images';
+
+import {ms} from 'react-native-size-matters';
+
+import {fonts, COLORS} from '../../utils';
+import ButtonComponent from '../../components/ButtonComponent';
+// import {InputComponent} from '../../components';
+// import {ILNullPhoto} from '../../assets/icons/images';
+import axios from 'axios';
+
 import Headers from '../../components/Headers';
-import Gap from '../../components/Gap';
-import {updateProfileSchema} from '../../utils/Validation';
+
+import {putDataProfile} from './redux/action';
+
+// import {ms} from 'react-native-size-matters';
+
+import {BASE_URL} from '../../helpers/API';
+
+import {moderateScale} from 'react-native-size-matters';
+// import {updateProfileSchema} from '../../utils/Validation';
+import {useSelector, useDispatch} from 'react-redux';
+import * as Yup from 'yup';
+import DropDownPicker from 'react-native-dropdown-picker';
+import {kota} from '../../helpers/kota';
+import ButtonCamera from '../../components/ButtonCamera';
+import {setLoading} from '../redux/reducer/globalAction';
+// import Profile2 from '../../components';
 
 export default function ProfileScreen({navigation}) {
-  const [photo, setPhoto] = useState(ILNullPhoto);
+  const [User, setUser] = useState({
+    full_name: '',
+    city: '',
+    address: '',
+    phone_number: '',
+    image: '',
+  });
+  const dispatch = useDispatch();
+  const [photo, setPhoto] = useState(User?.image);
+  const {user} = useSelector(state => state.login);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(kota);
+  const [image, setImage] = useState('');
+  // const [User, setUser] = useState({
+  //   full_name: '',
+  //   city: '',
+  //   address: '',
+  //   phone_number: '',
+  //   image: '',
+  // });
+
+  useEffect(() => {
+    getProfile();
+    // console.log('User', User.image);
+  }, [photo]);
+
+  const getProfile = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/auth/user`, {
+        headers: {access_token: `${user.access_token}`},
+      });
+      setUser({
+        full_name: res.data.full_name,
+        city: res.data.city,
+        address: res.data.address,
+        phone_number: res.data.phone_number,
+        image: res.data.image_url,
+      });
+      setPhoto(res.data.image_url);
+      setValue(res.data.city);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const putProfile = async values => {
+    try {
+      const body = new FormData();
+      body.append('full_name', values.full_name);
+      body.append('phone_number', values.phone_number);
+      body.append('address', values.address);
+      body.append('city', value);
+      body.append('email', '');
+      if (image.uri) {
+        body.append('image', {
+          uri: image.uri,
+          name: image.fileName,
+          type: image.type,
+        });
+        // dispatch(putDataProfile(body, navigation));
+      }
+
+      console.log(body, 'bebasss');
+      console.log(user);
+      const res = await fetch(`${BASE_URL}/auth/user`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          access_token: `${user.access_token}`,
+        },
+        body: body,
+      });
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
+  // const changeProfilePhoto = async () => {
+  //   await launchImageLibrary({mediaType: 'photo'}).then(image =>
+  //     setImage(image.assets[0]),
+  //   );
+  // };
+
+  const validationProfile = Yup.object().shape({
+    full_name: Yup.string().required('Nama tidak boleh kosong'),
+    address: Yup.string().required('Alamat tidak boleh kosong'),
+    phone_number: Yup.string().required('No. Handphone tidak boleh kosong'),
+  });
+
   const getImage = () => {
     launchImageLibrary(
       {
@@ -32,153 +152,144 @@ export default function ProfileScreen({navigation}) {
           const source = response?.assets[0];
           // console.log('response GetImage : ', source);
 
-          const Uri = {uri: source.uri};
+          const Uri = source.uri;
           setPhoto(Uri);
+          setImage(source);
+
+          console.log(Uri, 'Ini photo');
         }
       },
     );
   };
 
-  const kota = [
-    'Ambon',
-    'Balikpapan',
-    'Banda Aceh',
-    'Bandar Lampung',
-    'Bandung',
-    'Banjar',
-    'Banjarbaru',
-    'Banjarmasin',
-    'Batam',
-    'Batu',
-    'Baubau',
-    'Bekasi',
-    'Bengkulu',
-    'Bima',
-    'Binjai',
-    'Bitung',
-    'Blitar',
-    'Bogor',
-    'Bontang',
-    'Bukittinggi',
-    'Cilegon',
-    'Cimahi',
-    'Cirebon',
-    'Denpasar',
-    'Depok',
-    'Dumai',
-    'Gorontalo',
-    'Gunungsitoli',
-    'Jakarta Barat',
-    'Jakarta Pusat',
-    'Jakarta Selatan',
-    'Jakarta Timur',
-    'Jakarta Utara',
-    'Jambi',
-    'Jayapura',
-    'Kediri',
-  ];
+  // const kota = [
+  //   'Ambon',
+  //   'Balikpapan',
+  //   'Banda Aceh',
+  //   'Bandar Lampung',
+  //   'Bandung',
+  //   'Banjar',
+  //   'Banjarbaru',
+  //   'Banjarmasin',
+  //   'Batam',
+  //   'Batu',
+  //   'Baubau',
+  //   'Bekasi',
+  //   'Bengkulu',
+  //   'Bima',
+  //   'Binjai',
+  //   'Bitung',
+  //   'Blitar',
+  //   'Bogor',
+  //   'Bontang',
+  //   'Bukittinggi',
+  //   'Cilegon',
+  //   'Cimahi',
+  //   'Cirebon',
+  //   'Denpasar',
+  //   'Depok',
+  //   'Dumai',
+  //   'Gorontalo',
+  //   'Gunungsitoli',
+  //   'Jakarta Barat',
+  //   'Jakarta Pusat',
+  //   'Jakarta Selatan',
+  //   'Jakarta Timur',
+  //   'Jakarta Utara',
+  //   'Jambi',
+  //   'Jayapura',
+  //   'Kediri',
+  // ];
 
   return (
-    <View style={styles.pages}>
-      <View>
-        <Headers
-          title="Lengkapi Info Akun"
-          type="back-title"
-          onPress={() => navigation.goBack()}
-        />
-      </View>
-      <View style={styles.photo}>
-        <Profile2 source={photo} isRemove={true} onPress={getImage} />
-      </View>
+    <View style={styles.container}>
       <Formik
-        initialValues={{fullname: '', kota: '', alamat: '', nomortelepon: ''}}
-        onSubmit={values => console.log(values)}
-        validationSchema={updateProfileSchema}>
+        validationSchema={validationProfile}
+        initialValues={User}
+        enableReinitialize={true}
+        onSubmit={putProfile}>
         {({
           handleChange,
           handleSubmit,
-          errors,
-          values,
           handleBlur,
+          values,
+          errors,
           touched,
-        }) => (
-          <View style={styles.form}>
-            <Input
-              leftIcon="account"
-              label="Nama"
-              onChangeText={handleChange('fullname')}
-              value={values.fullname}
-              onBlur={handleBlur('fullname')}
-              validationSchema={updateProfileSchema}
-            />
-            {errors.fullname && touched.fullname && (
-              <Text style={styles.errorText}>{errors.fullname}</Text>
-            )}
-            <Gap height={10} />
+        }) => {
+          return (
+            <View>
+              <Headers
+                title={'Lengkapi Info Akun'}
+                type={'back-title'}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              />
+              <View style={styles.contentContainer}>
+                <ButtonCamera onPress={getImage} url={photo} />
 
-            <SelectDropdown
-              data={kota}
-              // defaultValueByIndex={1}
-              // defaultValue={'Egypt'}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-              }}
-              defaultButtonText="Pilih Kota"
-              buttonTextAfterSelection={selectedItem => selectedItem}
-              rowTextForSelection={item => item}
-              buttonStyle={styles.dropdown1BtnStyle}
-              buttonTextStyle={styles.dropdown1BtnTxtStyle}
-              renderDropdownIcon={isOpened => (
-                <FontAwesome
-                  name={isOpened ? 'chevron-up' : 'chevron-down'}
-                  color="#444"
-                  size={18}
+                <InputProfile
+                  inputName="Nama*"
+                  placeholder="Nama Lengkap"
+                  onChangeText={handleChange('full_name')}
+                  onBlur={handleBlur('full_name')}
+                  value={values.full_name}
                 />
+              </View>
+              {touched.full_name && errors.full_name && (
+                <Text style={styles.errorValidation}>{errors.full_name}</Text>
               )}
-              dropdownIconPosition="right"
-              dropdownStyle={styles.dropdown1DropdownStyle}
-              rowStyle={styles.dropdown1RowStyle}
-              rowTextStyle={styles.dropdown1RowTxtStyle}
-              selectedRowStyle={styles.dropdown1SelectedRowStyle}
-              search
-              searchInputStyle={styles.dropdown1searchInputStyleStyle}
-              searchPlaceHolder="Search here"
-              searchPlaceHolderColor="darkgrey"
-              renderSearchInputLeftIcon={() => (
-                <FontAwesome name="search" color="#444" size={18} />
+
+              <View style={styles.contentContainer}>
+                <Text style={styles.kota}>Kota*</Text>
+                <DropDownPicker
+                  style={styles.dropdownPicker}
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItems}
+                />
+              </View>
+              <View style={styles.contentContainer2}>
+                <InputProfile
+                  inputName="Alamat*"
+                  placeholder="Contoh: Jalan Manggala 2"
+                  multiline={true}
+                  numberOfLines={4}
+                  styleInput={styles.alamatContainer}
+                  onChangeText={handleChange('address')}
+                  onBlur={handleBlur('address')}
+                  value={values.address}
+                />
+              </View>
+
+              {touched.address && errors.address && (
+                <Text style={styles.errorValidation}>{errors.address}</Text>
               )}
-            />
-            {errors.kota && touched.kota && (
-              <Text style={styles.errorText}>{errors.kota}</Text>
-            )}
-            <Gap height={10} />
-            <Input
-              leftIcon="home"
-              label="Alamat"
-              onChangeText={handleChange('alamat')}
-              value={values.alamat}
-              onBlur={handleBlur('alamat')}
-            />
-            {errors.alamat && touched.alamat && (
-              <Text style={styles.errorText}>{errors.alamat}</Text>
-            )}
-            <Gap height={10} />
-            <Input
-              leftIcon="cellphone"
-              label="No. Handphone"
-              onChangeText={handleChange('nomortelepon')}
-              value={values.nomortelepon}
-              onBlur={handleBlur('nomortelepon')}
-            />
-            {errors.nomortelepon && touched.nomortelepon && (
-              <Text style={styles.errorText}>{errors.nomortelepon}</Text>
-            )}
-            <Gap height={10} />
-            <View style={styles.button}>
-              <Button title="Simpan" onPress={handleSubmit} />
+              <View style={styles.contentContainer2}>
+                <InputProfile
+                  keyboardType={'numeric'}
+                  inputName="No Handphone*"
+                  onChangeText={handleChange('phone_number')}
+                  onBlur={handleBlur('phone_number')}
+                  value={values.phone_number}
+                />
+              </View>
+
+              {touched.phone_number && errors.phone_number && (
+                <Text style={styles.errorValidation}>
+                  {errors.phone_number}
+                </Text>
+              )}
+
+              <View style={styles.btnSimpan}>
+                <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
+              </View>
             </View>
-          </View>
-        )}
+          );
+        }}
       </Formik>
     </View>
   );
@@ -187,96 +298,49 @@ export default function ProfileScreen({navigation}) {
 // export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  pages: {
+  container: {
+    backgroundColor: COLORS.white,
     flex: 1,
-    backgroundColor: 'white',
-    paddingHorizontal: 20,
+    // margin: 12,
   },
-  borderText: {
-    marginLeft: windowWidth * 0.3,
-    marginTop: windowHeight * -0.06,
+  alamatContainer: {height: moderateScale(100), textAlignVertical: 'top'},
+  errorValidation: {
+    marginLeft: ms(15),
+    color: 'red',
+    marginBottom: ms(10),
   },
-  profile: {
-    paddingHorizontal: 5,
-    margin: 15,
+  contentContainer: {
+    marginHorizontal: ms(10),
   },
-  text1: {
-    color: '#112340',
-    fontSize: 16,
-    marginTop: 10,
-    // fontFamily: fonts.Poppins.SemiBold,
+  btnSimpan: {
+    marginTop: ms(19),
+    width: ms(300),
+    alignSelf: 'center',
   },
-  icon1: {
-    marginRight: 64,
+  contentContainer2: {
+    marginTop: ms(10),
+    marginHorizontal: ms(10),
   },
-  name: {
-    marginTop: windowHeight * 0.3,
-  },
-  input1: {
-    borderWidth: 1,
-    height: 50,
-    width: windowWidth * 0.93,
-    borderRadius: 12,
-  },
-  button: {
-    width: 250,
+  dropdownPicker: {
+    width: ms(310),
+    marginLeft: ms(18),
+    // backgroundColor: COLORS.white,
+    borderColor: COLORS.black,
 
-    marginLeft: windowWidth * 0.1,
-    marginTop: windowHeight * 0.1,
-    borderRadius: 12,
-  },
-
-  text: {
-    fontSize: 24,
+    borderRadius: ms(10),
   },
   kota: {
-    borderWidth: 1,
-    borderRadius: 12,
-    marginTop: 15,
+    // color: COLORS.black,
+    // marginStart: moderateScale(5),
+    // fontFamily: 'Poppins-SemiBold',
+    marginTop: ms(10),
+    fontSize: moderateScale(15),
+    // color: 'yellow',
+    fontFamily: fonts.Poppins['700'],
+    marginLeft: ms(19),
+    color: COLORS.black,
   },
-  dropdown1BtnStyle: {
-    width: windowWidth * 0.9,
-    height: 50,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#B0B0B0',
-    marginTop: 6,
-  },
-  dropdown1BtnTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1DropdownStyle: {
-    backgroundColor: '#EFEFEF',
-  },
-  dropdown1RowStyle: {
-    backgroundColor: '#EFEFEF',
-    borderBottomColor: '#C5C5C5',
-  },
-  dropdown1RowTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1SelectedRowStyle: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
-  },
-  dropdown1searchInputStyleStyle: {
-    backgroundColor: '#EFEFEF',
-    borderRadius: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#444',
-  },
-  errorText: {
-    // fontFamily: fonts.Poppins.Medium,
-    color: 'red',
-    fontSize: 12,
-  },
-  photo: {
-    marginTop: windowHeight * 0.04,
-  },
-  form: {
-    // paddingHorizontal: 5,
-    // margin: 15,
+  imageContainer: {
+    alignItems: 'center',
   },
 });

@@ -25,12 +25,11 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
-    width: ms(156),
-    height: ms(206),
+    width: ms(165),
+    height: ms(210),
     // top: ms(398),
-    left: ms(6),
-    marginHorizontal: ms(8),
-    marginVertical: ms(8),
+    marginHorizontal: ms(12),
+    marginVertical: ms(10),
     backgroundColor: COLORS.white,
     shadowColor: 'rgba(0, 0, 0, 0.15)',
     shadowOffset: {
