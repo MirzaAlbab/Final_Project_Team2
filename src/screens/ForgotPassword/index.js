@@ -25,7 +25,6 @@ import ButtonComponent from '../../components/ButtonComponent';
 import InputComponent from '../../components';
 import {setLoading} from '../redux/reducer/globalAction';
 function ForgotPasswordScreen({navigation}) {
-  const {loading} = useSelector(state => state.global);
   const dispatch = useDispatch();
   const stateGlobal = useSelector(state => state.global);
   const {user} = useSelector(state => state.login);
@@ -52,9 +51,8 @@ function ForgotPasswordScreen({navigation}) {
 
   const gantiPassword = async () => {
     try {
-      dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/auth/change-password`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       console.log(BASE_URL);
       setUser({
@@ -67,8 +65,6 @@ function ForgotPasswordScreen({navigation}) {
       console.log(user);
     } catch (error) {
       console.log(error);
-    } finally {
-      dispatch(setLoading(false));
     }
   };
 
@@ -83,7 +79,7 @@ function ForgotPasswordScreen({navigation}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });
@@ -102,11 +98,6 @@ function ForgotPasswordScreen({navigation}) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        {/* {loading ? (
-        <View style={{justifyContent: 'center', flex: 1}}>
-          <ActivityIndicator />
-        </View>
-      ) : ( */}
         <Headers type="back-title" onPress={() => navigation.goBack()} />
         <Formik
           initialValues={{
@@ -175,7 +166,6 @@ function ForgotPasswordScreen({navigation}) {
             </SafeAreaView>
           )}
         </Formik>
-
         <Gap height={windowHeight * 0.1} />
       </View>
     </TouchableWithoutFeedback>
