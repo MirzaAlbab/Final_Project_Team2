@@ -15,6 +15,7 @@ import {setLoading} from '../redux/reducer/globalAction';
 export default function Login({navigation}) {
   const {loading} = useSelector(state => state.global);
   const dispatch = useDispatch();
+  // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
       dispatch(setLoading(true));
@@ -23,7 +24,9 @@ export default function Login({navigation}) {
         password: values.password,
       };
       const res = await axios.post(`${BASE_URL}/auth/login`, body);
+
       dispatch(setUser(res.data.access_token));
+
       console.log(res.data);
       navigation.navigate('Dashboard');
     } catch (error) {
@@ -62,12 +65,10 @@ export default function Login({navigation}) {
                 )
               }
             />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
 
             <Gap height={10} />
             <InputComponent
+              password
               label={'Password'}
               placeholder={'Password'}
               value={values.password}
