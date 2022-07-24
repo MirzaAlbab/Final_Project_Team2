@@ -12,7 +12,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback} from 'react';
 import CardList from '../../components/CardList';
-
+import NotLogin from '../../components/NotLogin';
 
 import {setUser} from '../Login/redux/action';
 import Poppins from '../../components/FontComponent/Poppins';
@@ -20,8 +20,6 @@ import {setNotification, setRefreshing} from './redux/action';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ItemCardNotification from '../../components/ItemCardNotification';
-
-
 
 const Notification = ({navigation}) => {
   const dispatch = useDispatch();
@@ -39,7 +37,7 @@ const Notification = ({navigation}) => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/notification`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`, notification_type: 'buyer'},
       });
       setnotifikasi([...res.data]);
       console.log('Data Notification: ', res.data);
@@ -58,7 +56,7 @@ const Notification = ({navigation}) => {
 
       if ((error.message = 'Request failed with status code 401')) {
         await AsyncStorage.setItem('@access_token', '');
-        Alert.alert('Pemberitahuan', 'Silahkan Login Kembali', [
+        Alert.alert('Pemberitahuan', 'Silahkan Login Terlebih Dahulu', [
           {
             text: 'OK',
             onPress: () => {
@@ -91,8 +89,12 @@ const Notification = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Poppins style={styles.textHeader}>Notifikasi</Poppins>
+      <Headers title={'Notifikasi'} />
+      <View style={{marginTop: 300}}>
+        {/* <Poppins style={styles.textHeader}>Notifikasi</Poppins>
+        {!user.isLoggedIn ? (
+          <NotLogin />
+        ) : ( */}
         <View style={styles.containerNotifBar}>
           <FlatList
             // refreshControl={
@@ -106,6 +108,7 @@ const Notification = ({navigation}) => {
             ListFooterComponent={<View style={styles.footerComponent} />}
           />
         </View>
+        {/* )} */}
       </View>
     </View>
   );
@@ -172,10 +175,3 @@ export default Notification;
 // };
 
 // export default Notifikasi;
-
-// const styles = StyleSheet.create({
-//   pages: {
-//     flex: 1,
-//     margin: 16,
-//   },
-// });

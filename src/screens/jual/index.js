@@ -17,6 +17,7 @@ import {useSelector} from 'react-redux';
 import {ACCESS_TOKEN} from '../../helpers/AccesTokenDumy';
 import {ms} from 'react-native-size-matters';
 import {COLORS} from '../../utils';
+import {BASE_URL} from '../../helpers/API';
 const Jual = ({navigation}) => {
   const [photo, setPhoto] = useState([]);
   const [prevPhoto, setPrevPhoto] = useState([]);
@@ -41,13 +42,13 @@ const Jual = ({navigation}) => {
     );
   };
   useEffect(() => {
-    // getCategory();
+    getCategory();
   }, []);
 
   const getCategory = () => {
     try {
       axios
-        .get(`${API_URL}/seller/category`, {})
+        .get(`${BASE_URL}/seller/category`, {})
         .then(res => {
           setKategori(res.data);
           console.log(res.data);
@@ -73,7 +74,7 @@ const Jual = ({navigation}) => {
     });
 
     try {
-      const res = axios.post(`${API_URL}/seller/product`, data, {
+      const res = axios.post(`${BASE_URL}/seller/product`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           access_token: `${ACCESS_TOKEN}`,
@@ -174,7 +175,6 @@ const Jual = ({navigation}) => {
             <ButtonComponent title="Simpan" onPress={handleSubmit} />
 
             <Gap height={20} />
-
           </View>
         )}
       </Formik>

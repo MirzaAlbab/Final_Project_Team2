@@ -34,7 +34,7 @@ function Akun({navigation}) {
   const dispatch = useDispatch();
   const [image, setImage] = useState(image !== null ? image : ILNullPhoto);
 
-  // const [photo, setPhoto] = useState(ILNullPhoto);
+  const [photo, setPhoto] = useState(ILNullPhoto);
   const {user} = useSelector(state => state.login);
   const isFocused = useIsFocused();
   const onLogout = () => {
@@ -49,8 +49,7 @@ function Akun({navigation}) {
       });
       console.log(res.data);
 
-      setPhoto(res.data.image_url);
-
+      setImage(res.data.image_url);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +71,6 @@ function Akun({navigation}) {
   //     console.log(error);
   //   }
   // };
-
 
   // const exit = () => {
   //   const backAction = () => {
@@ -121,11 +119,7 @@ function Akun({navigation}) {
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
 
-      {/* {
-        !user.isLoggedIn ? (
-          <NotLogin onPress={() => navigation.navigate('Login')} />
-        ) : ( */}
-      <Profile2 source={photo} />
+      <Profile2 source={image !== null ? {uri: image} : ILNullPhoto} />
 
       <View style={styles.form}>
         <ScrollView>

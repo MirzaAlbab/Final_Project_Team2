@@ -14,6 +14,7 @@ import Line from '../../components/Line';
 import {InputComponent} from '../../components';
 import axios from 'axios';
 import {API_URL} from '@env';
+import {BASE_URL} from '../../helpers/API';
 
 const Buyer = ({navigation, route}) => {
   const id = route.params.id;
@@ -21,7 +22,7 @@ const Buyer = ({navigation, route}) => {
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
+      const res = await axios.get(`${BASE_URL}/buyer/product/${id}`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);

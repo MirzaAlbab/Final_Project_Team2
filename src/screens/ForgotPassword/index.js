@@ -52,7 +52,7 @@ function ForgotPasswordScreen({navigation}) {
   const gantiPassword = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/change-password`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       console.log(BASE_URL);
       setUser({
@@ -79,7 +79,7 @@ function ForgotPasswordScreen({navigation}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });
