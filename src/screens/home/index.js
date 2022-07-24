@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
@@ -16,23 +17,31 @@ import CardBarang2 from '../../components/Card/CardBarang2';
 import axios from 'axios';
 import {API_URL} from '@env';
 import gift from '../../assets/images/gift.png';
+import {useSelector, useDispatch} from 'react-redux';
+import {setLoading} from '../redux/reducer/globalAction';
 import {BASE_URL} from '../../helpers/API';
 
 const Home = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {refresh} = useSelector(state => state.global);
   const [data, setData] = useState({});
+  const {loading} = useSelector(state => state.global);
   // const [category, setCategory] = useState([]);
   const getProduct = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/buyer/product`);
+      dispatch(setLoading(true));
+      const res = await axios.get(`${API_URL}/buyer/product`);
       console.log(res.data, 'data resgggg');
       setData(res.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   useEffect(() => {
     getProduct();
-  }, []);
+  });
 
   const RenderItem = ({item}) => {
     return (
@@ -69,12 +78,27 @@ const Home = ({navigation}) => {
           <Button title={'Kendarcaan'} />
         </View>
       </View>
-      <FlatList
-        data={data}
-        numColumns={2}
-        keyExtractor={item => item.id}
-        renderItem={RenderItem}
-      />
+      {loading ? (
+        <View style={styles.containerflat}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      ) : (
+        <FlatList
+          data={data}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={RenderItem}
+        />
+      )}
+      {/* {loading ? (
+
+      ) : (
+        <View style={styles.container}>
+          <ActivityIndicator>
+            <Text>Loading...</Text>
+          </ActivityIndicator>
+        </View>
+      )} */}
     </View>
   );
 };
@@ -86,7 +110,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
   },
-
+  containerflat: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     width: wp('100%'),
     marginVertical: ms(20),
@@ -150,6 +177,5 @@ const styles = StyleSheet.create({
     width: ms(123),
     left: ms(239),
     opacity: 0.8,
-    position: 'absolute',
   },
 });

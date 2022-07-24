@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
+import Home from '../screens/home';
 import Notifikasi from '../screens/Notifikasi';
 import Jual from '../screens/jual';
 import DaftarJual from '../screens/DaftarJual';
@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Jual"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#7126b5',
