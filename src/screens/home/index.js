@@ -22,6 +22,7 @@ import {setLoading} from '../redux/reducer/globalAction';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
+  const {refresh} = useSelector(state => state.global);
   const [data, setData] = useState({});
   const {loading} = useSelector(state => state.global);
   // const [category, setCategory] = useState([]);

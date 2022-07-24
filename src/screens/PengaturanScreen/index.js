@@ -18,7 +18,7 @@ function PengaturanScreen({navigation}) {
         onPress={() => navigation.goBack()}
       />
       <ScrollView style={styles.menu}>
-        <Profile2 source={{uri: profile.profile?.image_url}} />
+        <Profile2 source={{uri: profile?.profile?.image_url}} />
         <CardList
           type="account"
           name="key"
