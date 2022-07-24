@@ -5,7 +5,6 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import {COLORS, fonts} from '../../utils';
-import Button from '../../components/ButtonComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -71,10 +70,7 @@ const Buyer = ({navigation, route}) => {
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <ButtonComponent
-                  title={'Kirim'}
-                  onPress={() => Alert.alert('Kirim')}
-                />
+                <ButtonComponent title={'Kirim'} onPress={OnButtonKirim} />
               </View>
             </View>
           </View>
