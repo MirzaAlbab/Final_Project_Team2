@@ -88,13 +88,9 @@ const Notification = ({navigation}) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Headers title={'Notifikasi'} />
-      <View style={{marginTop: 300}}>
-        {/* <Poppins style={styles.textHeader}>Notifikasi</Poppins>
-        {!user.isLoggedIn ? (
-          <NotLogin />
-        ) : ( */}
+    <View>
+      <View>
+        <Poppins style={styles.textHeader}>Notifikasi</Poppins>
         <View style={styles.containerNotifBar}>
           <FlatList
             // refreshControl={
@@ -108,7 +104,6 @@ const Notification = ({navigation}) => {
             ListFooterComponent={<View style={styles.footerComponent} />}
           />
         </View>
-        {/* )} */}
       </View>
     </View>
   );
@@ -116,62 +111,91 @@ const Notification = ({navigation}) => {
 
 export default Notification;
 
-// const Notifikasi = () => {
-//   const [refreshing, setRefreshing] = useState(false);
-//   const dispatch = useDispatch();
-//   const {user} = useSelector(state => state.login);
-//   const dataNotif = useSelector(state => state.dataNotifikasi);
+// const styles = StyleSheet.create({
+//   header: {
+//     // fontSize: 24,
 
-//   useEffect(() => {
-//     dispatch(getNotifikasi());
-//   }, []);
+//     // marginLeft: ms(20),
+//     fontFamily: fonts.Poppins['700'],
+//     fontSize: 24,
+//     color: COLORS.black,
+//     lineHeight: 36,
+//     fontStyle: 'normal',
+//     left: 12,
+//   },
+//   container: {
+//     flexGrow: 1,
+//     alignContent: 'center',
+//     justifyContent: 'center',
+//     backgroundColor: '#fff',
+//   },
+//   inputBox: {
+//     width: 300,
+//     backgroundColor: 'rgba(255, 255,255,0.2)',
+//     borderRadius: 25,
+//     paddingHorizontal: 16,
+//     fontSize: 16,
+//     color: '#000',
+//     marginVertical: 10,
+//     borderColor: '#D0D0D0',
+//     borderWidth: 1,
+//   },
+//   button: {
+//     width: 300,
+//     backgroundColor: '#7126B5',
+//     borderRadius: 25,
+//     marginVertical: 10,
+//     paddingVertical: 13,
+//   },
+//   buttonText: {
+//     fontSize: 16,
+//     fontWeight: '500',
+//     color: '#ffffff',
+//     textAlign: 'center',
+//   },
+//   form: {
+//     // flexGrow: 1,
+//     // justifyContent: 'center',
+//     // alignItems: 'center',
 
-//   // const _onNotifikasi = async values => {
-//   //   try {
-//   //     const res = await axios.get(`${API_URL}/notification`);
-
-//   //     dispatch(getNotifikasi(res.data));
-//   //     console.log(res.data);
-//   //   } catch (error) {
-//   //     console.log(error);
-//   //   }
-//   // };
-
-//   const onRefresh = () => {
-//     setRefreshing(true);
-//     dispatch(getNotifikasi());
-//     setRefreshing(false);
-//   };
-
-//   const renderItem = ({item}) => (
-//     <CardList
-//       source={{uri: item.image_url}}
-//       status={item.status}
-//       type="notif"
-//       date={item.createdAt}
-//       harga={item.base_price}
-//       hargaNego={item.bid_price}
-//       name={item.product_name}
-//       read={item.read}
-//     />
-//   );
-//   return (
-//     <View style={styles.pages}>
-//       <Headers title="Notifikasi" />
-
-//       <FlatList
-//         data={dataNotif.notifikasi}
-//         renderItem={renderItem}
-//         keyExtractor={item => item.id}
-//         showsVerticalScrollIndicator={false}
-//         maxToRenderPerBatch={5}
-//         initialNumToRender={5}
-//         removeClippedSubviews
-//         refreshing={refreshing}
-//         onRefresh={() => onRefresh()}
-//       />
-//     </View>
-//   );
-// };
-
-// export default Notifikasi;
+//     paddingTop: ms(50),
+//     paddingHorizontal: ms(30),
+//   },
+//   label: {
+//     marginRight: ms(200),
+//   },
+//   labelem: {
+//     marginRight: ms(220),
+//   },
+//   signupTextCont: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     paddingVertical: 16,
+//     flexDirection: 'row',
+//   },
+//   signupText: {
+//     color: 'rgba(255,255,255,0.6)',
+//     fontSize: 16,
+//   },
+//   signupButton: {
+//     color: 'black',
+//     fontSize: 16,
+//     fontWeight: '500',
+//   },
+//   error: {
+//     fontSize: 10,
+//     color: 'red',
+//     alignSelf: 'center',
+//   },
+//   account: {
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//   },
+//   text: {
+//     fontFamily: fonts.Poppins['400'],
+//     fontSize: 14,
+//     color: COLORS.black,
+//     textAlign: 'center',
+//     lineHeight: ms(20),
+//   },
+// });

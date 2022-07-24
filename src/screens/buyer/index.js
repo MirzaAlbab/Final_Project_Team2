@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
@@ -33,7 +34,7 @@ const Buyer = ({navigation, route}) => {
 
   useEffect(() => {
     getProductByItem();
-  });
+  }, []);
 
   const ActionRef = useRef();
 
