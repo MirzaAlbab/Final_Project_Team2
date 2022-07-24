@@ -33,8 +33,6 @@ import axios from 'axios';
 
 import Headers from '../../components/Headers';
 
-import {putDataProfile} from './redux/action';
-
 // import {ms} from 'react-native-size-matters';
 
 import {BASE_URL} from '../../helpers/API';

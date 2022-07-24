@@ -19,9 +19,10 @@ import {Profile2} from '../../components';
 import {version} from '../../../package.json';
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {ILNullPhoto} from '../../assets';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {cameraPic} from '../../assets';
 import {setUser} from '../Login/redux/action';
+import {setLoading} from '../redux/reducer/globalAction';
 import {navigate} from '../../helpers/navigate';
 // import {API_URL} from '@env';
 import {logout} from '../Login/redux/action';
@@ -44,6 +45,7 @@ function Akun({navigation}) {
 
   const getImage = async () => {
     try {
+      dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/auth/user`, {
         headers: {access_token: `${user}`},
       });
@@ -52,6 +54,20 @@ function Akun({navigation}) {
       setImage(res.data.image_url);
     } catch (error) {
       console.log(error);
+      if ((error.message = 'Request failed with status code 401')) {
+        await AsyncStorage.setItem('@access_token', '');
+        Alert.alert('Pemberitahuan', 'Silahkan Login Terlebih Dahulu', [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Login');
+              dispatch(setUser(''));
+            },
+          },
+        ]);
+      }
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
