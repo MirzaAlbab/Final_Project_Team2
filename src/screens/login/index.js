@@ -10,7 +10,6 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setUser} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
-import {BASE_URL} from '../../helpers/API';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();

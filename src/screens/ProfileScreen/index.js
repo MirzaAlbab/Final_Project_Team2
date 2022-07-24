@@ -14,9 +14,7 @@ import {showError} from '../../utils/ShowMessage';
 
 import {windowHeight, windowWidth} from '../../utils/Dimension';
 
-
 import Profile2 from '../../components';
-
 
 import {ILNullPhoto} from '../../assets/icons/images';
 
@@ -33,7 +31,6 @@ import Headers from '../../components/Headers';
 import {putDataProfile} from './redux/action';
 
 // import {ms} from 'react-native-size-matters';
-
 
 import {BASE_URL} from '../../helpers/API';
 
@@ -144,7 +141,6 @@ export default function ProfileScreen({navigation}) {
     address: Yup.string().required('Alamat tidak boleh kosong'),
     phone_number: Yup.string().required('No. Handphone tidak boleh kosong'),
   });
-
 
   const getImage = () => {
     launchImageLibrary(
@@ -297,7 +293,6 @@ export default function ProfileScreen({navigation}) {
               <View style={styles.btnSimpan}>
                 <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
               </View>
-
             </View>
           );
         }}
@@ -316,7 +311,6 @@ const styles = StyleSheet.create({
   },
   alamatContainer: {height: moderateScale(100), textAlignVertical: 'top'},
   errorValidation: {
-
     marginLeft: ms(15),
     color: 'red',
     marginBottom: ms(10),

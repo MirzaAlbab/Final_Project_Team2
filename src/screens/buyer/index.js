@@ -3,11 +3,9 @@ import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
-import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
-
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
@@ -17,7 +15,6 @@ import {API_URL} from '@env';
 
 const Buyer = ({navigation, route}) => {
   const id = route.params.id;
-
   const [data, setData] = useState({});
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
@@ -31,7 +28,21 @@ const Buyer = ({navigation, route}) => {
     }
   };
 
-  useEffect;
+  useEffect(() => {
+    getProductByItem();
+  });
+  const bidproduct = async () => {
+    try {
+      const res = await axios.post(`${API_URL}/buyer/bid`, {
+        productId: id,
+        price: data.price,
+      });
+      console.log(res.data, 'data res');
+      Alert.alert('Success', 'Bid Success');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const ActionRef = useRef();
 

@@ -6,7 +6,6 @@ import {profileReducer} from '../../ProfileScreen/redux/reducer';
 import NotificationReducer from '../../Notifikasi/redux/reducer';
 import {gantiPassReducer} from '../../ForgotPassword/redux/reducer';
 
-
 export const allReducers = combineReducers({
   global: globalReducer,
   login: LoginReducer,
@@ -14,5 +13,4 @@ export const allReducers = combineReducers({
 
   dataNotifikasi: NotificationReducer,
   dataGantiPass: gantiPassReducer,
-
 });

@@ -1,4 +1,11 @@
-import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';
@@ -7,21 +14,17 @@ import people from '../../../assets/images/people.png';
 
 const CardBarang2 = ({title, category, price, image, onPress}) => {
   return (
-
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image
-          source={image ? {uri: image} : people}
-          resizeMode={'cover'}
-          style={styles.image}
-        />
-        <Gap height={10} />
-        <Text style={styles.title}>{title ? title : 'title'}</Text>
-        <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
-        <Text style={styles.price}>Rp {price ? price : 'price'}</Text>
-      </View>
-    </SafeAreaView>
-
+    <View style={styles.container}>
+      <Image
+        source={image ? {uri: image} : people}
+        resizeMode={'cover'}
+        style={styles.image}
+      />
+      <Gap height={10} />
+      <Text style={styles.title}>{title ? title : 'title'}</Text>
+      <Text style={styles.category}>{category ? category : 'catekgory'}</Text>
+      <Text style={styles.price}>Rp {price ? price : 'price'}</Text>
+    </View>
   );
 };
 
@@ -29,7 +32,6 @@ export default CardBarang2;
 
 const styles = StyleSheet.create({
   container: {
-
     width: ms(170),
     height: ms(220),
     marginHorizontal: ms(10),
