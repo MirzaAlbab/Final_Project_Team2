@@ -1,5 +1,12 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  BackHandler,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import {Formik} from 'formik';
 import {SignInSchema} from '../../utils/Validation';
 import {ms} from 'react-native-size-matters';
@@ -7,15 +14,18 @@ import {API_URL} from '@env';
 import {BASE_URL} from '../../helpers/API';
 import {COLORS, fonts} from '../../utils';
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from './redux/action';
 import {Gap, Link, Button, InputComponent} from '../../components';
+import {setLoading} from '../redux/reducer/globalAction';
 
 export default function Login({navigation}) {
+  const {loading} = useSelector(state => state.global);
   const dispatch = useDispatch();
   // const stateGlobal = useSelector(state => state.dataGlobal);
   const _onLogin = async values => {
     try {
+      dispatch(setLoading(true));
       const body = {
         email: values.email,
         password: values.password,
@@ -28,8 +38,34 @@ export default function Login({navigation}) {
       navigation.navigate('Dashboard');
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
+  const exit = () => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Do you want to exit the application?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  };
+
+  useEffect(() => {
+    exit();
+  }, []);
   return (
     <View style={styles.container}>
       <Formik
@@ -113,8 +149,12 @@ export default function Login({navigation}) {
             </View> */}
 
             <Gap height={40} />
+            {loading ? (
+              <ActivityIndicator />
+            ) : (
+              <Button title={'LOGIN'} onPress={handleSubmit} />
+            )}
 
-            <Button title={'LOGIN'} onPress={handleSubmit} />
             <Gap height={90} />
             <View style={styles.account}>
               <Text style={styles.text}>Belum punya akun ?</Text>

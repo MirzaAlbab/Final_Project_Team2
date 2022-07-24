@@ -49,7 +49,7 @@ function Akun({navigation}) {
       });
       console.log(res.data);
 
-      setPhoto(res.data.image_url);
+      setImage(res.data.image_url);
     } catch (error) {
       console.log(error);
     }
@@ -119,11 +119,7 @@ function Akun({navigation}) {
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
 
-      {/* {
-        !user.isLoggedIn ? (
-          <NotLogin onPress={() => navigation.navigate('Login')} />
-        ) : ( */}
-      <Profile2 source={photo} />
+      <Profile2 source={image !== null ? {uri: image} : ILNullPhoto} />
 
       <View style={styles.form}>
         <ScrollView>

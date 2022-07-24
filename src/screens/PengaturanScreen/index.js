@@ -10,6 +10,7 @@ import {COLORS} from '../../utils';
 
 function PengaturanScreen({navigation}) {
   const profile = useSelector(state => state.profile);
+
   return (
     <View style={styles.pages}>
       <Headers

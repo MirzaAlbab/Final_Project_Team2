@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import React, {useState} from 'react';
+import ButtonComponent from '../../components/ButtonComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {Gap} from '../../components';
 import Headers from '../../components/Headers';
@@ -18,17 +19,16 @@ import {Formik} from 'formik';
 import {windowHeight} from '../../utils/Dimension';
 import {gantiPass} from './redux/action';
 import {COLORS} from '../../utils';
-import axios from 'axios';
+
 import {BASE_URL} from '../../helpers/API';
 import {fonts} from '../../utils';
-import ButtonComponent from '../../components/ButtonComponent';
-import InputComponent from '../../components';
+
 import {setLoading} from '../redux/reducer/globalAction';
 function ForgotPasswordScreen({navigation}) {
   const dispatch = useDispatch();
-  const stateGlobal = useSelector(state => state.global);
+  // const stateGlobal = useSelector(state => state.global);
   const {user} = useSelector(state => state.login);
-  const [value, setValue] = useState(null);
+  // const [value, setValue] = useState(null);
 
   const [User, setUser] = useState({
     current_password: '',
@@ -45,28 +45,28 @@ function ForgotPasswordScreen({navigation}) {
   //   });
   // // console.log(updatePass);
 
-  const onSubmit = (current, newPass, confirmPass) => {
-    dispatch(gantiPass(current, newPass, confirmPass, navigation));
-  };
+  // const onSubmit = (current, newPass, confirmPass) => {
+  //   dispatch(gantiPass(current, newPass, confirmPass, navigation));
+  // };
 
-  const gantiPassword = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/auth/change-password`, {
-        headers: {access_token: `${user.access_token}`},
-      });
-      console.log(BASE_URL);
-      setUser({
-        current_password: res.data.current_password,
-        new_password: res.new_password,
-        confirm_password: res.confirm_password,
-      });
-      // setPhoto(res.data.image_url);
-      // setValue(res.data.city);
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const gantiPassword = async () => {
+  //   try {
+  //     const res = await axios.get(`${BASE_URL}/auth/change-password`, {
+  //       headers: {access_token: `${user}`},
+  //     });
+  //     console.log(BASE_URL);
+  //     setUser({
+  //       current_password: res.data.current_password,
+  //       new_password: res.new_password,
+  //       confirm_password: res.confirm_password,
+  //     });
+  //     // setPhoto(res.data.image_url);
+  //     // setValue(res.data.city);
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const putPassword = async values => {
     try {
@@ -79,7 +79,7 @@ function ForgotPasswordScreen({navigation}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });

@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import {
   StyleSheet,
   Text,
@@ -17,8 +18,8 @@ import axios from 'axios';
 import {API_URL} from '@env';
 import gift from '../../assets/images/gift.png';
 import {useSelector, useDispatch} from 'react-redux';
-
 import {setLoading} from '../redux/reducer/globalAction';
+import {BASE_URL} from '../../helpers/API';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();

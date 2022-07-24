@@ -61,7 +61,7 @@ const Jual = ({navigation}) => {
   const getCategory = () => {
     try {
       axios
-        .get(`${API_URL}/seller/category`, {})
+        .get(`${BASE_URL}/seller/category`, {})
         .then(res => {
           setKategori(res.data);
           console.log(res.data);

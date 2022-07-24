@@ -27,11 +27,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 24,
     alignItems: 'center',
+    marginTop: 60,
   },
   notLoginText: {
     // fontFamily: fonts.Poppins.Medium,
     // fontSize: fontSize.medium,
-    // color: colors.text.subtitle,
+    color: 'black',
     textAlign: 'center',
   },
 
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.8,
     height: windowHeight * 0.5,
     resizeMode: 'contain',
+    // marginTop: windowWidth * 0.8,
   },
 
   button: {
@@ -46,10 +48,12 @@ const styles = StyleSheet.create({
     bottom: 15,
     left: 0,
     right: 0,
+    marginTop: 450,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
+    // backgroundColor: 'red',
   },
 });
 

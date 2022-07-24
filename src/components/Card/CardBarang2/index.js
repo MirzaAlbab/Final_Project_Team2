@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, Text, Image, View} from 'react-native';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
 import {COLORS, fonts} from '../../../utils';

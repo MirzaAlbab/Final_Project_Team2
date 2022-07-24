@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {StyleSheet, Text, View, Image, Alert} from 'react-native';
 import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
@@ -14,7 +15,6 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {API_URL} from '@env';
 import {BASE_URL} from '../../helpers/API';
-import {ALERT_TYPE, Dialog, Root, Toast} from 'react-native-alert-notification';
 
 const Buyer = ({navigation, route}) => {
   const id = route.params.id;
