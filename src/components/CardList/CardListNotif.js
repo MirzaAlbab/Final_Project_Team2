@@ -70,6 +70,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
+    // borderTopWidth: 1,
+    // paddingVertical: 15,
     // borderBottomColor: colors.border.primary,
   },
   wrapper: {

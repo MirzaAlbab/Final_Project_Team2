@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import {StyleSheet, View, Text, ScrollView, Alert} from 'react-native';
-
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
@@ -46,7 +51,10 @@ import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
 // import Profile2 from '../../components';
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen({navigation, route}) {
+  const {loading} = useSelector(state => state.global);
+
+  const {imageProfile} = route.params;
   const [User, setUser] = useState({
     full_name: '',
     city: '',
@@ -62,23 +70,17 @@ export default function ProfileScreen({navigation}) {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState(kota);
   const [image, setImage] = useState('');
-  // const [User, setUser] = useState({
-  //   full_name: '',
-  //   city: '',
-  //   address: '',
-  //   phone_number: '',
-  //   image: '',
-  // });
 
   useEffect(() => {
     getProfile();
     // console.log('User', User.image);
-  }, [photo]);
+  }, [imageProfile]);
 
   const getProfile = async () => {
     try {
+      dispatch(setLoading(true));
       const res = await axios.get(`${BASE_URL}/auth/user`, {
-        headers: {access_token: `${user.access_token}`},
+        headers: {access_token: `${user}`},
       });
       setUser({
         full_name: res.data.full_name,
@@ -92,6 +94,8 @@ export default function ProfileScreen({navigation}) {
       console.log(user);
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -118,15 +122,22 @@ export default function ProfileScreen({navigation}) {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
-          access_token: `${user.access_token}`,
+          access_token: `${user}`,
         },
         body: body,
       });
 
       console.log(res);
+      if (res.status === 200) {
+        Alert.alert('Berhasil Ubah Akun');
+        navigation.navigate('Dashboard');
+      }
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
+      if (error.response.status === 500) {
+        Alert.alert('Internal Service Error');
+      }
     }
   };
 
@@ -209,94 +220,105 @@ export default function ProfileScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Formik
-        validationSchema={validationProfile}
-        initialValues={User}
-        enableReinitialize={true}
-        onSubmit={putProfile}>
-        {({
-          handleChange,
-          handleSubmit,
-          handleBlur,
-          values,
-          errors,
-          touched,
-        }) => {
-          return (
-            <View>
-              <Headers
-                title={'Lengkapi Info Akun'}
-                type={'back-title'}
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              />
-              <View style={styles.contentContainer}>
-                <ButtonCamera onPress={getImage} url={photo} />
+      {loading ? (
+        <View style={{justifyContent: 'center', flex: 1}}>
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <Formik
+          validationSchema={validationProfile}
+          initialValues={User}
+          enableReinitialize={true}
+          onSubmit={putProfile}>
+          {({
+            handleChange,
+            handleSubmit,
+            handleBlur,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View>
+                <ScrollView>
+                  <Headers
+                    title={'Lengkapi Info Akun'}
+                    type={'back-title'}
+                    onPress={() => {
+                      navigation.goBack();
+                    }}
+                  />
+                  <View style={styles.contentContainer}>
+                    <ButtonCamera onPress={getImage} url={photo} />
 
-                <InputProfile
-                  inputName="Nama*"
-                  placeholder="Nama Lengkap"
-                  onChangeText={handleChange('full_name')}
-                  onBlur={handleBlur('full_name')}
-                  value={values.full_name}
-                />
-              </View>
-              {touched.full_name && errors.full_name && (
-                <Text style={styles.errorValidation}>{errors.full_name}</Text>
-              )}
+                    <InputProfile
+                      inputName="Nama"
+                      placeholder="Nama Lengkap"
+                      onChangeText={handleChange('full_name')}
+                      onBlur={handleBlur('full_name')}
+                      value={values.full_name}
+                    />
+                  </View>
+                  {touched.full_name && errors.full_name && (
+                    <Text style={styles.errorValidation}>
+                      {errors.full_name}
+                    </Text>
+                  )}
 
-              <View style={styles.contentContainer}>
-                <Text style={styles.kota}>Kota*</Text>
-                <DropDownPicker
-                  style={styles.dropdownPicker}
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
-              </View>
-              <View style={styles.contentContainer2}>
-                <InputProfile
-                  inputName="Alamat*"
-                  placeholder="Contoh: Jalan Manggala 2"
-                  multiline={true}
-                  numberOfLines={4}
-                  styleInput={styles.alamatContainer}
-                  onChangeText={handleChange('address')}
-                  onBlur={handleBlur('address')}
-                  value={values.address}
-                />
-              </View>
+                  <View style={styles.contentContainer}>
+                    <Text style={styles.kota}>Kota</Text>
+                    <DropDownPicker
+                      style={styles.dropdownPicker}
+                      open={open}
+                      value={value}
+                      items={items}
+                      setOpen={setOpen}
+                      setValue={setValue}
+                      setItems={setItems}
+                    />
+                  </View>
+                  <View style={styles.contentContainer2}>
+                    <InputProfile
+                      inputName="Alamat"
+                      placeholder="Contoh: Jalan Manggala 2"
+                      multiline={true}
+                      numberOfLines={4}
+                      styleInput={styles.alamatContainer}
+                      onChangeText={handleChange('address')}
+                      onBlur={handleBlur('address')}
+                      value={values.address}
+                    />
+                  </View>
 
-              {touched.address && errors.address && (
-                <Text style={styles.errorValidation}>{errors.address}</Text>
-              )}
-              <View style={styles.contentContainer2}>
-                <InputProfile
-                  keyboardType={'numeric'}
-                  inputName="No Handphone*"
-                  onChangeText={handleChange('phone_number')}
-                  onBlur={handleBlur('phone_number')}
-                  value={values.phone_number}
-                />
-              </View>
+                  {touched.address && errors.address && (
+                    <Text style={styles.errorValidation}>{errors.address}</Text>
+                  )}
+                  <View style={styles.contentContainer2}>
+                    <InputProfile
+                      keyboardType={'numeric'}
+                      placeholder="Contoh: 0877368437"
+                      inputName="No Handphone"
+                      onChangeText={handleChange('phone_number')}
+                      onBlur={handleBlur('phone_number')}
+                      value={values.phone_number}
+                    />
+                  </View>
 
-              {touched.phone_number && errors.phone_number && (
-                <Text style={styles.errorValidation}>
-                  {errors.phone_number}
-                </Text>
-              )}
+                  {touched.phone_number && errors.phone_number && (
+                    <Text style={styles.errorValidation}>
+                      {errors.phone_number}
+                    </Text>
+                  )}
 
-              <View style={styles.btnSimpan}>
-                <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
+                  <View style={styles.btnSimpan}>
+                    <ButtonComponent title={'Simpan'} onPress={handleSubmit} />
+                  </View>
+                </ScrollView>
               </View>
-            </View>
-          );
-        }}
-      </Formik>
+            );
+          }}
+        </Formik>
+      )}
     </View>
   );
 }

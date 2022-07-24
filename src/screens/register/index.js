@@ -16,8 +16,8 @@ const Register = ({navigation}) => {
         full_name: values.full_name,
         email: values.email,
         password: values.password,
-        phone_number: 'null',
-        address: 'null',
+        phone_number: '',
+        address: '',
         image: 'null',
         city: 'null',
       };
