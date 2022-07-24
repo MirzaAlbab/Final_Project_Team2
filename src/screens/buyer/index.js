@@ -11,6 +11,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
 import {InputComponent} from '../../components';
+import {ALERT_TYPE, Dialog, Root, Toast} from 'react-native-alert-notification';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {API_URL} from '@env';
@@ -51,7 +52,7 @@ const Buyer = ({navigation, route}) => {
         },
       );
       console.log(res.data, 'data res');
-      Alert.alert('Success', 'Bid Success');
+      showNotif();
       hideActionSheet();
       setDisable(true);
     } catch (error) {
@@ -66,6 +67,10 @@ const Buyer = ({navigation, route}) => {
   };
   const hideActionSheet = () => {
     ActionRef.current.hide();
+  };
+  const NotifRef = useRef();
+  const showNotif = () => {
+    NotifRef.current.show();
   };
 
   return (
@@ -101,6 +106,19 @@ const Buyer = ({navigation, route}) => {
           </View>
         </SafeAreaView>
       </ActionSheet>
+
+      <Root ref={NotifRef}>
+        <View
+          title={'toast notification'}
+          onPress={() =>
+            Toast.show({
+              type: ALERT_TYPE.SUCCESS,
+              title: 'Success',
+              textBody: 'Harga tawaranmu berhasil dikirim',
+            })
+          }
+        />
+      </Root>
 
       <Image
         source={{uri: data.image_url}}
