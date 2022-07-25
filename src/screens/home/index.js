@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-keys */
 import {
   StyleSheet,
   Text,
@@ -25,6 +24,7 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {refresh} = useSelector(state => state.global);
   const [data, setData] = useState({});
+
   const {loading} = useSelector(state => state.global);
   // const [category, setCategory] = useState([]);
   const getProduct = async () => {
@@ -41,7 +41,7 @@ const Home = ({navigation}) => {
   };
   useEffect(() => {
     getProduct();
-  }, []);
+  });
 
   const RenderItem = ({item}) => {
     return (

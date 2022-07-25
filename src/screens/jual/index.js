@@ -1,7 +1,7 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Formik} from 'formik';
-import DropdownComponent from '../../components/DropDownComponent';
+import DropdownComponent from '../../components/DropdownComponent';
 // import DropdownSelect from './DropdownSelect';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
