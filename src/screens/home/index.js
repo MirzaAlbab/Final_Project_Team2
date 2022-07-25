@@ -30,7 +30,7 @@ const Home = ({navigation}) => {
   const getProduct = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get(`${API_URL}/buyer/product`);
+      const res = await axios.get(`${BASE_URL}/buyer/product`);
       console.log(res.data, 'data resgggg');
       setData(res.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const Home = ({navigation}) => {
   };
   useEffect(() => {
     getProduct();
-  });
+  }, []);
 
   const RenderItem = ({item}) => {
     return (

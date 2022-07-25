@@ -6,7 +6,7 @@ import CardBarangInfo from '../../components/Card/CardBarangInfo';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
 import {COLORS} from '../../utils';
 import {fonts} from '../../utils';
-
+import {BASE_URL} from '../../helpers/API';
 import ButtonComponent from '../../components/ButtonComponent';
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -20,7 +20,7 @@ const Buyer = () => {
   const [category, setCategory] = useState([]);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${API_URL}/buyer/product/98`);
+      const res = await axios.get(`${BASE_URL}/buyer/product/98`);
       console.log(res.data, 'data res');
       setData(res.data);
       setCategory(res.data.Categories[0].name);

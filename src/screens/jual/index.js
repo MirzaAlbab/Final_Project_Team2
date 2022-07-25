@@ -1,7 +1,7 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Formik} from 'formik';
-import DropdownComponent from '../../components/DropdownComponent';
+import DropdownComponent from '../../components/DropDownComponent';
 // import DropdownSelect from './DropdownSelect';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
@@ -74,32 +74,39 @@ const Jual = ({navigation}) => {
     }
   };
 
-  const onSubmit = values => {
+  const onSubmit = async values => {
     console.log(profile);
     console.log(values, 'values');
     const data = new FormData();
     data.append('name', values.namaproduk);
-    data.append('base_price ', values.harga);
+    await data.append('base_price', values.harga);
     data.append('description', values.deskripsi);
-    data.append('category_ids', values.kategori);
+    data.append('category_ids', values.kategori.toString());
     data.append('location', 'ambon');
     data.append('image', {
       uri: image.uri,
       type: image.type,
       name: image.fileName,
     });
+    console.log('Form data', data);
 
-    try {
-      const res = axios.post(`${BASE_URL}/seller/product`, data, {
+    await axios
+      .post(`${BASE_URL}/seller/product`, data, {
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
           access_token: `${user}`,
         },
+      })
+      .then(response => {
+        console.log(user);
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(user);
+        console.log(error);
       });
-      console.log('res : ', res.status);
-    } catch (error) {
-      console.log('error : ', error);
-    }
+    // console.log('res : ', res);
   };
 
   return (
@@ -113,7 +120,7 @@ const Jual = ({navigation}) => {
       </View>
 
       <Formik
-        initialValues={{namaproduk: '', harga: '', kategori: '', deskripsi: ''}}
+        initialValues={{namaproduk: '', harga: '', kategori: [], deskripsi: ''}}
         onSubmit={onSubmit}>
         {({
           handleChange,

@@ -4,17 +4,17 @@ import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {IconRemovePhoto} from '../../assets';
 import {cameraPic} from '../../assets';
 
-const Profile2 = ({isRemove = false, source, onPress}) => {
+const Profile2 = ({isRemove = false, image, onPress}) => {
   return (
     <View style={styles.photoSection}>
       {!isRemove ? (
         <View style={styles.photo}>
-          <Image source={source} style={styles.avatar} />
+          <Image source={{uri: image}} style={styles.avatar} />
         </View>
       ) : null}
       {isRemove ? (
         <TouchableOpacity style={styles.photo} onPress={onPress}>
-          <Image source={source} style={styles.avatar} />
+          <Image source={{uri: image}} style={styles.avatar} />
           {isRemove ? <IconRemovePhoto style={styles.removePhoto} /> : null}
         </TouchableOpacity>
       ) : null}

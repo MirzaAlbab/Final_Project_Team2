@@ -52,7 +52,7 @@ export default function ProfileScreen({navigation, route}) {
 
   useEffect(() => {
     getProfile();
-  }, [photo]);
+  }, []);
 
   const getProfile = async () => {
     try {
@@ -156,45 +156,6 @@ export default function ProfileScreen({navigation, route}) {
       },
     );
   };
-
-  // const kota = [
-  //   'Ambon',
-  //   'Balikpapan',
-  //   'Banda Aceh',
-  //   'Bandar Lampung',
-  //   'Bandung',
-  //   'Banjar',
-  //   'Banjarbaru',
-  //   'Banjarmasin',
-  //   'Batam',
-  //   'Batu',
-  //   'Baubau',
-  //   'Bekasi',
-  //   'Bengkulu',
-  //   'Bima',
-  //   'Binjai',
-  //   'Bitung',
-  //   'Blitar',
-  //   'Bogor',
-  //   'Bontang',
-  //   'Bukittinggi',
-  //   'Cilegon',
-  //   'Cimahi',
-  //   'Cirebon',
-  //   'Denpasar',
-  //   'Depok',
-  //   'Dumai',
-  //   'Gorontalo',
-  //   'Gunungsitoli',
-  //   'Jakarta Barat',
-  //   'Jakarta Pusat',
-  //   'Jakarta Selatan',
-  //   'Jakarta Timur',
-  //   'Jakarta Utara',
-  //   'Jambi',
-  //   'Jayapura',
-  //   'Kediri',
-  // ];
 
   return (
     <View style={styles.container}>

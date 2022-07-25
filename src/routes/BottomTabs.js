@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/home';
+import Home from '../screens/Home';
 import Notifikasi from '../screens/Notifikasi';
 import Jual from '../screens/jual';
 import DaftarJual from '../screens/DaftarJual';
