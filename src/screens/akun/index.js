@@ -52,6 +52,7 @@ function Akun({navigation}) {
       console.log(res.data);
 
       setImage(res.data.image_url);
+      console.log(image);
     } catch (error) {
       // console.log(error);
       if ((error.message = 'Request failed with status code 401')) {
@@ -135,7 +136,13 @@ function Akun({navigation}) {
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
 
-      <Profile2 image={image !== null ? image : ILNullPhoto} />
+      <Profile2
+        image={
+          image !== null
+            ? image
+            : 'https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_account_circle_48px-512.png'
+        }
+      />
 
       <View style={styles.form}>
         <ScrollView>

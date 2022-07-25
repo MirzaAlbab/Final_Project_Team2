@@ -52,11 +52,11 @@ const Buyer = ({navigation, route}) => {
         },
       );
       console.log(res.data, 'data res');
-      showNotif();
       hideActionSheet();
+      Alert.alert('Success', 'Bid Success');
       setDisable(true);
     } catch (error) {
-      Alert.alert(console.log(error));
+      Alert.alert('Bid Gagal');
     }
   };
 
