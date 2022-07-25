@@ -1,11 +1,33 @@
 import {Text, Image, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {ms} from 'react-native-size-matters';
 import Headers from '../../components/Headers';
 import {COLORS, fonts} from '../../utils';
+import {useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BASE_URL} from '../../helpers/API';
+import axios from 'axios';
 const DaftarJual = () => {
+  const [data, setData] = useState([]);
+  const {user} = useSelector(state => state.login);
+  const getSellerProduct = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/seller/product`, {
+        headers: {
+          access_token: `${user}`,
+        },
+      });
+      console.log(res.data, 'data');
+      setData(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getSellerProduct();
+  });
+
   return (
     <View style={styles.container}>
       <Headers title="Daftar Jual Saya" />

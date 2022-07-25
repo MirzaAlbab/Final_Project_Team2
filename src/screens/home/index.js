@@ -18,7 +18,7 @@ import axios from 'axios';
 import {API_URL} from '@env';
 import gift from '../../assets/images/gift.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {setLoading} from '../redux/reducer/globalAction';
+import {setLoading, setRefresh} from '../redux/reducer/globalAction';
 import {BASE_URL} from '../../helpers/API';
 
 const Home = ({navigation}) => {
