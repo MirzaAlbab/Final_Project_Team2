@@ -11,43 +11,22 @@ import React, {useState} from 'react';
 import {Formik} from 'formik';
 import InputProfile from '../../components/InputProfile';
 import {useEffect} from 'react';
-
-// import Gap from '../../components';
-
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
-
-import {windowHeight, windowWidth} from '../../utils/Dimension';
-
-import Profile2 from '../../components';
-
-import {ILNullPhoto} from '../../assets/icons/images';
-
 import {ms} from 'react-native-size-matters';
-
 import {fonts, COLORS} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
-// import {InputComponent} from '../../components';
-// import {ILNullPhoto} from '../../assets/icons/images';
 import axios from 'axios';
-
 import Headers from '../../components/Headers';
-
-// import {ms} from 'react-native-size-matters';
-
+import {putDataProfile} from './redux/action';
 import {BASE_URL} from '../../helpers/API';
-
 import {moderateScale} from 'react-native-size-matters';
-// import {updateProfileSchema} from '../../utils/Validation';
-
 import {useSelector, useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {kota} from '../../helpers/kota';
-
 import ButtonCamera from '../../components/ButtonCamera';
 import {setLoading} from '../redux/reducer/globalAction';
-// import Profile2 from '../../components';
 
 export default function ProfileScreen({navigation, route}) {
   const {loading} = useSelector(state => state.global);
@@ -69,10 +48,11 @@ export default function ProfileScreen({navigation, route}) {
   const [items, setItems] = useState(kota);
   const [image, setImage] = useState('');
 
+  // });
+
   useEffect(() => {
     getProfile();
-    // console.log('User', User.image);
-  }, [imageProfile]);
+  }, []);
 
   const getProfile = async () => {
     try {
@@ -176,45 +156,6 @@ export default function ProfileScreen({navigation, route}) {
       },
     );
   };
-
-  // const kota = [
-  //   'Ambon',
-  //   'Balikpapan',
-  //   'Banda Aceh',
-  //   'Bandar Lampung',
-  //   'Bandung',
-  //   'Banjar',
-  //   'Banjarbaru',
-  //   'Banjarmasin',
-  //   'Batam',
-  //   'Batu',
-  //   'Baubau',
-  //   'Bekasi',
-  //   'Bengkulu',
-  //   'Bima',
-  //   'Binjai',
-  //   'Bitung',
-  //   'Blitar',
-  //   'Bogor',
-  //   'Bontang',
-  //   'Bukittinggi',
-  //   'Cilegon',
-  //   'Cimahi',
-  //   'Cirebon',
-  //   'Denpasar',
-  //   'Depok',
-  //   'Dumai',
-  //   'Gorontalo',
-  //   'Gunungsitoli',
-  //   'Jakarta Barat',
-  //   'Jakarta Pusat',
-  //   'Jakarta Selatan',
-  //   'Jakarta Timur',
-  //   'Jakarta Utara',
-  //   'Jambi',
-  //   'Jayapura',
-  //   'Kediri',
-  // ];
 
   return (
     <View style={styles.container}>

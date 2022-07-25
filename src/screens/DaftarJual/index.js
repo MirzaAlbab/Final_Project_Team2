@@ -5,7 +5,6 @@ import Headers from '../../components/Headers';
 import {COLORS, fonts} from '../../utils';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import people from '../../assets/images/people.png';
 const DaftarJual = () => {
   return (
     <View style={styles.container}>

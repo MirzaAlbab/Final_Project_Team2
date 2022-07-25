@@ -1,6 +1,7 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Formik} from 'formik';
+import DropdownComponent from '../../components/DropDownComponent';
 // import DropdownSelect from './DropdownSelect';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showError} from '../../utils/ShowMessage';
@@ -8,6 +9,7 @@ import {windowHeight, windowWidth} from '../../utils/Dimension';
 import {InputComponent} from '../../components';
 import Headers from '../../components/Headers';
 import Gap from '../../components/Gap';
+import ButtonCamera from '../../components/ButtonCamera';
 import ButtonComponent from '../../components/ButtonComponent';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -19,24 +21,35 @@ import {ms} from 'react-native-size-matters';
 import {COLORS} from '../../utils';
 import {BASE_URL} from '../../helpers/API';
 const Jual = ({navigation}) => {
-  const [photo, setPhoto] = useState([]);
-  const [prevPhoto, setPrevPhoto] = useState([]);
-  // const {user} = useSelector(state => state.login);
+  const [photo, setPhoto] = useState('');
+  const [value, setValue] = useState('');
   const [kategori, setKategori] = useState([]);
-  const openImagePicker = () => {
+  const [image, setImage] = useState('');
+  const [isFocus, setIsFocus] = useState(false);
+  const {user} = useSelector(state => state.login);
+  const {profile} = useSelector(state => state.profile);
+  // const {user} = useSelector(state => state.login);
+
+  const getImage = () => {
     launchImageLibrary(
       {
         quality: 0.5,
-        mediaType: 'photo',
+        maxWidth: 200,
+        maxHeight: 200,
+        includeBase64: true,
       },
       response => {
         // console.log('response : ', response);
         if (response.didCancel || response.error) {
-          showError('Anda belum memilih foto');
+          showError('Sepertinya anda tidak memilih fotonya');
         } else {
-          const source = response?.assets[0].uri;
-          setPrevPhoto(source);
-          setPhoto(response.assets[0]);
+          const source = response?.assets[0];
+          // console.log('response GetImage : ', source);
+
+          const Uri = source.uri;
+          setPhoto(Uri);
+
+          setImage(source);
         }
       },
     );
@@ -60,30 +73,40 @@ const Jual = ({navigation}) => {
       console.log('error : ', error);
     }
   };
-  const onSubmit = values => {
-    const data = new FormData();
-    data.append('name', values.name);
-    data.append('price', values.price);
-    data.append('description', values.description);
-    data.append('category_ids', values.category_id);
-    data.append('location', values.location);
-    data.append('image', {
-      uri: photo.uri,
-      type: photo.type,
-      name: photo.fileName,
-    });
 
-    try {
-      const res = axios.post(`${BASE_URL}/seller/product`, data, {
+  const onSubmit = async values => {
+    console.log(profile);
+    console.log(values, 'values');
+    const data = new FormData();
+    data.append('name', values.namaproduk);
+    await data.append('base_price', values.harga);
+    data.append('description', values.deskripsi);
+    data.append('category_ids', values.kategori.toString());
+    data.append('location', 'ambon');
+    data.append('image', {
+      uri: image.uri,
+      type: image.type,
+      name: image.fileName,
+    });
+    console.log('Form data', data);
+
+    await axios
+      .post(`${BASE_URL}/seller/product`, data, {
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          access_token: `${ACCESS_TOKEN}`,
+          access_token: `${user}`,
         },
+      })
+      .then(response => {
+        console.log(user);
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(user);
+        console.log(error);
       });
-      console.log('res : ', res.status);
-    } catch (error) {
-      console.log('error : ', error);
-    }
+    // console.log('res : ', res);
   };
 
   return (
@@ -97,7 +120,7 @@ const Jual = ({navigation}) => {
       </View>
 
       <Formik
-        initialValues={{namaproduk: '', harga: '', kategori: '', deskripsi: ''}}
+        initialValues={{namaproduk: '', harga: '', kategori: [], deskripsi: ''}}
         onSubmit={onSubmit}>
         {({
           handleChange,
@@ -150,17 +173,28 @@ const Jual = ({navigation}) => {
             />
 
             <Gap height={10} />
-            {/* <DropdownSelect
-              // data={kategori}
-              // value={values.category_ids}
-              title={'Kategori'}
-              // labelField="name"
-              // valueField="id"
-              // onChange={item => {}}
-            /> */}
 
-            <Gap height={20} />
-            <TouchableOpacity
+            <Gap height={-50} />
+
+            <DropdownComponent
+              data={kategori}
+              value={value}
+              title={'Kategori'}
+              labelField="name"
+              valueField="id"
+              isFocus={isFocus}
+              onChange={item => {
+                setValue(item);
+                values.kategori = [item.id];
+                console.log('item : ', item);
+              }}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              placeholder={!isFocus ? 'Select category' : '...'}
+            />
+
+            <ButtonCamera onPress={getImage} url={photo} />
+            {/* <TouchableOpacity
               onPress={openImagePicker}
               style={styles.rectangle}>
               <MaterialCommunityIcons
@@ -169,7 +203,7 @@ const Jual = ({navigation}) => {
                 color="#444"
                 style={styles.icon1}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Gap height={20} />
             <ButtonComponent title="Simpan" onPress={handleSubmit} />

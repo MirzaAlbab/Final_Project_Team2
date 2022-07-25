@@ -35,7 +35,7 @@ function Akun({navigation}) {
   const dispatch = useDispatch();
   const [image, setImage] = useState(image !== null ? image : ILNullPhoto);
 
-  const [photo, setPhoto] = useState(ILNullPhoto);
+  // const [photo, setPhoto] = useState(ILNullPhoto);
   const {user} = useSelector(state => state.login);
   const isFocused = useIsFocused();
   const onLogout = () => {
@@ -53,15 +53,15 @@ function Akun({navigation}) {
 
       setImage(res.data.image_url);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if ((error.message = 'Request failed with status code 401')) {
         await AsyncStorage.setItem('@access_token', '');
-        Alert.alert('Pemberitahuan', 'Silahkan Login Terlebih Dahulu', [
+        Alert.alert('Pemberitahuan', 'Login dulu ', [
           {
             text: 'OK',
             onPress: () => {
-              navigation.navigate('Login');
               dispatch(setUser(''));
+              navigation.navigate('Login');
             },
           },
         ]);
@@ -135,7 +135,7 @@ function Akun({navigation}) {
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
 
-      <Profile2 source={image !== null ? {uri: image} : ILNullPhoto} />
+      <Profile2 image={image !== null ? image : ILNullPhoto} />
 
       <View style={styles.form}>
         <ScrollView>

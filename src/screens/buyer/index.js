@@ -4,15 +4,14 @@ import React, {useRef, useEffect, useState} from 'react';
 import {ms} from 'react-native-size-matters';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import CardBarangInfo from '../../components/Card/CardBarangInfo';
-import people from '../../assets/images/people.png';
 import {COLORS, fonts} from '../../utils';
 import ButtonComponent from '../../components/ButtonComponent';
 import CardInfoWithImage from '../../components/Card/CardInfoWithImage';
-
 import ActionSheet from 'react-native-actions-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Line from '../../components/Line';
 import {InputComponent} from '../../components';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {API_URL} from '@env';
 import {BASE_URL} from '../../helpers/API';
@@ -20,11 +19,13 @@ import {BASE_URL} from '../../helpers/API';
 const Buyer = ({navigation, route}) => {
   const id = route.params.id;
   const [data, setData] = useState({});
+  const [bid, setBid] = useState(0);
+  const {user} = useSelector(state => state.login);
   const [category, setCategory] = useState([]);
+  const [disable, setDisable] = useState(false);
   const getProductByItem = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/buyer/product/${id}`);
-      console.log(res.data, 'data res');
+      const res = await axios.get(`${API_URL}/buyer/product/${id}`);
       setData(res.data);
       setCategory(res.data.Categories[0].name);
     } catch (error) {
@@ -34,7 +35,29 @@ const Buyer = ({navigation, route}) => {
 
   useEffect(() => {
     getProductByItem();
-  }, []);
+  });
+  const bidproduct = async () => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/buyer/order`,
+        {
+          product_id: id,
+          bid_price: bid,
+        },
+        {
+          headers: {
+            access_token: `${user}`,
+          },
+        },
+      );
+      console.log(res.data, 'data res');
+      Alert.alert('Success', 'Bid Success');
+      hideActionSheet();
+      setDisable(true);
+    } catch (error) {
+      Alert.alert(console.log(error));
+    }
+  };
 
   const ActionRef = useRef();
 
@@ -66,14 +89,13 @@ const Buyer = ({navigation, route}) => {
               </View>
               <View style={styles.containerComponent}>
                 <InputComponent
+                  value={bid}
+                  onChangeText={text => setBid(text)}
                   label={'Harga Tawar'}
                   placeholder={'Rp 0,00'}
                   keyboardType={'numeric'}
                 />
-                <ButtonComponent
-                  title={'Kirim'}
-                  onPress={() => Alert.alert('Kirim')}
-                />
+                <ButtonComponent title={'Kirim'} onPress={() => bidproduct()} />
               </View>
             </View>
           </View>
@@ -103,7 +125,12 @@ const Buyer = ({navigation, route}) => {
 
         <Text style={styles.content}>{data.description}</Text>
         <ButtonComponent
-          title={'Saya tertarik dan ingin nego'}
+          disable={disable}
+          title={[
+            disable
+              ? 'Menunggu respon penjual'
+              : 'Saya tertarik dan ingin nego',
+          ]}
           onPress={showActionSheet}
         />
       </View>

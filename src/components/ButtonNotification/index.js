@@ -11,7 +11,7 @@ const ButtonNotification = ({
   numButton = 1,
   textButton1,
   textButton2,
-  buttonColor = COLORS.purple4,
+  buttonColor = COLORS.purple,
 }) => {
   const styles = StyleSheet.create({
     buttonText1: {
