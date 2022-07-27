@@ -36,7 +36,7 @@ const Buyer = ({navigation, route}) => {
 
   useEffect(() => {
     getProductByItem();
-  });
+  }, []);
   const bidproduct = async () => {
     try {
       const res = await axios.post(

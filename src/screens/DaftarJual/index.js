@@ -121,7 +121,7 @@ const DaftarJual = ({navigation}) => {
       </View>
       <View style={styles.containerList}>
         <TouchableOpacity style={styles.filter}>
-          <Text style={styles.textList}>Daftar Barang</Text>
+          <Text style={styles.textList}>Produk</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.filter}
